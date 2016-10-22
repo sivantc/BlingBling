@@ -92,29 +92,21 @@
         android:layout_height="wrap_content"
         android:id="@+id/seekBar_distance"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/got_notification"
-        android:background="@drawable/buttonshape"
+        android:background="@android:drawable/bottom_bar"
         android:focusable="false"
         android:mirrorForRtl="false"
         android:thumb="@android:drawable/btn_star_big_on"
-        android:thumbOffset="?android:attr/lightY" />
+        android:layout_below="@+id/got_notification"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView6"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/km" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:id="@+id/textView_km"
         android:layout_below="@+id/seekBar_distance"
-        android:layout_alignRight="@+id/km"
-        android:layout_alignEnd="@+id/km"
-        android:layout_marginTop="20dp"
-        android:id="@+id/textView_km" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
