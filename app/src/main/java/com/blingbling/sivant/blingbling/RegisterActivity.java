@@ -3,6 +3,8 @@ package com.blingbling.sivant.blingbling;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,12 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -51,13 +53,24 @@ public class RegisterActivity extends AppCompatActivity {
                             .show();
                     return;
                 }
+
                 // Check if both passwords matches
-                if (!password.equals(password)) {
-                    Toast.makeText(getApplicationContext(), "Password does not match",
-                            Toast.LENGTH_LONG).show();
+//                if (!password.equals(password)) {
+//                    Toast.makeText(getApplicationContext(), "Password does not match",
+//                            Toast.LENGTH_LONG).show();
+//                    return;
+//                }
+
+                // Check if the user name is exists
+                SQLiteDatabase mydatabase = openOrCreateDatabase("server29.000webhost.com",MODE_PRIVATE,null);
+                String query = "select * from Client where user_name = " + username + ";";
+                Cursor resultSet = mydatabase.rawQuery(query,null);
+                resultSet.moveToFirst();
+                if(resultSet.isAfterLast()) {
+                    Toast.makeText(getApplicationContext(), "Field Vacant", Toast.LENGTH_LONG)
+                            .show();
                     return;
                 }
-
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -84,6 +97,8 @@ public class RegisterActivity extends AppCompatActivity {
                 };
 
                 RegisterRequest registerRequest = new RegisterRequest(firstname, lastname,username,password,email,0,false, responseListener);
+                RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
+                queue.add(registerRequest);
             }
         });
     }
