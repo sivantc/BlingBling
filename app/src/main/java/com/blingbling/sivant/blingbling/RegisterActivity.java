@@ -1,4 +1,3 @@
-
 package com.blingbling.sivant.blingbling;
 
 import android.app.AlertDialog;
@@ -10,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -19,13 +20,16 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity  {
+    SeekBar seekBar_distance;
+    TextView textView_km;
+    int progress_km = 50;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        /*
         final EditText ed_name = (EditText) findViewById(R.id.ed_name);
         final EditText ed_lastname = (EditText) findViewById(R.id.ed_lastname);
         final EditText ed_username = (EditText) findViewById(R.id.ed_username);
@@ -35,6 +39,31 @@ public class RegisterActivity extends AppCompatActivity {
 //        final EditText etPop = (EditText) findViewById(R.id.etPop);
 
         final Button bRegister = (Button) findViewById(R.id.button_register);
+        seekBar_distance = (SeekBar) findViewById(R.id.seekBar_distance);
+        seekBar_distance.setMax(50);
+        seekBar_distance.setProgress(progress_km);
+        seekBar_distance.setOnSeekBarChangeListener(
+                new SeekBar.OnSeekBarChangeListener() {
+
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        progress_km = progress;
+                        textView_km.setText("I want to got notification under distance of" + progress + "km");
+
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+
+                    }
+                }
+        );
+
 
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
 //                final EditText popup = (EditText) findViewById(R.id.etPop);
 
                 // Check if any of the field are not empty.
-                if (firstname.equals("") || lastname.equals("") || username.equals("")|| password.equals("")) {
+                if (firstname.equals("") || lastname.equals("") || username.equals("") || password.equals("")) {
                     Toast.makeText(getApplicationContext(), "Field Vacant", Toast.LENGTH_LONG)
                             .show();
                     return;
@@ -62,11 +91,11 @@ public class RegisterActivity extends AppCompatActivity {
 //                }
 
                 // Check if the user name is exists
-                SQLiteDatabase mydatabase = openOrCreateDatabase("server29.000webhost.com",MODE_PRIVATE,null);
+                SQLiteDatabase mydatabase = openOrCreateDatabase("server29.000webhost.com", MODE_PRIVATE, null);
                 String query = "select * from Client where user_name = " + username + ";";
-                Cursor resultSet = mydatabase.rawQuery(query,null);
+                Cursor resultSet = mydatabase.rawQuery(query, null);
                 resultSet.moveToFirst();
-                if(resultSet.isAfterLast()) {
+                if (resultSet.isAfterLast()) {
                     Toast.makeText(getApplicationContext(), "Field Vacant", Toast.LENGTH_LONG)
                             .show();
                     return;
@@ -89,17 +118,18 @@ public class RegisterActivity extends AppCompatActivity {
                                         .create()
                                         .show();
                             }
-                        }
-                        catch (JSONException e) {
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
                 };
 
-                RegisterRequest registerRequest = new RegisterRequest(firstname, lastname,username,password,email,0,false, responseListener);
+                RegisterRequest registerRequest = new RegisterRequest(firstname, lastname, username, password, email, 0, false, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(registerRequest);
             }
         });
+        */
     }
+
 }
