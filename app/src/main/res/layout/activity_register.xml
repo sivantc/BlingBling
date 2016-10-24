@@ -7,8 +7,9 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.sivant.blingbling.RegisterActivity"
-    android:background="#d0385cff">
+    tools:context="com.blingbling.sivant.blingbling.RegisterActivity"
+    android:background="#d0385cff"
+    android:nestedScrollingEnabled="true">
 
     <EditText
         android:layout_width="wrap_content"
@@ -77,5 +78,27 @@
         android:layout_alignEnd="@+id/ed_lastname"
         android:hint="E-mail"
         android:textAlignment="center" />
+
+    <SeekBar
+        android:id="@+id/seekBar_distance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:progressDrawable="@drawable/progress_seek_bar_distance"
+        android:thumb="@drawable/thumb_seek_bar_distance"
+        android:layout_marginTop="15dp"
+        android:elevation="1dp"
+        android:layout_below="@+id/ed_email"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    </SeekBar>
+
+    <TextView
+        android:text="I want to got notification under distance of  50 km"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_km"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/seekBar_distance" />
+
 
 </RelativeLayout>
