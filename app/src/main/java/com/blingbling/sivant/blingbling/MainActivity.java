@@ -23,11 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
             }
         }
-/*
-        button_register.setOnClickListener(()-> {
-            Intent register_intent = new Intent(MainActivity.this, RegisterActivity.class);
-            MainActivity.this.startActivity(register_intent);
-        });
-        */
+
+       
     }
 
