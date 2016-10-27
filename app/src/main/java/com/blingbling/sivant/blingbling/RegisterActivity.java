@@ -21,10 +21,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class RegisterActivity extends AppCompatActivity  {
-    SeekBar seekBar_distance;
-    TextView textView_km;
-    int progress_km = 50;
-
+    private int progress_km = 50;
+    private SeekBar seekBar_distance;
+    private TextView textView_km;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,33 +36,11 @@ public class RegisterActivity extends AppCompatActivity  {
         final EditText ed_email = (EditText) findViewById(R.id.ed_email);
 //        final EditText etRadios = (EditText) findViewById(R.id.etRadios);
 //        final EditText etPop = (EditText) findViewById(R.id.etPop);
-
+*/
         final Button bRegister = (Button) findViewById(R.id.button_register);
-        seekBar_distance = (SeekBar) findViewById(R.id.seekBar_distance);
-        seekBar_distance.setMax(50);
-        seekBar_distance.setProgress(progress_km);
-        seekBar_distance.setOnSeekBarChangeListener(
-                new SeekBar.OnSeekBarChangeListener() {
+        seek_bar_km();
 
-                    @Override
-                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                        progress_km = progress;
-                        textView_km.setText("I want to got notification under distance of" + progress + "km");
-
-                    }
-
-                    @Override
-                    public void onStartTrackingTouch(SeekBar seekBar) {
-
-                    }
-
-                    @Override
-                    public void onStopTrackingTouch(SeekBar seekBar) {
-
-                    }
-                }
-        );
-
+/*
 
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +107,35 @@ public class RegisterActivity extends AppCompatActivity  {
             }
         });
         */
+    }
+
+    protected void seek_bar_km() {
+
+        seekBar_distance = (SeekBar) findViewById(R.id.seekBar_distance);
+        textView_km = (TextView) findViewById(R.id.textView_km);
+        seekBar_distance.setMax(50);
+        seekBar_distance.setProgress(progress_km);
+        seekBar_distance.setOnSeekBarChangeListener(
+                new SeekBar.OnSeekBarChangeListener() {
+
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        progress_km = progress;
+                        textView_km.setText("I want to got notification under distance of " + progress + " km");
+
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+
+                    }
+                }
+        );
     }
 
 }

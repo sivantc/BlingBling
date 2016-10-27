@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BlingBling</string>
+    <string name="bling">Bling</string>
+    <string name="username">Username</string>
 </resources>

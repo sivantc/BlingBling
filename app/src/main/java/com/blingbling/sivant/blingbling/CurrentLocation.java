@@ -14,6 +14,8 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 
+import static android.content.Context.LOCATION_SERVICE;
+
 public class CurrentLocation extends AppCompatActivity {
 
     private LocationManager locationManager;

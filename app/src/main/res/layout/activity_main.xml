@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.sivant.blingbling.MainActivity"
+    tools:context="com.blingbling.sivant.blingbling.MainActivity"
     android:background="#d0385cff">
 
     <TextView
@@ -20,6 +20,7 @@
         android:layout_alignParentStart="true"
         android:textSize="100dp"
         android:textColor="#fcf9f9" />
+
 
     <TextView
         android:layout_width="wrap_content"

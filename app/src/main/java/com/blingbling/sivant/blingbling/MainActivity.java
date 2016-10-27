@@ -15,15 +15,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         final Button button_register = (Button) findViewById(R.id.button_register);
         button_register.setOnClickListener(this);
+
+
     }
+
         public void onClick (View v) {
             switch(v.getId()) {
                 case R.id.button_register:
-                    startActivity(new Intent(this, RegisterActivity.class));
+                    Intent try1 = new Intent(this, RegisterActivity.class);
+                    startActivity(try1);
                     break;
             }
         }
 
-       
+
     }
 
