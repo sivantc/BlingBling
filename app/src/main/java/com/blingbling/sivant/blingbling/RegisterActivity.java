@@ -28,37 +28,116 @@ public class RegisterActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        /*
-        final EditText ed_name = (EditText) findViewById(R.id.ed_name);
+
+        final EditText ed_name     = (EditText) findViewById(R.id.ed_name);
         final EditText ed_lastname = (EditText) findViewById(R.id.ed_lastname);
         final EditText ed_username = (EditText) findViewById(R.id.ed_username);
         final EditText ed_password = (EditText) findViewById(R.id.ed_password);
-        final EditText ed_email = (EditText) findViewById(R.id.ed_email);
-//        final EditText etRadios = (EditText) findViewById(R.id.etRadios);
-//        final EditText etPop = (EditText) findViewById(R.id.etPop);
-*/
-        final Button bRegister = (Button) findViewById(R.id.button_register);
+        final EditText ed_email    = (EditText) findViewById(R.id.ed_email);
+        seekBar_distance           = (SeekBar) findViewById(R.id.seekBar_distance);
+        textView_km                = (TextView) findViewById(R.id.textView_km);
+      //  final EditText etRadios = (EditText) findViewById(R.id.etRadios);
+     //   final EditText etPop = (EditText) findViewById(R.id.etPop);
+
+        final Button bRegister    = (Button) findViewById(R.id.button_register);
         seek_bar_km();
+
+        bRegister.setOnClickListener(new View.OnClickListener() {
+                                         @Override
+                                         public void onClick(View v) {
+                                             final String firstname = ed_name.getText().toString();
+                                             final String lastname = ed_lastname.getText().toString();
+                                             final String username = ed_username.getText().toString();
+                                             final String password = ed_password.getText().toString();
+                                             final String email = ed_email.getText().toString();
+                                             final int radios = progress_km;
+
+
+                                             Response.Listener<String> responseListener = new Response.Listener<String>() {
+                                                 @Override
+                                                 public void onResponse(String response) {
+                                                     try {
+                                                         JSONObject jsonResponse = new JSONObject(response);
+                                                         boolean success = jsonResponse.getBoolean("success");
+                                                         // if the registration succeed than the registration will take to the main
+                                                         AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                                                         if (success) {
+                                                             builder.setMessage("wellcom :)");
+                                                             builder.create().show();
+                                                             Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                                             RegisterActivity.this.startActivity(intent);
+                                                         } else {
+                                                             builder.setMessage("Register Failed")
+                                                                     .setNegativeButton("Retry", null)
+                                                                     .create()
+                                                                     .show();
+                                                         }
+                                                     } catch (JSONException e) {
+                                                         e.printStackTrace();
+                                                     }
+                                                 }
+                                             };
+/*
+                                             if (firstname == ""){
+                                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                                                 builder.setMessage("Register Failed")
+                                                         .setNegativeButton("Retry", null)
+                                                         .create()
+                                                         .show();
+                                             }
+                                         */
+                                             RegisterRequest registerRequest = new RegisterRequest(firstname, lastname, username, password, email, radios, responseListener);
+                                             RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
+                                             queue.add(registerRequest);
+                                         }
+                                     });
+    }
+
+            protected void seek_bar_km() {
+
+                // seekBar_distance = (SeekBar) findViewById(R.id.seekBar_distance);
+                //  textView_km = (TextView) findViewById(R.id.textView_km);
+                seekBar_distance.setMax(50);
+                seekBar_distance.setProgress(progress_km);
+                seekBar_distance.setOnSeekBarChangeListener(
+                        new SeekBar.OnSeekBarChangeListener() {
+
+                            @Override
+                            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                                progress_km = progress;
+                                textView_km.setText("I want to got notification under distance of " + progress + " km");
+
+                            }
+
+                            @Override
+                            public void onStartTrackingTouch(SeekBar seekBar) {
+
+                            }
+
+                            @Override
+                            public void onStopTrackingTouch(SeekBar seekBar) {
+
+                            }
+                        }
+                );
+            }
+        }
+
+
+
 
 /*
 
-        bRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String firstname = ed_name.getText().toString();
-                final String lastname = ed_lastname.getText().toString();
-                final String username = ed_username.getText().toString();
-                final String password = ed_password.getText().toString();
-                final String email = ed_email.getText().toString();
+
 //                final int radios = Integer.parseInt(etRadios.getText().toString());
 //                final EditText popup = (EditText) findViewById(R.id.etPop);
 
                 // Check if any of the field are not empty.
-                if (firstname.equals("") || lastname.equals("") || username.equals("") || password.equals("")) {
-                    Toast.makeText(getApplicationContext(), "Field Vacant", Toast.LENGTH_LONG)
-                            .show();
-                    return;
-                }
+         //       if (firstname.equals("") || lastname.equals("") || username.equals("") || password.equals("")) {
+         //           Toast.makeText(getApplicationContext(), "Field Vacant", Toast.LENGTH_LONG)
+          //                  .show();
+          //          return;
+           //     }
 
                 // Check if both passwords matches
 //                if (!password.equals(password)) {
@@ -68,7 +147,7 @@ public class RegisterActivity extends AppCompatActivity  {
 //                }
 
                 // Check if the user name is exists
-                SQLiteDatabase mydatabase = openOrCreateDatabase("server29.000webhost.com", MODE_PRIVATE, null);
+          /*      SQLiteDatabase mydatabase = openOrCreateDatabase("server29.000webhost.com", MODE_PRIVATE, null);
                 String query = "select * from Client where user_name = " + username + ";";
                 Cursor resultSet = mydatabase.rawQuery(query, null);
                 resultSet.moveToFirst();
@@ -78,64 +157,14 @@ public class RegisterActivity extends AppCompatActivity  {
                     return;
                 }
 
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
-                            // if the registration succeed than the registration will take to the main
-                            if (success) {
-                                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                                RegisterActivity.this.startActivity(intent);
-                            } else {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                builder.setMessage("Register Failed")
-                                        .setNegativeButton("Retry", null)
-                                        .create()
-                                        .show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
 
-                RegisterRequest registerRequest = new RegisterRequest(firstname, lastname, username, password, email, 0, false, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
-                queue.add(registerRequest);
+
             }
         });
-        */
+
     }
 
-    protected void seek_bar_km() {
 
-        seekBar_distance = (SeekBar) findViewById(R.id.seekBar_distance);
-        textView_km = (TextView) findViewById(R.id.textView_km);
-        seekBar_distance.setMax(50);
-        seekBar_distance.setProgress(progress_km);
-        seekBar_distance.setOnSeekBarChangeListener(
-                new SeekBar.OnSeekBarChangeListener() {
+*/
 
-                    @Override
-                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                        progress_km = progress;
-                        textView_km.setText("I want to got notification under distance of " + progress + " km");
 
-                    }
-
-                    @Override
-                    public void onStartTrackingTouch(SeekBar seekBar) {
-
-                    }
-
-                    @Override
-                    public void onStopTrackingTouch(SeekBar seekBar) {
-
-                    }
-                }
-        );
-    }
-
-}
