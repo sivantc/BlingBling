@@ -14,56 +14,18 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/ed_username"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="29dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:hint="Username"
-        android:textAlignment="center" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/ed_password"
-        android:layout_below="@+id/ed_username"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:password="true"
         android:hint="Password"
-        android:textAlignment="center" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/ed_name"
-        android:layout_below="@+id/ed_password"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/ed_password"
-        android:layout_alignEnd="@+id/ed_password"
-        android:hint="name"
-        android:textAlignment="center" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ed_lastname"
-        android:hint="Last Name"
         android:textAlignment="center"
-        android:layout_below="@+id/ed_name"
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/ed_email"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/ed_name"
-        android:layout_alignEnd="@+id/ed_name" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -71,44 +33,23 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/ed_email"
-        android:layout_below="@+id/ed_lastname"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/ed_lastname"
-        android:layout_alignEnd="@+id/ed_lastname"
         android:hint="E-mail"
-        android:textAlignment="center" />
-
-    <SeekBar
-        android:id="@+id/seekBar_distance"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:progressDrawable="@drawable/progress_seek_bar_distance"
-        android:thumb="@drawable/thumb_seek_bar_distance"
-        android:layout_marginTop="15dp"
-        android:elevation="1dp"
-        android:layout_below="@+id/ed_email"
+        android:textAlignment="center"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-    </SeekBar>
-
-    <TextView
-        android:text="I want to got notification under distance of  50 km"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView_km"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/seekBar_distance" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:text="Register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView_km"
+        android:id="@+id/button_register"
+        android:layout_marginTop="37dp"
+        android:layout_below="@+id/ed_password"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="26dp"
-        android:id="@+id/button_register"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 

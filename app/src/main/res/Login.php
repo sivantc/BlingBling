@@ -1,5 +1,6 @@
+/*
 <?php
-    $con = mysqli_connect("	mysql8.000webhost.com", "a1221356_bling", "aA123123", "a1221356_bling", "Client" );
+   $con = mysqli_connect("	mysql8.000webhost.com", "a1221356_bling", "aA123123", "a1221356_bling", "Client" );
 
     $username = $_POST["username"];
     $password = $_POST["password"];
@@ -24,3 +25,4 @@
 
     echo json_encode($response);
 ?>
+*/

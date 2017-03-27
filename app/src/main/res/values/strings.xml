@@ -2,4 +2,5 @@
     <string name="app_name">BlingBling</string>
     <string name="bling">Bling</string>
     <string name="username">Username</string>
+    <string name="title_activity_register_info">RegisterActivityInfo</string>
 </resources>

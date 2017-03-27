@@ -1,3 +1,4 @@
+/*
 <?php
   $con = mysqli_connect("	mysql8.000webhost.com", "a1221356_bling", "aA123123", "a1221356_bling");
   $first_name = $_POST["first_name"];
@@ -39,3 +40,4 @@
     }
   echo json_encode($response);
 ?>
+*/
