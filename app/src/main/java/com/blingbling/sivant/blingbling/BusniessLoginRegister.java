@@ -21,9 +21,9 @@ public class BusniessLoginRegister extends AppCompatActivity implements View.OnC
 
     public void onClick (View v) {
         switch(v.getId()) {
-            case R.id.button_busniess_login:
-                Intent regActivity = new Intent(this, RegisterActivity.class);
-                startActivity(regActivity);
+            case R.id.button_busniess_register:
+                Intent busniessRegActivity = new Intent(this, BusniessRegisterActivityInfo.class);
+                startActivity(busniessRegActivity);
                 break;
         }
     }

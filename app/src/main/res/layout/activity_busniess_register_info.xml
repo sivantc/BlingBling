@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#d0385cff"
+    android:nestedScrollingEnabled="true"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.blingbling.sivant.blingbling.BusniessRegisterActivityInfo">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="427dp" >
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="548dp" >
+
+        <EditText
+            android:id="@+id/ed_busniess_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/ed_busniess_name"
+            android:ems="10"
+            android:hint="Busniess address"
+            android:inputType="textPersonName"
+            android:textAlignment="center" />
+
+
+        <EditText
+            android:id="@+id/ed_busniess_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/button_pick_busniess_address"
+            android:layout_marginTop="11dp"
+            android:ems="10"
+            android:hint="Busniess name"
+            android:inputType="textPersonName"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/ed_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/ed_busniess_address"
+            android:ems="10"
+            android:hint="Phone number"
+            android:inputType="textPersonName"
+            android:textAlignment="center" />
+
+
+        <Button
+            android:id="@+id/button_pick_busniess_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="Pick busniess address" />
+
+
+        <Button
+            android:id="@+id/button_select_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/ed_phone_number"
+            android:text="Select image from gallery" />
+
+        <ImageView
+            android:id="@+id/image_view_choosen_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="false"
+            android:cropToPadding="false"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/button_uplaod_image"
+            android:layout_below="@+id/button_select_image" />
+
+
+            <Button
+                android:id="@+id/button_uplaod_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Upload image"
+                android:layout_marginBottom="37dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>

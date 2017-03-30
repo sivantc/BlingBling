@@ -1,27 +1,35 @@
 {
   "project_info": {
-    "project_number": "401983225280",
-    "firebase_url": "https://blingbling-f9488.firebaseio.com",
-    "project_id": "blingbling-f9488",
-    "storage_bucket": "blingbling-f9488.appspot.com"
+    "project_number": "343794043506",
+    "firebase_url": "https://blingbling-15c9a.firebaseio.com",
+    "project_id": "blingbling-15c9a",
+    "storage_bucket": "blingbling-15c9a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:401983225280:android:0b5b012ee68d70d1",
+        "mobilesdk_app_id": "1:343794043506:android:0b5b012ee68d70d1",
         "android_client_info": {
           "package_name": "com.blingbling.sivant.blingbling"
         }
       },
       "oauth_client": [
         {
-          "client_id": "401983225280-57d82f4cs8k9s23k080vuqll3ve9rivj.apps.googleusercontent.com",
+          "client_id": "343794043506-ndhtt1mc1ea3r5sggrsvupe6feavbm9c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.blingbling.sivant.blingbling",
+            "certificate_hash": "07600799601018736e1ea2b038a4fad3561c8d6a"
+          }
+        },
+        {
+          "client_id": "343794043506-sslvpbsdn024s36uec0t5kj1v44flsvv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC2GjYso8eBGklQddqqmVzxs_edzqDfuxA"
+          "current_key": "AIzaSyDgY6P0xOed0C_HnfWyQlY-J_ihY6SDocg"
         }
       ],
       "services": {
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "343794043506-sslvpbsdn024s36uec0t5kj1v44flsvv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

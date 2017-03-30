@@ -23,13 +23,15 @@
         android:layout_toStartOf="@+id/textView2" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_busniess_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register"
-        android:layout_below="@+id/button_busniess_register"
+        android:layout_below="@+id/button_busniess_login"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"

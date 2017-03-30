@@ -11,7 +11,7 @@
     android:background="#d0385cff">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/button_login"
@@ -29,7 +29,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="100dp"
+        android:textSize="80dp"
         android:textColor="#fcf9f9" />
 
 
@@ -41,7 +41,7 @@
         android:layout_below="@+id/textView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textSize="100dp"
+        android:textSize="80dp"
         android:textColor="#fdfcfc" />
 
     <EditText
@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:text="I have business"
         android:id="@+id/button_business"
-        android:layout_below="@+id/button2"
+        android:layout_below="@+id/button_register"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
