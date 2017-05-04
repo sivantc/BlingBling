@@ -3,4 +3,12 @@
     <string name="bling">Bling</string>
     <string name="username">Username</string>
     <string name="title_activity_register_info">RegisterActivityInfo</string>
+    <string-array name="selected_busniess_type">
+        <item>Bar</item>
+        <item>Restaurant</item>
+        <item>Pizzeria</item>
+        <item>Shop</item>
+    </string-array>
+    <string name="title_activity_busniess_menu">BusniessMenu</string>
+    <string name="title_activity_create_new_coupon">CreateNewCoupon</string>
 </resources>

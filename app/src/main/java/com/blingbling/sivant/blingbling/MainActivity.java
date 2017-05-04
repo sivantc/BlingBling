@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ed_email         = (EditText) findViewById(R.id.ed_email);
         Button  button_register = (Button) findViewById(R.id.button_register);
         button_register.setOnClickListener(this);
-        Button  button_business = (Button) findViewById(R.id.button_business);
+        Button  button_business = (Button) findViewById(R.id.button_business_register);
         button_business.setOnClickListener(this);
         progress_dialog = new ProgressDialog(this);
     }
@@ -37,11 +37,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void onClick (View v) {
             switch(v.getId()) {
                 case R.id.button_register:
+                    UtilsBlingBling.setCurrentlyBusniess(false);
                     register();
                     break;
-                case R.id.button_business:
-                    Intent busniessLogRegActivity = new Intent(this, BusniessLoginRegister.class);
-                    startActivity(busniessLogRegActivity);
+                case R.id.button_business_register:
+                    UtilsBlingBling.setCurrentlyBusniess(true);
+                    register();
                     break;
             }
         }
@@ -65,11 +66,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(MainActivity.this, "Registeration Succeed! please click next and choose your preferences", Toast.LENGTH_SHORT).show();
-                    Intent regActivityInfo = new Intent(MainActivity.this, RegisterActivityInfo.class);
+                    progress_dialog.dismiss();
+                    Toast.makeText(MainActivity.this, "Registeration Succeed!", Toast.LENGTH_SHORT).show();
+                    Intent regActivityInfo;
+                    if(!UtilsBlingBling.isCurrentlyBusniess())
+                         regActivityInfo = new Intent(MainActivity.this, RegisterActivityInfo.class);
+                    else
+                        regActivityInfo = new Intent(MainActivity.this, BusniessRegisterActivityInfo.class);
                     startActivity(regActivityInfo);
                 }
                 else {
+                    progress_dialog.dismiss();
                     Log.e("Signup Error", "onCancelled", task.getException());
                     System.out.print(task.getException());
                     Toast.makeText(MainActivity.this, "Registeration fail!" + task.getException() + "please try again", Toast.LENGTH_SHORT).show();

@@ -4,9 +4,9 @@
 
     <uses-permission android:name="andriod.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,11 +16,12 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD8ebNx2ERh64Wh8gLnKVeEFt7hU5AFEL4" />
-        >
+            android:value="AIzaSyDHuDYpnIi8S7ftK2YiOt_vbPktAGXW098" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -30,11 +31,15 @@
             android:label="@string/title_activity_register_info"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".UtilsBlingBling" />
-        <activity android:name=".MainSalesActivity" />
-        <activity android:name=".BusniessLoginRegister" />
-        <activity android:name=".BusniessRegisterActivityInfo">
-
-        </activity>
+        <activity android:name=".BusniessRegisterActivityInfo" />
+        <activity
+            android:name=".BusniessMenu"
+            android:label="@string/title_activity_busniess_menu"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CreateNewCoupon"
+            android:label="@string/title_activity_create_new_coupon"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
