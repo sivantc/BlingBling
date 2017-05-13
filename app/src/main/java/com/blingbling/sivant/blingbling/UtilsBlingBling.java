@@ -33,6 +33,7 @@ public class UtilsBlingBling extends AppCompatActivity {
     private static TextView textView_selected_busniess_type;
     private static TextView textViewProgress;
     private static int progressBar;
+    private static int currentNum = 0;
     public static FirebaseAuth getFirebaseAute() {
         return firebaseAuth;
     }
@@ -138,7 +139,9 @@ public class UtilsBlingBling extends AppCompatActivity {
     public static void setProgressBar(int progressBar) {
         UtilsBlingBling.progressBar = progressBar;
     }
-
+    public static String getCurrentNum() {
+        return String.valueOf(++currentNum);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
