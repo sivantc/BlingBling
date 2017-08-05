@@ -61,7 +61,7 @@ public class BusniessRegisterActivityInfo extends MutualFunc implements View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_pick_busniess_address:
-                pickBusniessAddress();
+                pickBusniessAddress(this);
                 break;
             case R.id.button_select_image:
                 selectImage();
@@ -94,9 +94,9 @@ public class BusniessRegisterActivityInfo extends MutualFunc implements View.OnC
     private void insetrDetails(){
         System.out.print("starting RegisterActivityInfo");
         Log.d("my activity", "starting RegisterActivityInfo");
-        String busniessName = ed_busniess_name.toString().trim();
-        String busniessAddress = ed_busniess_address.toString().trim();
-        String phoneNumber = ed_phone_number.toString().trim();
+        String busniessName = ed_busniess_name.getText().toString().trim();
+        String busniessAddress = ed_busniess_address.getText().toString().trim();
+        String phoneNumber = ed_phone_number.getText().toString().trim();
 
 
         if(TextUtils.isEmpty(busniessName)){
@@ -105,7 +105,7 @@ public class BusniessRegisterActivityInfo extends MutualFunc implements View.OnC
         }
         BusniessDetails busniessDetails = new BusniessDetails(busniessName, busniessAddress, phoneNumber, arrayList_selected_busniess_type_items);
         String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
-        UtilsBlingBling.getDatabaseReference().child(udid).setValue(busniessDetails);
+        UtilsBlingBling.getDatabaseReference().child("BusniessUser").child(udid).setValue(busniessDetails);
         Toast.makeText(BusniessRegisterActivityInfo.this, "Details saved...", Toast.LENGTH_SHORT).show();
 
     }

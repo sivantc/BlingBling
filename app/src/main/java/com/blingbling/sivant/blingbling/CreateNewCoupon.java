@@ -31,6 +31,7 @@ public class CreateNewCoupon extends MutualFunc implements View.OnClickListener{
     private TextView textView_hours;
     private EditText ed_price;
     private EditText ed_description;
+    private EditText ed_couponId;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +46,9 @@ public class CreateNewCoupon extends MutualFunc implements View.OnClickListener{
         button_select_image.setOnClickListener(this);
         button_create_new_coupon= (Button) findViewById(R.id.button_create_new_coupon);
         button_create_new_coupon.setOnClickListener(this);
+        ed_couponId = (EditText) findViewById(R.id.ed_couponId);
         setInfoInUtils();
-        seek_bar_km(seekBar_hours, 24);
+        seek_bar_km(seekBar_hours, 24, "This coupon will be available for the next ", "hours");
     }
 
     @Override
@@ -56,6 +58,9 @@ public class CreateNewCoupon extends MutualFunc implements View.OnClickListener{
                 selectImage();
                 break;
             case R.id.button_create_new_coupon:
+
+                //todo save unique number for each coupon
+                uploadFile(ed_couponId.getText().toString().trim());
                 addCoupon();
                 break;
         }
@@ -63,16 +68,16 @@ public class CreateNewCoupon extends MutualFunc implements View.OnClickListener{
 
     protected void addCoupon(){
         Log.d("createNewCoupon", "starting createNewCoupon");
-        String price = ed_price.toString().trim();
-        String description = ed_description.toString().trim();
-        int hours      = UtilsBlingBling.getProgressBar();
 
+        //price should be double
+        String price = ed_price.getText().toString().trim();
+        String description = ed_description.getText().toString().trim();
+        int hours      = UtilsBlingBling.getProgressBar();
         CouponDetails couponDetails = new CouponDetails(price, description, hours);
         String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
-        UtilsBlingBling.getDatabaseReference().child(udid).setValue(couponDetails);
+        UtilsBlingBling.getDatabaseReference().child("BusniessUser").child(udid).child("Coupon").child(ed_couponId.getText().toString().trim()).setValue(couponDetails);
         uploadFile(UtilsBlingBling.getCurrentNum());
         Toast.makeText(CreateNewCoupon.this, "Details saved...", Toast.LENGTH_SHORT).show();
-
     }
 
         @Override

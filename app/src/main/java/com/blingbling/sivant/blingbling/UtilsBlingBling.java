@@ -2,6 +2,7 @@ package com.blingbling.sivant.blingbling;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.Location;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,9 +16,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class UtilsBlingBling extends AppCompatActivity {
+
+
     private static FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private static StorageReference storageReference = FirebaseStorage.getInstance().getReference();
@@ -34,6 +38,34 @@ public class UtilsBlingBling extends AppCompatActivity {
     private static TextView textViewProgress;
     private static int progressBar;
     private static int currentNum = 0;
+    private static Location location;
+    public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
+
+
+
+
+    public static void setFirebaseAuth(FirebaseAuth firebaseAuth) {
+        UtilsBlingBling.firebaseAuth = firebaseAuth;
+    }
+
+    public static String getProgressBarText() {
+        return progressBarText;
+    }
+
+    public static void setProgressBarText(String progressBarText) {
+        UtilsBlingBling.progressBarText = progressBarText;
+    }
+
+    public static String getProgressBarUnit() {
+        return progressBarUnit;
+    }
+
+    public static void setProgressBarUnit(String progressBarUnit) {
+        UtilsBlingBling.progressBarUnit = progressBarUnit;
+    }
+
+    private static String progressBarText;
+    private static String progressBarUnit;
     public static FirebaseAuth getFirebaseAute() {
         return firebaseAuth;
     }
@@ -141,6 +173,14 @@ public class UtilsBlingBling extends AppCompatActivity {
     }
     public static String getCurrentNum() {
         return String.valueOf(++currentNum);
+    }
+
+    public static Location getLocation() {
+        return location;
+    }
+
+    public static void setLocation(Location location) {
+        UtilsBlingBling.location = location;
     }
 
     @Override

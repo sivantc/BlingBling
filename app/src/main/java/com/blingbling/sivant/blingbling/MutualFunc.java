@@ -2,20 +2,16 @@ package com.blingbling.sivant.blingbling;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
+import android.location.Location;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.places.Place;
@@ -25,8 +21,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
-import java.util.ArrayList;
 
 /**
  * Created by Sivan on 06/04/2017.
@@ -50,10 +44,10 @@ public abstract class MutualFunc extends AppCompatActivity {
     }
 
 
-    protected void pickBusniessAddress() {
+    protected void pickBusniessAddress(Activity activity) {
         PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
         try {
-            Intent intent = intentBuilder.build(UtilsBlingBling.getCurrentActivity());
+            Intent intent = intentBuilder.build(activity);
             startActivityForResult(intent, PICK_PLACE);
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,6 +64,10 @@ public abstract class MutualFunc extends AppCompatActivity {
         Place placeSelected = PlacePicker.getPlace(data, UtilsBlingBling.getCurrentContextName());
         String busniessName = placeSelected.getName().toString();
         String busniessAddress = placeSelected.getAddress().toString();
+        Location location = new Location(busniessName);
+        location.setLongitude(placeSelected.getLatLng().longitude);
+        location.setLatitude(placeSelected.getLatLng().latitude);
+        UtilsBlingBling.setLocation(location);
         String phoneNumber = placeSelected.getPhoneNumber().toString();
         UtilsBlingBling.getEd_busniess_name().setText(busniessName);
         UtilsBlingBling.getEd_busniess_address().setText(busniessAddress);
@@ -157,14 +155,16 @@ public abstract class MutualFunc extends AppCompatActivity {
         mDialog.show();
     }
 
-    protected void seek_bar_km(SeekBar seekBar, int max) {
+    protected void seek_bar_km(SeekBar seekBar, int max, String progressBarText, String progressBarUnit) {
+        UtilsBlingBling.setProgressBarText(progressBarText);
+        UtilsBlingBling.setProgressBarUnit(progressBarUnit);
         seekBar.setMax(max);
         seekBar.setProgress(UtilsBlingBling.getProgressBar());
         seekBar.setOnSeekBarChangeListener(
                 new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                        UtilsBlingBling.getTextViewProgress().setText("I want to got notification under distance of " + progress + " km");
+                        UtilsBlingBling.getTextViewProgress().setText(UtilsBlingBling.getProgressBarText() + progress + UtilsBlingBling.getProgressBarUnit());
                         UtilsBlingBling.setProgressBar(progress);
                     }
                     @Override

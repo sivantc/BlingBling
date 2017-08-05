@@ -49,7 +49,7 @@ public class RegisterActivityInfo extends MutualFunc{
         textView_km      = (TextView) findViewById(R.id.textView_km);
         Button bt_select_my_preferences = (Button) findViewById(R.id.button_select_my_preferences);
         setInfoInUtils();
-        seek_bar_km(seekBar_distance, 50);
+        seek_bar_km(seekBar_distance, 50, "I want to got notification under distance of "," km");
         bt_select_my_preferences.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
