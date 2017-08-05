@@ -38,6 +38,7 @@ public class CouponDetails {
         this.ed_price = ed_price;
         this.ed_description = ed_description;
         timeOver = new Date(timeOver.getTime() + progress_hours * DateUtils.HOUR_IN_MILLIS);
+
     }
 }
 
