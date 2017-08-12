@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by Daniel on 04/04/2017.
+ * Created by Sivan on 04/04/2017.
  */
 
 public class CouponDetails {
@@ -26,19 +26,18 @@ public class CouponDetails {
   //      return timeOver;
 //    }
 
-    public Date getTimeOver() {
+    public long getTimeOver() {
         return timeOver;
     }
 
     //    private Calendar timeOver = Calendar.getInstance();
-    private Date timeOver = Calendar.getInstance().getTime();
+    private long timeOver;
 
 
     public CouponDetails(String ed_price, String ed_description, int progress_hours) {
         this.ed_price = ed_price;
         this.ed_description = ed_description;
-        timeOver = new Date(timeOver.getTime() + progress_hours * DateUtils.HOUR_IN_MILLIS);
-
+        timeOver = System.currentTimeMillis() + progress_hours * DateUtils.HOUR_IN_MILLIS;
     }
 }
 
