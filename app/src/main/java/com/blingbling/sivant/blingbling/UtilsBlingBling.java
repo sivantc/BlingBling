@@ -26,6 +26,7 @@ public class UtilsBlingBling extends AppCompatActivity {
     private static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private static StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     private static boolean currentlyBusniess = false;
+    private static boolean isBusniessUser = false;
     private static Context currentContextName;
     private static EditText ed_busniess_name;
     private static EditText ed_busniess_address;
@@ -79,9 +80,16 @@ public class UtilsBlingBling extends AppCompatActivity {
     public static boolean isCurrentlyBusniess() {
         return currentlyBusniess;
     }
+    public static boolean isBusniessUser() {
+        return isBusniessUser;
+    }
+
 
     public static void setCurrentlyBusniess(boolean currentlyBusniess) {
         UtilsBlingBling.currentlyBusniess = currentlyBusniess;
+    }
+    public static void setIsBusniessUser(boolean isBusniessUser) {
+        UtilsBlingBling.isBusniessUser = isBusniessUser;
     }
 
     public static Context getCurrentContextName() {
@@ -187,6 +195,8 @@ public class UtilsBlingBling extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+
 
 
 }

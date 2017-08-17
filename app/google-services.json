@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "343794043506-910ui5cfinb035hurq4q1h682ie3jfe8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.blingbling.sivant.blingbling",
+            "certificate_hash": "1f3be4937c370b03a99c5a75a220e784f550003c"
+          }
+        },
+        {
           "client_id": "343794043506-ndhtt1mc1ea3r5sggrsvupe6feavbm9c.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

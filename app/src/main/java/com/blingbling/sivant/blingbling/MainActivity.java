@@ -2,6 +2,7 @@ package com.blingbling.sivant.blingbling;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,12 +16,27 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import static com.google.android.gms.drive.query.Filters.contains;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private EditText ed_password;
     private EditText ed_email;
     private ProgressDialog progress_dialog;
+
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
+    private static final String TAG = "MainActivity";
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +46,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button  button_register = (Button) findViewById(R.id.button_register);
         button_register.setOnClickListener(this);
         Button  button_business = (Button) findViewById(R.id.button_business_register);
+        Button button_login = (Button) findViewById(R.id.button_login);
+        Button button_logout = (Button) findViewById(R.id.button_logout);
         button_business.setOnClickListener(this);
         progress_dialog = new ProgressDialog(this);
+
+        showMatchFirstPage(button_login);
+        logOutListener(button_logout);
+
     }
 
         public void onClick (View v) {
@@ -85,6 +107,113 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+
+
+    private void toastMessage(String message){
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    private void showMatchFirstPage(Button button_login){
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    //toastMessage("buisness"+ UtilsBlingBling.isBusniessUser());
+
+                    // toastMessage("successfully signed in with " + user.getEmail());
+                    checkIfBuisness();
+
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                    //toastMessage("successfully signed out ");
+                }
+                // ...
+            }
+        };
+        logInListener(button_login);
+
+    }
+
+    private void checkIfBuisness(){
+        UtilsBlingBling.getDatabaseReference().child("BusniessUser").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String uid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
+                //toastMessage("uid is: " +uid);
+               // toastMessage("dataSnapshot.hasChild(uid): "+ dataSnapshot.hasChild(uid));
+                if (dataSnapshot.hasChild(uid)) {
+                   toastMessage("buisness");
+                   toastMessage("buisness");
+                    startActivity(new Intent(MainActivity.this, BusniessMenu.class));
+                }
+                else{
+                    toastMessage("user ");
+                    startActivity(new Intent(MainActivity.this, Temp.class));
+                }
+                //UtilsBlingBling.setIsBusniessUser(true);
+                // toastMessage(" UtilsBlingBling.isBusniessUser(): "+ UtilsBlingBling.isBusniessUser());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                toastMessage("on canclled");
+            }
+        });
+    }
+
+    private void logInListener(Button button_login){
+        button_login.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                String email = ed_email.getText().toString();
+                String pass = ed_password.getText().toString();
+                if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)) {
+                    toastMessage("fields are empty");
+                } else {
+                    mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (!task.isSuccessful()) {
+                                toastMessage("sign in problem");
+                            }
+                            else{
+                                toastMessage("signing in....");
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void logOutListener(Button button_logout){
+        button_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toastMessage("signing out....");
+                mAuth.signOut();
+            }
+        });
+    }
+
+}
 
 
