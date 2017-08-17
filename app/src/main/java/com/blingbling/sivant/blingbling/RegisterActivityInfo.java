@@ -75,9 +75,8 @@ public class RegisterActivityInfo extends MutualFunc{
 
         UserPreferences userPreferences = new UserPreferences(firstname, lastname, radios);
         String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
-        UtilsBlingBling.getDatabaseReference().child(udid).setValue(userPreferences);
+        UtilsBlingBling.getDatabaseReference().child("Users").child(udid).setValue(userPreferences);
         Toast.makeText(RegisterActivityInfo.this, "Preferences saved...", Toast.LENGTH_SHORT).show();
-
         //   progress_dialog.setMessage("w User....");
     //    progress_dialog.show();
 

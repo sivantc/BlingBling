@@ -105,7 +105,7 @@ public class BusniessRegisterActivityInfo extends MutualFunc implements View.OnC
         }
         BusniessDetails busniessDetails = new BusniessDetails(busniessName, busniessAddress, phoneNumber, arrayList_selected_busniess_type_items);
         String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
-        UtilsBlingBling.getDatabaseReference().child("BusniessUser").child(udid).setValue(busniessDetails);
+        UtilsBlingBling.getDatabaseReference().child("BusniessUsers").child(udid).setValue(busniessDetails);
         Toast.makeText(BusniessRegisterActivityInfo.this, "Details saved...", Toast.LENGTH_SHORT).show();
 
     }
