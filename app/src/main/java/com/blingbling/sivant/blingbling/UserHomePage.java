@@ -16,12 +16,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.GeoQuery;
+import com.firebase.geofire.GeoQueryEventListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderApi;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,42 +46,72 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
     private long UPDATE_INTERVAL = 2 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 2000; /* 2 sec */
     private LocationManager locationManager;
- //   private Query relevantTimeQuery;
+
+    //   private Query relevantTimeQuery;
 
     // TODO: 10/06/2017 check if coupon distance relevant
     
 
-//    private void relevantCouponQueryDatabase() {
-////should contain -relevant time, relevant distance, relevant preferences about type- will be called when user insert app
-//        //or when user will change his locatin (in this case we should check if the app is close- send notification
-//        //or open, and will be called when business will advertise new coupon
-//
-//        DatabaseReference reference = UtilsBlingBling.getDatabaseReference().child("BusniessUser");
-//
-//        //////relevant time query///////
-//        //check How to get all child's data in firebase database?
-//
-////        reference.addListenerForSingleValueEvent(
-////                new ValueEventListener() {
-////                    @Override
-////                    public void onDataChange(DataSnapshot dataSnapshot) {
-////                        //Get map of users in datasnapshot
-////                        collectAllRelevantTimeCoupon((Map<String,Object>) dataSnapshot.getValue());
-////                    }
-////
-////                    @Override
-////                    public void onCancelled(DatabaseError databaseError) {
-////                        //handle databaseError
-////                    }
-////                });
-//
-//
-//
-//
-//        //mLocation = user location
-//   //     query = reference.child("location").equalTo(0);
-//
-//    }
+    private void relevantCouponQueryDatabase() {
+//should contain - relevant distance, relevant preferences about type- will be called when user insert app
+        //or when user will change his locatin (in this case we should check if the app is close- send notification
+        //or open, and will be called when business will advertise new coupon
+
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        UtilsBlingBling.getDatabaseReference().child("Users").child(userId).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        UserPreferences userPreferences = dataSnapshot.getValue(UserPreferences.class);
+                        distanceQuery(userPreferences.getRadius());
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                }
+        );
+
+    }
+    private void distanceQuery (int userRadius) {
+        DatabaseReference referenceToGeoFire = UtilsBlingBling.getDatabaseReference().child("BusniessLocations");
+        GeoFire geoFire = new GeoFire(referenceToGeoFire);
+        GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(mLocation.getLatitude(), mLocation.getLongitude()), userRadius);
+        geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
+            @Override
+            public void onKeyEntered(String key, GeoLocation location) {
+                showBusniessCoupon(key);
+            }
+
+            @Override
+            public void onKeyExited(String key) {
+
+            }
+
+            @Override
+            public void onKeyMoved(String key, GeoLocation location) {
+
+            }
+
+            @Override
+            public void onGeoQueryReady() {
+
+            }
+
+            @Override
+            public void onGeoQueryError(DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    private void showBusniessCoupon (String busniessId) {
+        System.out.print(busniessId);
+
+    }
+
 //    private Map<String, Object> collectAllRelevantTimeCoupon(Map<String, Object> users) {
 //  //      ArrayList<Object> phoneNumbers = new ArrayList<>();
 //
@@ -110,25 +145,9 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
                 .build();
 
         mLocationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
-        checkLocation(); //check whether location service is enable or not in your  phone
-
-//        //change
-//        relevantTimeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                if (dataSnapshot.exists()) {
-//                    // dataSnapshot is the "issue" node with all children with id 0
-//                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
-//                        // do something with the individual "issues"
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
+        if (checkLocation()) { //check whether location service is enable or not in your  phone
+            relevantCouponQueryDatabase();
+        }
     }
 
     @Override

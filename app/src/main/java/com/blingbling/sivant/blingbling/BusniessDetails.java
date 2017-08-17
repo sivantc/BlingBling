@@ -2,6 +2,8 @@ package com.blingbling.sivant.blingbling;
 
 import android.location.Location;
 
+import com.firebase.geofire.GeoLocation;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -16,6 +18,7 @@ public class BusniessDetails {
     private String phoneNumber;
     private ArrayList<Integer> selected_busniess_type_items;
     Location location;
+  //  GeoLocation location;
 
 
     public BusniessDetails(String busniessName, String busniessAddress, String phoneNumber, ArrayList<Integer> selected_busniess_type_items) {
@@ -24,6 +27,8 @@ public class BusniessDetails {
         this.phoneNumber = phoneNumber;
         this.selected_busniess_type_items = selected_busniess_type_items;
         this.location = UtilsBlingBling.getLocation();
+
+      //  this.location = new GeoLocation(UtilsBlingBling.getLocation().getLatitude(),UtilsBlingBling.getLocation().getLongitude());
     }
 
     public String getBusniessName() {

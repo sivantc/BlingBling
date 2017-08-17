@@ -15,7 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
 
 import java.util.ArrayList;
 
@@ -106,7 +107,10 @@ public class BusniessRegisterActivityInfo extends MutualFunc implements View.OnC
         BusniessDetails busniessDetails = new BusniessDetails(busniessName, busniessAddress, phoneNumber, arrayList_selected_busniess_type_items);
         String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
         UtilsBlingBling.getDatabaseReference().child("BusniessUsers").child(udid).setValue(busniessDetails);
+        GeoFire geoFire = new GeoFire(UtilsBlingBling.getDatabaseReference().child("BusniessLocations"));
+        geoFire.setLocation(udid,new GeoLocation(UtilsBlingBling.getLocation().getLatitude(), UtilsBlingBling.getLocation().getLongitude()));
         Toast.makeText(BusniessRegisterActivityInfo.this, "Details saved...", Toast.LENGTH_SHORT).show();
+
 
     }
 

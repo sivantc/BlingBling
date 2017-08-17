@@ -1,6 +1,7 @@
 package com.blingbling.sivant.blingbling;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SyncStatusObserver;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -62,7 +63,7 @@ public class RegisterActivityInfo extends MutualFunc{
         Log.d("my activity", "starting RegisterActivityInfo");
         String firstname = ed_name.getText().toString().trim();
         String lastname = ed_lastname.getText().toString().trim();
-        int radios      = UtilsBlingBling.getProgressBar();
+        int radius      = UtilsBlingBling.getProgressBar();
 
         if(TextUtils.isEmpty(firstname)){
             Toast.makeText(this, "Please enter your first name", Toast.LENGTH_SHORT).show();
@@ -73,10 +74,12 @@ public class RegisterActivityInfo extends MutualFunc{
 
         }
 
-        UserPreferences userPreferences = new UserPreferences(firstname, lastname, radios);
+        UserPreferences userPreferences = new UserPreferences(firstname, lastname, radius);
         String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
         UtilsBlingBling.getDatabaseReference().child("Users").child(udid).setValue(userPreferences);
         Toast.makeText(RegisterActivityInfo.this, "Preferences saved...", Toast.LENGTH_SHORT).show();
+        Intent userHomePage = new Intent(this, UserHomePage.class);
+        startActivity(userHomePage);
         //   progress_dialog.setMessage("w User....");
     //    progress_dialog.show();
 
