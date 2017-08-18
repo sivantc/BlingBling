@@ -46,11 +46,12 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
     private long UPDATE_INTERVAL = 2 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 2000; /* 2 sec */
     private LocationManager locationManager;
+    final private int REQUEST_CODE_ASK_PERMISSIONS = 200;
 
     //   private Query relevantTimeQuery;
 
     // TODO: 10/06/2017 check if coupon distance relevant
-    
+
 
     private void relevantCouponQueryDatabase() {
 //should contain - relevant distance, relevant preferences about type- will be called when user insert app
@@ -108,30 +109,10 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
     }
 
     private void showBusniessCoupon (String busniessId) {
+
         System.out.print(busniessId);
 
     }
-
-//    private Map<String, Object> collectAllRelevantTimeCoupon(Map<String, Object> users) {
-//  //      ArrayList<Object> phoneNumbers = new ArrayList<>();
-//
-////        //iterate through each user, ignoring their UID
-////        for (Map.Entry<String, Object> entry : users.entrySet()){
-////
-////            //Get user map
-////            Map singleUser = (Map) entry.getValue();
-////
-////
-////            //should add list with coupon take the relevant, remove other
-////            //other option, delete evry x time all the coupon that dosn't relevant.
-////            singleUser.get("Coupon");
-////            //Get phone field and append to list
-////            phoneNumbers.add((Long) singleUser.get("phone"));
-////        }
-////
-////        System.out.println(phoneNumbers.toString());
-//
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,9 +126,8 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
                 .build();
 
         mLocationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
-        if (checkLocation()) { //check whether location service is enable or not in your  phone
-            relevantCouponQueryDatabase();
-        }
+        handlePermissions();
+
     }
 
     @Override
@@ -181,9 +161,7 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
             startLocationUpdates();
         }
         if (mLocation != null) {
-
-            // mLatitudeTextView.setText(String.valueOf(mLocation.getLatitude()));
-            //mLongitudeTextView.setText(String.valueOf(mLocation.getLongitude()));
+            relevantCouponQueryDatabase();
         } else {
             Toast.makeText(this, "Location not Detected", Toast.LENGTH_SHORT).show();
         }
@@ -267,6 +245,17 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
                 locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+
+
+    private void handlePermissions() {
+        Log.v(TAG, "handlePermissionsAndGetLocation");
+        boolean hasWriteContactsPermission = ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        if (!hasWriteContactsPermission) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_CODE_ASK_PERMISSIONS);
+            return;
+        }
     }
 
 }
