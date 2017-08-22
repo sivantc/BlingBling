@@ -39,7 +39,8 @@ public class UtilsBlingBling extends AppCompatActivity {
     private static int progressBar;
     private static int currentNum = 0;
     private static Location location;
-    public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
+    public static String currentBusniessUid;
+
 
 
 

@@ -37,7 +37,7 @@
               android:text="coupon will be relevant until 10:10 am"
               android:textAlignment="center" />
 
-          <EditText
+          <TextView
               android:id="@+id/ed_price"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
               android:text="Price"
               android:textAlignment="center" />
 
-          <EditText
+          <TextView
               android:id="@+id/ed_description"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"

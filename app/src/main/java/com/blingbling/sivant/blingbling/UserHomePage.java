@@ -82,6 +82,7 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
             public void onKeyEntered(String key, GeoLocation location) {
+                UtilsBlingBling.currentBusniessUid = key;
                 showBusniessCoupon(key);
             }
 
