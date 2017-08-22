@@ -7,12 +7,12 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -22,18 +22,16 @@ import com.firebase.geofire.GeoQuery;
 import com.firebase.geofire.GeoQueryEventListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.FusedLocationProviderApi;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class UserHomePage extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
@@ -47,6 +45,9 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
     private long FASTEST_INTERVAL = 2000; /* 2 sec */
     private LocationManager locationManager;
     final private int REQUEST_CODE_ASK_PERMISSIONS = 200;
+    private RecyclerView couponRecyclerView;
+    private RecyclerView.Adapter adapter;
+    private List<CouponDetails> couponDetailsList;
 
     //   private Query relevantTimeQuery;
 
@@ -83,7 +84,7 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
             @Override
             public void onKeyEntered(String key, GeoLocation location) {
                 UtilsBlingBling.currentBusniessUid = key;
-                showBusniessCoupon(key);
+                showBusniessCoupons(key);
             }
 
             @Override
@@ -109,9 +110,29 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
 
     }
 
-    private void showBusniessCoupon (String busniessId) {
+    private void showBusniessCoupons(String busniessId) {
+        UtilsBlingBling.setCurrentContextName(this);
+        UtilsBlingBling.getDatabaseReference().child("BusniessUsers").child(busniessId).child("Coupons").addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot currentBusniessCoupon : dataSnapshot.getChildren()) {
+                            CouponDetails couponDetails = dataSnapshot.getValue(CouponDetails.class);
+                            couponDetailsList.add(couponDetails);
+                        }
+                        adapter = new CouponAdapter(couponDetailsList, UtilsBlingBling.getCurrentContextName());
+                        couponRecyclerView.setAdapter(adapter);
+                    }
 
-        System.out.print(busniessId);
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                }
+        );
+
+
+        //     System.out.print(busniessId);
 
     }
 
@@ -127,7 +148,13 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
                 .build();
 
         mLocationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+
+        couponRecyclerView = (RecyclerView) findViewById(R.id.couponRecyclesView);
+        couponRecyclerView.setHasFixedSize(true);
+        couponRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        couponDetailsList = new ArrayList<>();
         handlePermissions();
+
 
     }
 
@@ -165,6 +192,7 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
             relevantCouponQueryDatabase();
         } else {
             Toast.makeText(this, "Location not Detected", Toast.LENGTH_SHORT).show();
+            return;
         }
     }
 

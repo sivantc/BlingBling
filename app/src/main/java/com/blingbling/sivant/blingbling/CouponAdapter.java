@@ -1,6 +1,7 @@
 package com.blingbling.sivant.blingbling;
 
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,9 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -51,6 +55,13 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
                 .using(new FirebaseImageLoader())
                 .load(storageReference)
                 .into(imageView);
+        holder.ed_description.setText(coupon.getDescription());
+        holder.ed_price.setText(coupon.getPrice());
+
+        long timeCouponIsRelevantInMin = (coupon.getTimeOver() - System.currentTimeMillis())/(1000*60);
+
+        holder.textView_relevantTimeText.setText("coupon will be relevant in the next " + timeCouponIsRelevantInMin + "minutes" );
+
         
     }
 
