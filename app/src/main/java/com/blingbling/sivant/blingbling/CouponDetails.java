@@ -2,9 +2,7 @@ package com.blingbling.sivant.blingbling;
 
 import android.text.format.DateUtils;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+
 
 /**
  * Created by Sivan on 04/04/2017.
