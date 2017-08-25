@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 
 public class UserHomePage extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
@@ -66,6 +68,7 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         UserPreferences userPreferences = dataSnapshot.getValue(UserPreferences.class);
                         distanceQuery(userPreferences.getRadius());
+
                     }
 
                     @Override
@@ -83,7 +86,7 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
             public void onKeyEntered(String key, GeoLocation location) {
-                UtilsBlingBling.currentBusniessUid = key;
+                UtilsBlingBling.countNumOfRelevantBusniess++;
                 showBusniessCoupons(key);
             }
 
@@ -99,7 +102,7 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
 
             @Override
             public void onGeoQueryReady() {
-
+                UtilsBlingBling.isLastBusniess = true;
             }
 
             @Override
@@ -107,21 +110,26 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
 
             }
         });
-
     }
 
     private void showBusniessCoupons(String busniessId) {
-        UtilsBlingBling.setCurrentContextName(this);
         UtilsBlingBling.getDatabaseReference().child("BusniessUsers").child(busniessId).child("Coupons").addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot currentBusniessCoupon : dataSnapshot.getChildren()) {
-                            CouponDetails couponDetails = dataSnapshot.getValue(CouponDetails.class);
+                            CouponDetails couponDetails = currentBusniessCoupon.getValue(CouponDetails.class);
                             couponDetailsList.add(couponDetails);
                         }
-                        adapter = new CouponAdapter(couponDetailsList, UtilsBlingBling.getCurrentContextName());
-                        couponRecyclerView.setAdapter(adapter);
+                        UtilsBlingBling.countNumOfRetriveBusniessData++;
+                        if(UtilsBlingBling.isLastBusniess && UtilsBlingBling.countNumOfRelevantBusniess == UtilsBlingBling.countNumOfRetriveBusniessData) {
+                            UtilsBlingBling.isLastBusniess = false;
+                            UtilsBlingBling.countNumOfRelevantBusniess = 0;
+                            UtilsBlingBling.countNumOfRetriveBusniessData = 0;
+                            startAdapter();
+
+                        }
+
                     }
 
                     @Override
@@ -136,6 +144,14 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
 
     }
 
+    private void startAdapter() {
+        if (couponDetailsList.size() > 0) {
+            adapter = new CouponAdapter(couponDetailsList, this);
+            couponRecyclerView.setAdapter(adapter);
+        }
+        // else add activity with no coupon to show
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,7 +177,8 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void onConnectionSuspended(int i) {
         Log.i(TAG, "Connection Suspended");
-        mGoogleApiClient.connect();
+        //      mGoogleApiClient.connect();
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
@@ -185,11 +202,13 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
 
         mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
-        if(mLocation == null){
-            startLocationUpdates();
-        }
         if (mLocation != null) {
             relevantCouponQueryDatabase();
+//            if (couponDetailsList.size() > 0) {
+//                adapter = new CouponAdapter(couponDetailsList, this);
+//                couponRecyclerView.setAdapter(adapter);
+//            }
+
         } else {
             Toast.makeText(this, "Location not Detected", Toast.LENGTH_SHORT).show();
             return;
@@ -217,7 +236,8 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
         mLocationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(UPDATE_INTERVAL)
-                .setFastestInterval(FASTEST_INTERVAL);
+                .setFastestInterval(FASTEST_INTERVAL)
+                .setSmallestDisplacement(1000);
         // Request location updates
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling

@@ -9,19 +9,14 @@ import android.text.format.DateUtils;
  */
 
 public class CouponDetails {
-    public String getPrice() {
-        return price;
-    }
-    public String getDescription() {
-        return description;
-    }
+
     private String price;
     private String description;
     private String couponId;
-
-
     private String busniessId;
     private long timeOver;
+
+
     public CouponDetails(String ed_price, String ed_description, int progress_hours, String couponId, String busniessId) {
         this.price = ed_price;
         this.description = ed_description;
@@ -30,6 +25,7 @@ public class CouponDetails {
         this.busniessId = busniessId;
 
     }
+    public CouponDetails() {}
 
     public String getCouponId() {
         return couponId;
@@ -42,7 +38,12 @@ public class CouponDetails {
     public String getBusniessId() {
         return busniessId;
     }
-
+    public String getPrice() {
+        return price;
+    }
+    public String getDescription() {
+        return description;
+    }
 
 }
 

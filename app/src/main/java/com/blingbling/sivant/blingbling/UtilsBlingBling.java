@@ -39,7 +39,9 @@ public class UtilsBlingBling extends AppCompatActivity {
     private static int progressBar;
     private static int currentNum = 0;
     private static Location location;
-    public static String currentBusniessUid;
+    public static boolean isLastBusniess = false;
+    public static int countNumOfRelevantBusniess = 0;
+    public static int countNumOfRetriveBusniessData = 0;
 
 
 

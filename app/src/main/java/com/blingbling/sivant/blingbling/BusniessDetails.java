@@ -17,7 +17,7 @@ public class BusniessDetails {
     private String busniessAddress;
     private String phoneNumber;
     private ArrayList<Integer> selected_busniess_type_items;
-    Location location;
+    private Location location;
   //  GeoLocation location;
 
 
@@ -45,6 +45,10 @@ public class BusniessDetails {
 
     public ArrayList<Integer> getSelected_busniess_type_items() {
         return selected_busniess_type_items;
+    }
+
+    public Location getLocation() {
+        return location;
     }
 }
 

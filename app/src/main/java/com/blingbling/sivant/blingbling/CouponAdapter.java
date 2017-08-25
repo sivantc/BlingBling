@@ -44,9 +44,9 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
         // Reference to an image file in Cloud Storage
         CouponDetails coupon = couponList.get(position);
         String couponId = coupon.getCouponId();
-        StorageReference storageReference = UtilsBlingBling.getStorageReference().child("images/busniess/space/" + UtilsBlingBling.currentBusniessUid +"/"+ couponId +".jpg");
+        StorageReference storageReference = UtilsBlingBling.getStorageReference().child("images/busniess/space/" + coupon.getBusniessId() +"/"+ couponId +".jpg");
 
-
+    if (storageReference != null) {
 // ImageView in your Activity
         ImageView imageView = holder.image_view_coupon_image;
 
@@ -55,12 +55,13 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
                 .using(new FirebaseImageLoader())
                 .load(storageReference)
                 .into(imageView);
+    }
         holder.ed_description.setText(coupon.getDescription());
         holder.ed_price.setText(coupon.getPrice());
 
         long timeCouponIsRelevantInMin = (coupon.getTimeOver() - System.currentTimeMillis())/(1000*60);
 
-        holder.textView_relevantTimeText.setText("coupon will be relevant in the next " + timeCouponIsRelevantInMin + "minutes" );
+        holder.textView_relevantTimeText.setText("coupon will be relevant in the next " + timeCouponIsRelevantInMin + " minutes" );
 
         
     }
