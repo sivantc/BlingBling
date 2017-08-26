@@ -43,6 +43,22 @@
             android:label="@string/title_activity_create_new_coupon"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".UserHomePage"></activity>
+
+        <service
+            android:name=".ClientFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".ClientFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+
     </application>
 
 </manifest>

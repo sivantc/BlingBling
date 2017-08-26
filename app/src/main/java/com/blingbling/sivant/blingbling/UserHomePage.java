@@ -25,6 +25,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -50,10 +51,6 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
     private RecyclerView couponRecyclerView;
     private RecyclerView.Adapter adapter;
     private List<CouponDetails> couponDetailsList;
-
-    //   private Query relevantTimeQuery;
-
-    // TODO: 10/06/2017 check if coupon distance relevant
 
 
     private void relevantCouponQueryDatabase() {
@@ -232,7 +229,8 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(UPDATE_INTERVAL)
                 .setFastestInterval(FASTEST_INTERVAL)
-                .setSmallestDisplacement(1000);
+                .setSmallestDisplacement(1000)
+                .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         // Request location updates
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -246,50 +244,20 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
         }
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
                 mLocationRequest, this);
+
         Log.d("reque", "--->>>>");
+    }
+
+    private void updateLocationInDB(Location location) {
+        String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
+        GeoFire geoFire = new GeoFire(UtilsBlingBling.getDatabaseReference().child("UsersLocation"));
+        geoFire.setLocation(udid,new GeoLocation(location.getLatitude(), location.getLongitude()));
     }
     @Override
     public void onLocationChanged(Location location) {
-
-        String msg = "Updated Location: " +
-                Double.toString(location.getLatitude()) + "," +
-                Double.toString(location.getLongitude());
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-        // You can now create a LatLng Object for use with maps
-    }
-    private boolean checkLocation() {
-        if(!isLocationEnabled())
-            showAlert();
-        return isLocationEnabled();
+        updateLocationInDB(location);
     }
 
-    private void showAlert() {
-        final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("Enable Location")
-                .setMessage("Your Locations Settings is set to 'Off'.\nPlease Enable Location to " +
-                        "use this app")
-                .setPositiveButton("Location Settings", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-
-                        Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        startActivity(myIntent);
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-
-                    }
-                });
-        dialog.show();
-    }
-
-    private boolean isLocationEnabled() {
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
-                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-    }
 
 
     private void handlePermissions() {
