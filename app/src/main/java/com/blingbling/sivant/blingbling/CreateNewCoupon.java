@@ -75,7 +75,7 @@ public class CreateNewCoupon extends MutualFunc implements View.OnClickListener{
         int hours      = UtilsBlingBling.getProgressBar();
         CouponDetails couponDetails = new CouponDetails(price, description, hours);
         String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
-        UtilsBlingBling.getDatabaseReference().child("BusniessUser").child(udid).child("Coupon").child(ed_couponId.getText().toString().trim()).setValue(couponDetails);
+        UtilsBlingBling.getDatabaseReference().child("BusniessUsers").child(udid).child("Coupon").child(ed_couponId.getText().toString().trim()).setValue(couponDetails);
         uploadFile(UtilsBlingBling.getCurrentNum());
         Toast.makeText(CreateNewCoupon.this, "Details saved...", Toast.LENGTH_SHORT).show();
     }

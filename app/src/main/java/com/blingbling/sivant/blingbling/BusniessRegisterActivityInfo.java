@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 
@@ -70,6 +72,7 @@ public class BusniessRegisterActivityInfo extends MutualFunc implements View.OnC
             case R.id.button_complete_registration:
                 uploadFile("0");
                 insetrDetails();
+                UtilsBlingBling.setNotRegistering(true);
                 Intent busniessMenuActivity = new Intent(this, BusniessMenu.class);
                 startActivity(busniessMenuActivity);
                 break;

@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,12 +19,15 @@ import java.util.ArrayList;
 public class BusinessPage extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business_page);
         Button button_signout = (Button) findViewById(R.id.signOut3);
+        mListView = (ListView) findViewById(R.id.listview);
+
 
         mAuth = FirebaseAuth.getInstance();
         button_signout.setOnClickListener(new View.OnClickListener() {
@@ -35,35 +40,33 @@ public class BusinessPage extends AppCompatActivity {
         });
 
 
-            UtilsBlingBling.getDatabaseReference().child("BusniessUser").addListenerForSingleValueEvent(new ValueEventListener() {
+            UtilsBlingBling.getDatabaseReference().child("BusniessUsers").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     BusniessDetails bdetails;
-                    toastMessage("hi1");
-                    String uid = "KuqzjXr7thgVWpnbj1EMqsCAWea2";
+                    String uid = "t01Gy9FYsHaGmIXbPqyMzR1uep73";
+                    //to add case that the buisness does not exist anymore
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        bdetails = ds.child(uid).getValue(BusniessDetails.class);
-                       // String ok = "ok";
-                       // toastMessage("bdetails: "+ bdetails.toString());
-                        //String name = bdetails.getBusniessName();
+                        String key = ds.getKey();
+                        if(key.equals(uid)) {
+                            String name = ds.getValue(BusniessDetails.class).getBusniessName();
+                            String adress = ds.getValue(BusniessDetails.class).getBusniessAddress();
+                            String phone = ds.getValue(BusniessDetails.class).getPhoneNumber();
+                            ArrayList<Integer> selected_busniess_type_items = ds.getValue(BusniessDetails.class).getSelected_busniess_type_items();
+                            ArrayList<String> view = new ArrayList<String>();
+                            view.add("Busniess Name: ".concat(name));
+                            view.add("Busniess Address: ".concat(adress));
+                            view.add("Phone Number: ".concat(phone));
+                            //setContentView(R.layout.activity_main);
 
-                           // String name = ds.child(uid).getValue(BusniessDetails.class).getBusniessName();
-                            //toastMessage("name is: "+ name);
+                            ArrayAdapter adapter = new ArrayAdapter(BusinessPage.this,android.R.layout.simple_list_item_1,view);
+                            mListView.setAdapter(adapter);
+                            break;
 
 
-                        //String adress = dataSnapshot.child(uid).getValue(BusniessDetails.class).getBusniessAddress();
-                        //String phone = dataSnapshot.child(uid).getValue(BusniessDetails.class).getPhoneNumber();
-                        //ArrayList<Integer> selected_busniess_type_items = dataSnapshot.child(uid).getValue(BusniessDetails.class).getSelected_busniess_type_items();
-
-
-                        // bdetails = new BusniessDetails(name,adress,phone,selected_busniess_type_items);
-                        //toastMessage("name: "+ds.child(uid).getValue(BusniessDetails.class).getBusniessName() );
+                        }
                     }
 
-
-                    toastMessage("hi");
-                    boolean b = dataSnapshot.hasChild(uid);
-                    toastMessage("this is b: " + b);
                 }
 
                 @Override

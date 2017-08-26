@@ -17,11 +17,16 @@ public class BusniessDetails {
     private String busniessAddress;
     private String phoneNumber;
     private ArrayList<Integer> selected_busniess_type_items;
-    Location location;
+    MyLocation location;
   //  GeoLocation location;
 
+    public BusniessDetails(){
 
-    public BusniessDetails(String busniessName, String busniessAddress, String phoneNumber, ArrayList<Integer> selected_busniess_type_items) {
+    }
+
+
+    public BusniessDetails(String busniessName, String busniessAddress,
+                           String phoneNumber, ArrayList<Integer> selected_busniess_type_items) {
         this.busniessName = busniessName;
         this.busniessAddress = busniessAddress;
         this.phoneNumber = phoneNumber;

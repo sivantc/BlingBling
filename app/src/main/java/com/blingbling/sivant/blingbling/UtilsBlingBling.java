@@ -26,7 +26,6 @@ public class UtilsBlingBling extends AppCompatActivity {
     private static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private static StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     private static boolean currentlyBusniess = false;
-    private static boolean isBusniessUser = false;
     private static Context currentContextName;
     private static EditText ed_busniess_name;
     private static EditText ed_busniess_address;
@@ -39,10 +38,16 @@ public class UtilsBlingBling extends AppCompatActivity {
     private static TextView textViewProgress;
     private static int progressBar;
     private static int currentNum = 0;
-    private static Location location;
+    private static MyLocation location;
     public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
+    private static boolean notRegistering = true;
 
-
+    public static void setNotRegistering(boolean b){
+        notRegistering = b;
+    }
+    public  static boolean getNotRegisternig(){
+        return  notRegistering;
+    }
 
 
     public static void setFirebaseAuth(FirebaseAuth firebaseAuth) {
@@ -80,17 +85,12 @@ public class UtilsBlingBling extends AppCompatActivity {
     public static boolean isCurrentlyBusniess() {
         return currentlyBusniess;
     }
-    public static boolean isBusniessUser() {
-        return isBusniessUser;
-    }
 
 
     public static void setCurrentlyBusniess(boolean currentlyBusniess) {
         UtilsBlingBling.currentlyBusniess = currentlyBusniess;
     }
-    public static void setIsBusniessUser(boolean isBusniessUser) {
-        UtilsBlingBling.isBusniessUser = isBusniessUser;
-    }
+
 
     public static Context getCurrentContextName() {
         return currentContextName;
@@ -183,11 +183,11 @@ public class UtilsBlingBling extends AppCompatActivity {
         return String.valueOf(++currentNum);
     }
 
-    public static Location getLocation() {
+    public static MyLocation getLocation() {
         return location;
     }
 
-    public static void setLocation(Location location) {
+    public static void setLocation(MyLocation location) {
         UtilsBlingBling.location = location;
     }
 

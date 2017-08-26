@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = "MainActivity";
 
-
+    private boolean check = true;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -51,8 +51,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button_business.setOnClickListener(this);
         progress_dialog = new ProgressDialog(this);
 
-        showMatchFirstPage(button_login);
+        logInListener(button_login);
         logOutListener(button_logout);
+        showMatchFirstPage(button_login);
 
     }
 
@@ -60,10 +61,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             switch(v.getId()) {
                 case R.id.button_register:
                     UtilsBlingBling.setCurrentlyBusniess(false);
+                    UtilsBlingBling.setNotRegistering(false);
                     register();
                     break;
                 case R.id.button_business_register:
                     UtilsBlingBling.setCurrentlyBusniess(true);
+                    UtilsBlingBling.setNotRegistering(false);
                     register();
                     break;
             }
@@ -91,8 +94,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     progress_dialog.dismiss();
                     Toast.makeText(MainActivity.this, "Registeration Succeed!", Toast.LENGTH_SHORT).show();
                     Intent regActivityInfo;
-                    if(!UtilsBlingBling.isCurrentlyBusniess())
-                         regActivityInfo = new Intent(MainActivity.this, RegisterActivityInfo.class);
+                    if(!UtilsBlingBling.isCurrentlyBusniess()) {
+                        toastMessage("i am here");
+                        regActivityInfo = new Intent(MainActivity.this, RegisterActivityInfo.class);
+                    }
                     else
                         regActivityInfo = new Intent(MainActivity.this, BusniessRegisterActivityInfo.class);
                     startActivity(regActivityInfo);
@@ -133,15 +138,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
+                if (user != null&& UtilsBlingBling.getNotRegisternig()) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     //toastMessage("buisness"+ UtilsBlingBling.isBusniessUser());
 
                     // toastMessage("successfully signed in with " + user.getEmail());
+                   // check = true;
                     checkIfBuisness();
 
                 } else {
+                    //check =false;
+                    //checkIfBuisness();
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                     //toastMessage("successfully signed out ");
@@ -149,14 +157,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // ...
             }
         };
-        logInListener(button_login);
+       // logInListener(button_login);
 
     }
 
     private void checkIfBuisness(){
-        UtilsBlingBling.getDatabaseReference().child("BusniessUser").addListenerForSingleValueEvent(new ValueEventListener() {
+        UtilsBlingBling.getDatabaseReference().child("BusniessUsers").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+              //  if(!check) return;
                 String uid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
                 //toastMessage("uid is: " +uid);
                // toastMessage("dataSnapshot.hasChild(uid): "+ dataSnapshot.hasChild(uid));
@@ -169,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     toastMessage("user ");
                     startActivity(new Intent(MainActivity.this, Temp.class));
                 }
+               // check = false;
                 //UtilsBlingBling.setIsBusniessUser(true);
                 // toastMessage(" UtilsBlingBling.isBusniessUser(): "+ UtilsBlingBling.isBusniessUser());
             }

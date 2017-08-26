@@ -64,7 +64,7 @@ public abstract class MutualFunc extends AppCompatActivity {
         Place placeSelected = PlacePicker.getPlace(data, UtilsBlingBling.getCurrentContextName());
         String busniessName = placeSelected.getName().toString();
         String busniessAddress = placeSelected.getAddress().toString();
-        Location location = new Location(busniessName);
+        MyLocation location = new MyLocation(busniessName);
         location.setLongitude(placeSelected.getLatLng().longitude);
         location.setLatitude(placeSelected.getLatLng().latitude);
         UtilsBlingBling.setLocation(location);

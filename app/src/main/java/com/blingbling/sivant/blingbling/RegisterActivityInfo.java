@@ -43,6 +43,8 @@ public class RegisterActivityInfo extends MutualFunc{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_info);
+        Toast.makeText(RegisterActivityInfo.this, "inside regactinfo ", Toast.LENGTH_SHORT).show();
+
 
         ed_name          = (EditText) findViewById(R.id.ed_name);
         ed_lastname      = (EditText) findViewById(R.id.ed_lastname);
@@ -78,10 +80,12 @@ public class RegisterActivityInfo extends MutualFunc{
         String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
         UtilsBlingBling.getDatabaseReference().child("Users").child(udid).setValue(userPreferences);
         Toast.makeText(RegisterActivityInfo.this, "Preferences saved...", Toast.LENGTH_SHORT).show();
-        Intent userHomePage = new Intent(this, UserHomePage.class);
+        UtilsBlingBling.setNotRegistering(false);
+        Intent userHomePage = new Intent(this, Temp.class);
         startActivity(userHomePage);
         //   progress_dialog.setMessage("w User....");
     //    progress_dialog.show();
+
 
     }
 
