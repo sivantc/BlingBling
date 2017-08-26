@@ -204,11 +204,6 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
 
         if (mLocation != null) {
             relevantCouponQueryDatabase();
-//            if (couponDetailsList.size() > 0) {
-//                adapter = new CouponAdapter(couponDetailsList, this);
-//                couponRecyclerView.setAdapter(adapter);
-//            }
-
         } else {
             Toast.makeText(this, "Location not Detected", Toast.LENGTH_SHORT).show();
             return;

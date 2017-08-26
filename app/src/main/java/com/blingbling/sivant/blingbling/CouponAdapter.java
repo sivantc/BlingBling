@@ -1,7 +1,6 @@
 package com.blingbling.sivant.blingbling;
 
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +12,6 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.StorageReference;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -86,7 +82,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
             ed_price = (TextView) itemView.findViewById(R.id.ed_price);
             ed_description = (TextView) itemView.findViewById(R.id.ed_description);
             textView_relevantTimeText = (TextView) itemView.findViewById(R.id.textView_relevantTimeText);
-            button_more_details = (Button) itemView.findViewById(R.id.button_more_details);
+            button_more_details = (Button) itemView.findViewById(R.id.button_more_details_about_the_busniess);
 
         }
     }
