@@ -41,7 +41,7 @@ public class CreateNewCoupon extends MutualFunc implements View.OnClickListener{
         ed_description = (EditText) findViewById(R.id.ed_description);
         seekBar_hours = (SeekBar) findViewById(R.id.seekBar_hours);
         textView_hours = (TextView) findViewById(R.id.textView_hours);
-        image_view_choosen_image = (ImageView) findViewById(R.id.image_view_choosen_image);
+        image_view_choosen_image = (ImageView) findViewById(R.id.image_view_coupon_image);
         button_select_image = (Button) findViewById(R.id.button_select_image);
         button_select_image.setOnClickListener(this);
         button_create_new_coupon= (Button) findViewById(R.id.button_create_new_coupon);
@@ -73,9 +73,10 @@ public class CreateNewCoupon extends MutualFunc implements View.OnClickListener{
         String price = ed_price.getText().toString().trim();
         String description = ed_description.getText().toString().trim();
         int hours      = UtilsBlingBling.getProgressBar();
-        CouponDetails couponDetails = new CouponDetails(price, description, hours);
+        String couponId = ed_couponId.getText().toString().trim();
         String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
-        UtilsBlingBling.getDatabaseReference().child("BusniessUsers").child(udid).child("Coupon").child(ed_couponId.getText().toString().trim()).setValue(couponDetails);
+        CouponDetails couponDetails = new CouponDetails(price, description, hours, couponId, udid);
+        UtilsBlingBling.getDatabaseReference().child("BusniessUsers").child(udid).child("Coupons").child(ed_couponId.getText().toString().trim()).setValue(couponDetails);
         uploadFile(UtilsBlingBling.getCurrentNum());
         Toast.makeText(CreateNewCoupon.this, "Details saved...", Toast.LENGTH_SHORT).show();
     }

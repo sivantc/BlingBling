@@ -49,7 +49,7 @@ public class BusniessRegisterActivityInfo extends MutualFunc implements View.OnC
         ed_phone_number = (EditText) findViewById(R.id.ed_phone_number);
         button_pick_busniess_address = (Button) findViewById(R.id.button_pick_busniess_address);
         button_select_busniess_type = (Button) findViewById(R.id.button_select_busniess_type);
-        image_view_choosen_image = (ImageView) findViewById(R.id.image_view_choosen_image);
+        image_view_choosen_image = (ImageView) findViewById(R.id.image_view_coupon_image);
         textView_selected_busniess_type = (TextView) findViewById(R.id.textView_selected_busniess_type);
         button_select_image = (Button) findViewById(R.id.button_select_image);
         button_complete_registration = (Button) findViewById(R.id.button_complete_registration);

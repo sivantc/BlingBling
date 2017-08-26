@@ -7,12 +7,13 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -22,18 +23,18 @@ import com.firebase.geofire.GeoQuery;
 import com.firebase.geofire.GeoQueryEventListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.FusedLocationProviderApi;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Semaphore;
 
 
 public class UserHomePage extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
@@ -46,11 +47,11 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
     private long UPDATE_INTERVAL = 2 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 2000; /* 2 sec */
     private LocationManager locationManager;
+    final private int REQUEST_CODE_ASK_PERMISSIONS = 200;
+    private RecyclerView couponRecyclerView;
+    private RecyclerView.Adapter adapter;
+    private List<CouponDetails> couponDetailsList;
 
-    //   private Query relevantTimeQuery;
-
-    // TODO: 10/06/2017 check if coupon distance relevant
-    
 
     private void relevantCouponQueryDatabase() {
 //should contain - relevant distance, relevant preferences about type- will be called when user insert app
@@ -64,6 +65,7 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         UserPreferences userPreferences = dataSnapshot.getValue(UserPreferences.class);
                         distanceQuery(userPreferences.getRadius());
+
                     }
 
                     @Override
@@ -81,7 +83,8 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
             public void onKeyEntered(String key, GeoLocation location) {
-                showBusniessCoupon(key);
+                UtilsBlingBling.countNumOfRelevantBusniess++;
+                showBusniessCoupons(key);
             }
 
             @Override
@@ -96,7 +99,7 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
 
             @Override
             public void onGeoQueryReady() {
-
+                UtilsBlingBling.isLastBusniess = true;
             }
 
             @Override
@@ -104,35 +107,48 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
 
             }
         });
+    }
+
+    private void showBusniessCoupons(String busniessId) {
+        UtilsBlingBling.getDatabaseReference().child("BusniessUsers").child(busniessId).child("Coupons").addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot currentBusniessCoupon : dataSnapshot.getChildren()) {
+                            CouponDetails couponDetails = currentBusniessCoupon.getValue(CouponDetails.class);
+                            couponDetailsList.add(couponDetails);
+                        }
+                        UtilsBlingBling.countNumOfRetriveBusniessData++;
+                        if(UtilsBlingBling.isLastBusniess && UtilsBlingBling.countNumOfRelevantBusniess == UtilsBlingBling.countNumOfRetriveBusniessData) {
+                            UtilsBlingBling.isLastBusniess = false;
+                            UtilsBlingBling.countNumOfRelevantBusniess = 0;
+                            UtilsBlingBling.countNumOfRetriveBusniessData = 0;
+                            startAdapter();
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                }
+        );
+
+
+        //     System.out.print(busniessId);
 
     }
 
-    private void showBusniessCoupon (String busniessId) {
-        System.out.print(busniessId);
+    private void startAdapter() {
+        if (couponDetailsList.size() > 0) {
+            adapter = new CouponAdapter(couponDetailsList, this);
+            couponRecyclerView.setAdapter(adapter);
+        }
+        // else add activity with no coupon to show
 
     }
-
-//    private Map<String, Object> collectAllRelevantTimeCoupon(Map<String, Object> users) {
-//  //      ArrayList<Object> phoneNumbers = new ArrayList<>();
-//
-////        //iterate through each user, ignoring their UID
-////        for (Map.Entry<String, Object> entry : users.entrySet()){
-////
-////            //Get user map
-////            Map singleUser = (Map) entry.getValue();
-////
-////
-////            //should add list with coupon take the relevant, remove other
-////            //other option, delete evry x time all the coupon that dosn't relevant.
-////            singleUser.get("Coupon");
-////            //Get phone field and append to list
-////            phoneNumbers.add((Long) singleUser.get("phone"));
-////        }
-////
-////        System.out.println(phoneNumbers.toString());
-//
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,15 +161,21 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
                 .build();
 
         mLocationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
-        if (checkLocation()) { //check whether location service is enable or not in your  phone
-            relevantCouponQueryDatabase();
-        }
+
+        couponRecyclerView = (RecyclerView) findViewById(R.id.couponRecyclesView);
+        couponRecyclerView.setHasFixedSize(true);
+        couponRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        couponDetailsList = new ArrayList<>();
+        handlePermissions();
+
+
     }
 
     @Override
     public void onConnectionSuspended(int i) {
         Log.i(TAG, "Connection Suspended");
-        mGoogleApiClient.connect();
+        //      mGoogleApiClient.connect();
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
@@ -177,15 +199,11 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
 
         mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
-        if(mLocation == null){
-            startLocationUpdates();
-        }
         if (mLocation != null) {
-
-            // mLatitudeTextView.setText(String.valueOf(mLocation.getLatitude()));
-            //mLongitudeTextView.setText(String.valueOf(mLocation.getLongitude()));
+            relevantCouponQueryDatabase();
         } else {
             Toast.makeText(this, "Location not Detected", Toast.LENGTH_SHORT).show();
+            return;
         }
     }
 
@@ -210,7 +228,9 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
         mLocationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(UPDATE_INTERVAL)
-                .setFastestInterval(FASTEST_INTERVAL);
+                .setFastestInterval(FASTEST_INTERVAL)
+                .setSmallestDisplacement(1000)
+                .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         // Request location updates
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -224,49 +244,30 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
         }
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
                 mLocationRequest, this);
+
         Log.d("reque", "--->>>>");
+    }
+
+    private void updateLocationInDB(Location location) {
+        String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
+        GeoFire geoFire = new GeoFire(UtilsBlingBling.getDatabaseReference().child("UsersLocation"));
+        geoFire.setLocation(udid,new GeoLocation(location.getLatitude(), location.getLongitude()));
     }
     @Override
     public void onLocationChanged(Location location) {
-
-        String msg = "Updated Location: " +
-                Double.toString(location.getLatitude()) + "," +
-                Double.toString(location.getLongitude());
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-        // You can now create a LatLng Object for use with maps
-    }
-    private boolean checkLocation() {
-        if(!isLocationEnabled())
-            showAlert();
-        return isLocationEnabled();
+        updateLocationInDB(location);
     }
 
-    private void showAlert() {
-        final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("Enable Location")
-                .setMessage("Your Locations Settings is set to 'Off'.\nPlease Enable Location to " +
-                        "use this app")
-                .setPositiveButton("Location Settings", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
 
-                        Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        startActivity(myIntent);
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
 
-                    }
-                });
-        dialog.show();
-    }
-
-    private boolean isLocationEnabled() {
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
-                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    private void handlePermissions() {
+        Log.v(TAG, "handlePermissionsAndGetLocation");
+        boolean hasWriteContactsPermission = ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        if (!hasWriteContactsPermission) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_CODE_ASK_PERMISSIONS);
+            return;
+        }
     }
 
 }

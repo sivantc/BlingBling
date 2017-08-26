@@ -41,6 +41,10 @@ public class UtilsBlingBling extends AppCompatActivity {
     private static MyLocation location;
     public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
     private static boolean notRegistering = true;
+    public static boolean isLastBusniess = false;
+    public static int countNumOfRelevantBusniess = 0;
+    public static int countNumOfRetriveBusniessData = 0;
+
 
     public static void setNotRegistering(boolean b){
         notRegistering = b;
@@ -86,11 +90,9 @@ public class UtilsBlingBling extends AppCompatActivity {
         return currentlyBusniess;
     }
 
-
     public static void setCurrentlyBusniess(boolean currentlyBusniess) {
         UtilsBlingBling.currentlyBusniess = currentlyBusniess;
     }
-
 
     public static Context getCurrentContextName() {
         return currentContextName;
@@ -195,8 +197,6 @@ public class UtilsBlingBling extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
-
 
 
 }
