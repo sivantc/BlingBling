@@ -251,8 +251,8 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
 
     private void updateLocationInDB(Location location) {
         String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
-        GeoFire geoFire = new GeoFire(UtilsBlingBling.getDatabaseReference().child("UsersLocation"));
-        geoFire.setLocation(udid,new GeoLocation(location.getLatitude(), location.getLongitude()));
+        double [] userLocation = {location.getLatitude(), location.getLongitude()};
+        UtilsBlingBling.getDatabaseReference().child("Users").child(udid).child("userLocation").setValue(userLocation);
     }
     @Override
     public void onLocationChanged(Location location) {
