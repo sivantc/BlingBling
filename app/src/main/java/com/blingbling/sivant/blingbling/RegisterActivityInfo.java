@@ -66,8 +66,7 @@ public class RegisterActivityInfo extends MutualFunc{
         if(TextUtils.isEmpty(lastname)){
 
         }
-
-        UserPreferences userPreferences = new UserPreferences(firstname, lastname, radius, FirebaseInstanceId.getInstance().getToken(), null);
+        UserPreferences userPreferences = new UserPreferences(firstname, lastname, radius, FirebaseInstanceId.getInstance().getToken(), -1, -1);
         String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
         UtilsBlingBling.getDatabaseReference().child("Users").child(udid).setValue(userPreferences);
         Toast.makeText(RegisterActivityInfo.this, "Preferences saved...", Toast.LENGTH_SHORT).show();

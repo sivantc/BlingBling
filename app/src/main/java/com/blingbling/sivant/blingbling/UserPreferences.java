@@ -10,17 +10,19 @@ public class UserPreferences {
     private String lastname;
     private int radius;
     private String deviceToken;
-    private double [] userLocation;
+    private double latitude;
+    private double longitude;
     public UserPreferences(){
 
     }
 
-    public UserPreferences(String firstname, String lastname, int radius, String deviceToken, double[] userLocation) {
+    public UserPreferences(String firstname, String lastname, int radius, String deviceToken, double latitude, double longitude) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.radius = radius;
         this.deviceToken = deviceToken;
-        this.userLocation = userLocation;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getFirstname() {
@@ -39,7 +41,11 @@ public class UserPreferences {
         return deviceToken;
     }
 
-    public double[] getUserLocation() {
-        return userLocation;
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
 }

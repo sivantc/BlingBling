@@ -182,6 +182,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(new Intent(MainActivity.this, BusniessMenu.class));
                 }
                 else{
+               //     mAuth.signOut();
                     toastMessage("login user");
                     String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
                     UtilsBlingBling.getDatabaseReference().child("Users").child(udid).child("deviceToken").setValue(FirebaseInstanceId.getInstance().getToken());

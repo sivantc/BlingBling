@@ -246,13 +246,12 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
                 mLocationRequest, this);
 
-        Log.d("reque", "--->>>>");
     }
 
     private void updateLocationInDB(Location location) {
         String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
-        double [] userLocation = {location.getLatitude(), location.getLongitude()};
-        UtilsBlingBling.getDatabaseReference().child("Users").child(udid).child("userLocation").setValue(userLocation);
+        UtilsBlingBling.getDatabaseReference().child("Users").child(udid).child("latitude").setValue(location.getLatitude());
+        UtilsBlingBling.getDatabaseReference().child("Users").child(udid).child("longitude").setValue(location.getLongitude());
     }
     @Override
     public void onLocationChanged(Location location) {
