@@ -5,98 +5,98 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-  <android.support.v7.widget.CardView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="430dp"
-          android:background="#d0385cff"
-          android:orientation="vertical"
-          android:padding="@dimen/activity_vertical_margin"
-          android:weightSum="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="430dp"
+            android:background="#d0385cff"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_vertical_margin"
+            android:weightSum="1">
 
-          <ImageView
-              android:id="@+id/image_view_coupon_image"
-              android:layout_width="246dp"
-              android:layout_height="200dp"
-              android:layout_above="@+id/ed_price"
-              android:layout_alignParentLeft="true"
-              android:layout_alignParentStart="true"
-              android:layout_gravity="center"
-              android:layout_weight="0.59"
-              android:adjustViewBounds="false"
-              android:cropToPadding="false" />
+            <ImageView
+                android:id="@+id/image_view_coupon_image"
+                android:layout_width="246dp"
+                android:layout_height="200dp"
+                android:layout_above="@+id/ed_price"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:layout_weight="0.59"
+                android:adjustViewBounds="false"
+                android:cropToPadding="false" />
 
-          <TextView
-              android:id="@+id/textView_relevantTimeText"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_alignParentLeft="true"
-              android:layout_alignParentStart="true"
-              android:layout_below="@+id/ed_description"
+            <TextView
+                android:id="@+id/textView_relevantTimeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/ed_description"
 
-              android:text="coupon will be relevant until 10:10 am"
-              android:textAlignment="center" />
+                android:text="coupon will be relevant until 10:10 am"
+                android:textAlignment="center" />
 
-          <TextView
-              android:id="@+id/ed_price"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_above="@+id/textView_relevantTimeText"
-              android:layout_alignParentEnd="true"
-              android:layout_alignParentLeft="true"
-              android:layout_alignParentRight="true"
-              android:layout_alignParentStart="true"
-              android:layout_gravity="center"
-              android:autoSizeMaxTextSize="@dimen/cardview_default_radius"
-              android:autoSizeTextType="none"
-              android:inputType="number"
-              android:text="Price"
-              android:textAlignment="center" />
+            <TextView
+                android:id="@+id/ed_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/textView_relevantTimeText"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:autoSizeMaxTextSize="@dimen/cardview_default_radius"
+                android:autoSizeTextType="none"
+                android:inputType="number"
+                android:text="Price"
+                android:textAlignment="center" />
 
-          <TextView
-              android:id="@+id/ed_description"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_alignParentEnd="true"
-              android:layout_alignParentLeft="true"
-              android:layout_alignParentRight="true"
-              android:layout_alignParentStart="true"
-              android:layout_alignTop="@+id/ed_price"
-              android:ems="10"
-              android:inputType="textPersonName"
-              android:text="Description"
-              android:textAlignment="center" />
-
-
-          <Button
-              android:id="@+id/button_purchase_coupon"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_alignParentBottom="true"
-              android:layout_below="@+id/button_more_details_about_the_busniess"
-              android:layout_centerHorizontal="true"
-              android:layout_marginBottom="5dp"
-              android:layout_weight="0.02"
-              android:text="purchase coupon" />
-
-          <Button
-              android:id="@+id/button_more_details_about_the_busniess"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_alignParentBottom="true"
-              android:layout_centerHorizontal="true"
-              android:layout_marginBottom="5dp"
-              android:layout_weight="0.02"
-              android:text="click for more details about the busniess" />
+            <TextView
+                android:id="@+id/ed_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/ed_price"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Description"
+                android:textAlignment="center" />
 
 
-      </LinearLayout>
+            <Button
+                android:id="@+id/button_purchase_coupon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/button_more_details_about_the_busniess"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="0.02"
+                android:text="purchase coupon" />
+
+            <Button
+                android:id="@+id/button_more_details_about_the_busniess"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="0.02"
+                android:text="click for more details about the busniess" />
 
 
-  </android.support.v7.widget.CardView>
+        </LinearLayout>
 
+
+
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>

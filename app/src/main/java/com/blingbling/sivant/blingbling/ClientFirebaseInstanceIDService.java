@@ -11,6 +11,8 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 
 public class ClientFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
+    private static String TAG = "Registration";
+
     @Override
     public void onTokenRefresh() {
         // Get updated InstanceID token.

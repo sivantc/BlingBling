@@ -1,20 +1,18 @@
 package com.blingbling.sivant.blingbling;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.provider.Settings;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.firebase.geofire.GeoFire;
@@ -25,7 +23,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.GoogleMap;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,10 +31,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Semaphore;
 
 
-public class UserHomePage extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
+public class UserHomePage extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener, View.OnClickListener  {
 
     private GoogleApiClient mGoogleApiClient;
     private Location mLocation;
@@ -46,11 +42,12 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
     private String TAG = "UserHomePage";
     private long UPDATE_INTERVAL = 2 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 2000; /* 2 sec */
-    private LocationManager locationManager;
     final private int REQUEST_CODE_ASK_PERMISSIONS = 200;
     private RecyclerView couponRecyclerView;
     private RecyclerView.Adapter adapter;
     private List<CouponDetails> couponDetailsList;
+    private Button button_signOut;
+
 
 
     private void relevantCouponQueryDatabase() {
@@ -153,7 +150,8 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_home_page);
-
+        button_signOut = (Button) findViewById(R.id.button_signOut);
+        button_signOut.setOnClickListener(this);
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -170,6 +168,8 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
 
 
     }
+
+
 
     @Override
     public void onConnectionSuspended(int i) {
@@ -198,6 +198,7 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
         startLocationUpdates();
 
         mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        updateLocationInDB(mLocation);
 
         if (mLocation != null) {
             relevantCouponQueryDatabase();
@@ -270,4 +271,13 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
         }
     }
 
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()) {
+            case R.id.button_signOut:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(UserHomePage.this, MainActivity.class));
+                break;
+        }
+    }
 }

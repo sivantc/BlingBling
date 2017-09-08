@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import static com.google.android.gms.drive.query.Filters.contains;
 
@@ -37,8 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = "MainActivity";
 
-    private boolean check = true;
-    protected void onCreate(Bundle savedInstanceState) {
+     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ed_password      = (EditText) findViewById(R.id.ed_password);
@@ -72,15 +73,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-    private void register(){
+    private void register() {
         final String password = ed_password.getText().toString().trim();
-        final String email    = ed_email.getText().toString().trim();
-        if(TextUtils.isEmpty(email)){
+        final String email = ed_email.getText().toString().trim();
+        if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please enter your email", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if(TextUtils.isEmpty(password)){
+        if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please enter your password", Toast.LENGTH_SHORT).show();
             return;
 
@@ -90,19 +91,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         UtilsBlingBling.getFirebaseAute().createUserWithEmailAndPassword(email, password).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     progress_dialog.dismiss();
                     Toast.makeText(MainActivity.this, "Registeration Succeed!", Toast.LENGTH_SHORT).show();
                     Intent regActivityInfo;
-                    if(!UtilsBlingBling.isCurrentlyBusniess()) {
-                        toastMessage("i am here");
+                    if (!UtilsBlingBling.isCurrentlyBusniess()) {
+                        toastMessage("I am here");
                         regActivityInfo = new Intent(MainActivity.this, RegisterActivityInfo.class);
-                    }
-                    else
+                    } else
                         regActivityInfo = new Intent(MainActivity.this, BusniessRegisterActivityInfo.class);
-                    startActivity(regActivityInfo);
-                }
-                else {
+                        startActivity(regActivityInfo);
+                } else {
                     progress_dialog.dismiss();
                     Log.e("Signup Error", "onCancelled", task.getException());
                     System.out.print(task.getException());
@@ -110,7 +109,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
             }
-        });
+        })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Here you get the error type
+                        Log.d(TAG + "-On Failure", e.getMessage());
+                    }
+
+                    ;
+                });
     }
 
     @Override
@@ -171,12 +179,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                // toastMessage("dataSnapshot.hasChild(uid): "+ dataSnapshot.hasChild(uid));
                 if (dataSnapshot.hasChild(uid)) {
                    toastMessage("buisness");
-                   toastMessage("buisness");
                     startActivity(new Intent(MainActivity.this, BusniessMenu.class));
                 }
                 else{
-                    toastMessage("user ");
-                    startActivity(new Intent(MainActivity.this, Temp.class));
+                    toastMessage("login user");
+                    String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
+                    UtilsBlingBling.getDatabaseReference().child("Users").child(udid).child("deviceToken").setValue(FirebaseInstanceId.getInstance().getToken());
+                    startActivity(new Intent(MainActivity.this, UserHomePage.class));
                 }
                // check = false;
                 //UtilsBlingBling.setIsBusniessUser(true);
@@ -206,6 +215,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                             else{
                                 toastMessage("signing in....");
+                                String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
+                                UtilsBlingBling.getDatabaseReference().child("Users").child(udid).child("deviceToken").setValue(FirebaseInstanceId.getInstance().getToken());
+                                startActivity(new Intent(MainActivity.this, UserHomePage.class));
                             }
                         }
                     });

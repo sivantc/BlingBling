@@ -1,13 +1,7 @@
 package com.blingbling.sivant.blingbling;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +11,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.blingbling.sivant.blingbling.R.id.ed_phone_number;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class CreateNewCoupon extends MutualFunc implements View.OnClickListener{
 
@@ -75,7 +69,7 @@ public class CreateNewCoupon extends MutualFunc implements View.OnClickListener{
         int hours      = UtilsBlingBling.getProgressBar();
         String couponId = ed_couponId.getText().toString().trim();
         String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
-        CouponDetails couponDetails = new CouponDetails(price, description, hours, couponId, udid);
+        CouponDetails couponDetails = new CouponDetails(price, description, hours, couponId, udid, FirebaseInstanceId.getInstance().getToken());
         UtilsBlingBling.getDatabaseReference().child("BusniessUsers").child(udid).child("Coupons").child(ed_couponId.getText().toString().trim()).setValue(couponDetails);
         uploadFile(UtilsBlingBling.getCurrentNum());
         Toast.makeText(CreateNewCoupon.this, "Details saved...", Toast.LENGTH_SHORT).show();

@@ -1,6 +1,8 @@
 package com.blingbling.sivant.blingbling;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
@@ -18,11 +21,12 @@ import java.util.List;
  * Created by sivan on 18/08/2017.
  */
 
-public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder> {
+public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder> implements  View.OnClickListener {
 
     private List<CouponDetails> couponList;
     private Context context;
     private String couponId;
+
 
     public CouponAdapter(List<CouponDetails> couponList, Context context) {
         this.couponList = couponList;
@@ -67,6 +71,15 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
         return couponList.size();
     }
 
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()) {
+
+        }
+
+
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView image_view_coupon_image;
@@ -86,4 +99,5 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
 
         }
     }
+
 }
