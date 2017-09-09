@@ -52,6 +52,9 @@ public class BusniessDetails {
         return selected_busniess_type_items;
     }
 
+    public MyLocation getLocation() {
+        return location;
+    }
 }
 
 
