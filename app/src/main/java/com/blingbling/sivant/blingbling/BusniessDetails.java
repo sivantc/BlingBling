@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 /**
- * Created by Daniel on 30/03/2017.
+ * Created by Sivan on 30/03/2017.
  */
 
 public class BusniessDetails {
