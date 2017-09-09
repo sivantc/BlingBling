@@ -2,6 +2,7 @@ package com.blingbling.sivant.blingbling;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,11 +24,12 @@ import java.util.List;
  * Created by sivan on 18/08/2017.
  */
 
-public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder> implements  View.OnClickListener {
+public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder> {
 
     private List<CouponDetails> couponList;
     private Context context;
     private String couponId;
+    public final static String BUISNESS_ID = "BUISNESS_ID";
 
 
     public CouponAdapter(List<CouponDetails> couponList, Context context) {
@@ -42,7 +46,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         // Reference to an image file in Cloud Storage
-        CouponDetails coupon = couponList.get(position);
+        final CouponDetails coupon = couponList.get(position);
         String couponId = coupon.getCouponId();
         StorageReference storageReference = UtilsBlingBling.getStorageReference().child("images/busniess/space/" + coupon.getBusniessId() +"/"+ couponId +".jpg");
 
@@ -59,6 +63,16 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
         holder.ed_description.setText(coupon.getDescription());
         holder.ed_price.setText(coupon.getPrice());
 
+        holder.button_more_details.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (view.getContext(), BusinessPage.class);
+                intent.putExtra(BUISNESS_ID, coupon.getBusniessId());
+                view.getContext().startActivity(intent);
+
+            }
+        });
+
         long timeCouponIsRelevantInMin = (coupon.getTimeOver() - System.currentTimeMillis())/(1000*60);
 
         holder.textView_relevantTimeText.setText("coupon will be relevant in the next " + timeCouponIsRelevantInMin + " minutes" );
@@ -69,15 +83,6 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
     @Override
     public int getItemCount() {
         return couponList.size();
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch(view.getId()) {
-
-        }
-
-
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -99,5 +104,4 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
 
         }
     }
-
 }

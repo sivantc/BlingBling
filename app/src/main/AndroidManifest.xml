@@ -51,6 +51,10 @@
             </intent-filter>
         </service>
 
+        <activity
+            android:name=".NavigationPop"
+            android:theme="@style/AppTheme.navigationPopUp"></activity>
+        <activity android:name=".BuisOrUserReg"></activity>
         <service
             android:name=".ClientFirebaseInstanceIDService">
             <intent-filter>

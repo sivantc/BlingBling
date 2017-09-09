@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-    private void register() {
+    private void register(){
         final String password = ed_password.getText().toString().trim();
         final String email = ed_email.getText().toString().trim();
         if (TextUtils.isEmpty(email)) {
