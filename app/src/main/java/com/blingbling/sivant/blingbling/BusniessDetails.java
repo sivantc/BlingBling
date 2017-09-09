@@ -17,7 +17,8 @@ public class BusniessDetails {
     private String busniessAddress;
     private String phoneNumber;
     private ArrayList<Integer> selected_busniess_type_items;
-    //  GeoLocation location;
+    private MyLocation location;
+  //  GeoLocation location;
 
     public BusniessDetails(){
 
@@ -30,6 +31,7 @@ public class BusniessDetails {
         this.busniessAddress = busniessAddress;
         this.phoneNumber = phoneNumber;
         this.selected_busniess_type_items = selected_busniess_type_items;
+        this.location = UtilsBlingBling.getLocation();
 
       //  this.location = new GeoLocation(UtilsBlingBling.getLocation().getLatitude(),UtilsBlingBling.getLocation().getLongitude());
     }
