@@ -2,6 +2,7 @@ package com.blingbling.sivant.blingbling;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.Address;
 import android.location.Location;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -44,7 +45,23 @@ public class UtilsBlingBling extends AppCompatActivity {
     public static boolean isLastBusniess = false;
     public static int countNumOfRelevantBusniess = 0;
     public static int countNumOfRetriveBusniessData = 0;
+    private static MyLocation targetLocation;
+    private static String buisness_coupon_id;
 
+    public static void setBuisness_coupon_id(String bid){
+        buisness_coupon_id = bid;
+    }
+    public  static String getBuisness_coupon_id(){
+        return  buisness_coupon_id;
+    }
+
+
+    public static void setTargetLocation(MyLocation location){
+        targetLocation = location;
+    }
+    public  static MyLocation getTargetLocation(){
+        return  targetLocation;
+    }
 
     public static void setNotRegistering(boolean b){
         notRegistering = b;
