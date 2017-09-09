@@ -43,9 +43,7 @@
             android:label="@string/title_activity_create_new_coupon"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".UserHomePage" />
-        <activity android:name=".Temp" />
         <activity android:name=".BusinessPage"></activity>
-        <activity android:name=".UserHomePage"></activity>
 
 
     </application>
