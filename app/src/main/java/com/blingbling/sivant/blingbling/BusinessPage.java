@@ -1,13 +1,9 @@
 package com.blingbling.sivant.blingbling;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.PopupMenu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,13 +12,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -73,12 +66,12 @@ public class BusinessPage extends AppCompatActivity{
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         String key = ds.getKey();
                         if(key.equals(uid)) {
-                            String name = ds.getValue(BusniessDetails.class).getBusniessName();
-                            String adress = ds.getValue(BusniessDetails.class).getBusniessAddress();
-                            MyLocation blocation = ds.getValue(BusniessDetails.class).getLocation();
+                            String name = ds.getValue(BusinessDetails.class).getBusniessName();
+                            String adress = ds.getValue(BusinessDetails.class).getBusniessAddress();
+                            MyLocation blocation = ds.getValue(BusinessDetails.class).getLocation();
                             UtilsBlingBling.setTargetLocation(blocation);
-                            String phone = ds.getValue(BusniessDetails.class).getPhoneNumber();
-                            ArrayList<Integer> selected_busniess_type_items = ds.getValue(BusniessDetails.class).getSelected_busniess_type_items();
+                            String phone = ds.getValue(BusinessDetails.class).getPhoneNumber();
+                            ArrayList<Integer> selected_busniess_type_items = ds.getValue(BusinessDetails.class).getSelected_busniess_type_items();
                             ArrayList<String> view = new ArrayList<>();
                             //view.add("Busniess Name: ".concat(name));
                             view.add(name);

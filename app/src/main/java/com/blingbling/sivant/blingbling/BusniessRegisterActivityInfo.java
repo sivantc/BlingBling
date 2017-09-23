@@ -17,8 +17,6 @@ import android.widget.Toast;
 
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 
@@ -73,7 +71,7 @@ public class BusniessRegisterActivityInfo extends MutualFunc implements View.OnC
                 uploadFile("0");
                 insetrDetails();
                 UtilsBlingBling.setNotRegistering(true);
-                Intent busniessMenuActivity = new Intent(this, BusniessMenu.class);
+                Intent busniessMenuActivity = new Intent(this, BusinessMenu.class);
                 startActivity(busniessMenuActivity);
                 break;
             case R.id.button_select_busniess_type:
@@ -107,7 +105,7 @@ public class BusniessRegisterActivityInfo extends MutualFunc implements View.OnC
             Toast.makeText(this, "Please enter your busniess name", Toast.LENGTH_SHORT).show();
             return;
         }
-        BusniessDetails busniessDetails = new BusniessDetails(busniessName, busniessAddress, phoneNumber, arrayList_selected_busniess_type_items);
+        BusinessDetails busniessDetails = new BusinessDetails(busniessName, busniessAddress, phoneNumber, arrayList_selected_busniess_type_items);
         String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
         UtilsBlingBling.getDatabaseReference().child("BusniessUsers").child(udid).setValue(busniessDetails);
         GeoFire geoFire = new GeoFire(UtilsBlingBling.getDatabaseReference().child("BusniessLocations"));

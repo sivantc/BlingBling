@@ -2,7 +2,6 @@ package com.blingbling.sivant.blingbling;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,12 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
-
-import static com.google.android.gms.drive.query.Filters.contains;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -179,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                // toastMessage("dataSnapshot.hasChild(uid): "+ dataSnapshot.hasChild(uid));
                 if (dataSnapshot.hasChild(uid)) {
                    toastMessage("buisness");
-                    startActivity(new Intent(MainActivity.this, BusniessMenu.class));
+                    startActivity(new Intent(MainActivity.this, BusinessMenu.class));
                 }
                 else{
                //     mAuth.signOut();

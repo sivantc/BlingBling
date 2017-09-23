@@ -2,20 +2,14 @@ package com.blingbling.sivant.blingbling;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class BusniessMenu extends AppCompatActivity implements View.OnClickListener{
+public class BusinessMenu extends AppCompatActivity implements View.OnClickListener{
 
 
     private Button button_create_new_coupon;
@@ -37,7 +31,7 @@ public class BusniessMenu extends AppCompatActivity implements View.OnClickListe
                 toastMessage("signing out....");
                 mAuth.signOut();
                 //finish();
-                startActivity(new Intent(BusniessMenu.this, MainActivity.class));
+                startActivity(new Intent(BusinessMenu.this, MainActivity.class));
             }
         });
 

@@ -9,16 +9,19 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name="android.support.multidex.MultiDexApplication">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBnSc0bRe0mxGf-QrFF7N8m9A5RiUmkwRU" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/blingblingapp" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -35,7 +38,7 @@
         <activity android:name=".UtilsBlingBling" />
         <activity android:name=".BusniessRegisterActivityInfo" />
         <activity
-            android:name=".BusniessMenu"
+            android:name=".BusinessMenu"
             android:label="@string/title_activity_busniess_menu"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -43,24 +46,26 @@
             android:label="@string/title_activity_create_new_coupon"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".UserHomePage" />
-        <activity android:name=".BusinessPage"></activity>
-        <service
-            android:name=".ClientFirebaseMessagingService">
+        <activity android:name=".BusinessPage" />
+
+        <service android:name=".ClientFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
         <activity
             android:name=".NavigationPop"
-            android:theme="@style/AppTheme.navigationPopUp"></activity>
-        <activity android:name=".BuisOrUserReg"></activity>
-        <service
-            android:name=".ClientFirebaseInstanceIDService">
+            android:theme="@style/AppTheme.navigationPopUp" />
+        <activity android:name=".BuisOrUserReg" />
+
+        <service android:name=".ClientFirebaseInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+        <activity android:name=".CouponRating"></activity>
 
     </application>
 

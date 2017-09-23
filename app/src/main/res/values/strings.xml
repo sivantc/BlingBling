@@ -12,4 +12,5 @@
     <string name="title_activity_busniess_menu">BusniessMenu</string>
     <string name="title_activity_create_new_coupon">CreateNewCoupon</string>
     <string name="title_activity_user_home_page">UserHomePage</string>
+    <string name="title_activity_rating_business">RatingBusiness</string>
 </resources>

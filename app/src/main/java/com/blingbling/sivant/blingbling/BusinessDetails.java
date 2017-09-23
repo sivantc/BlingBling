@@ -11,7 +11,7 @@ import java.util.Locale;
  * Created by Sivan on 30/03/2017.
  */
 
-public class BusniessDetails {
+public class BusinessDetails {
 
     private String busniessName;
     private String busniessAddress;
@@ -20,12 +20,12 @@ public class BusniessDetails {
     private MyLocation location;
   //  GeoLocation location;
 
-    public BusniessDetails(){
+    public BusinessDetails(){
 
     }
 
 
-    public BusniessDetails(String busniessName, String busniessAddress,
+    public BusinessDetails(String busniessName, String busniessAddress,
                            String phoneNumber, ArrayList<Integer> selected_busniess_type_items) {
         this.busniessName = busniessName;
         this.busniessAddress = busniessAddress;
