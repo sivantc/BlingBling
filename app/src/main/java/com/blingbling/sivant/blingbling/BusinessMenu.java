@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -89,10 +91,33 @@ public class BusinessMenu extends AppCompatActivity implements View.OnClickListe
         //nav_image.setImageResource(getResources().getIdentifier("app_icon", "drawable", getPackageName()));
 
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.app_icon);
-        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
-        roundedBitmapDrawable.setCircular(true);
-        nav_image.setImageDrawable(roundedBitmapDrawable);
+//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.app_icon);
+//        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+//        roundedBitmapDrawable.setCircular(true);
+//        nav_image.setImageDrawable(roundedBitmapDrawable);
+
+        if (storageReference != null) {
+            // ImageView in your Activity
+            ImageView imageView = nav_image;
+
+            // Load the image using Glide
+//            Glide.with(this)
+//                    .using(new FirebaseImageLoader())
+//                    .load(storageReference)
+//                    .into(imageView);
+
+            Glide.with(this).using(new FirebaseImageLoader()).load(storageReference).transform(new CircleTransform(this)).into(imageView);
+
+
+        }
+
+
+
+
+
+
+
+
 
         navigation_view_bui.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
