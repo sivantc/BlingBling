@@ -40,10 +40,10 @@
             android:label="@string/title_activity_register_info"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".UtilsBlingBling" />
-        <activity android:name=".BusniessRegisterActivityInfo" />
+        <activity android:name=".BusinessRegisterActivityInfo" />
         <activity
-            android:name=".BusniessMenu"
-            android:label="@string/title_activity_busniess_menu"
+            android:name=".BusinessMenu"
+            android:label="@string/title_activity_business_menu"
             />
         <activity
             android:name=".CreateNewCoupon"

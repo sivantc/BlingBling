@@ -340,7 +340,7 @@ public class MainActivity extends AppCompatActivity{
                 //toastMessage("uid is: " +uid);
                // toastMessage("dataSnapshot.hasChild(uid): "+ dataSnapshot.hasChild(uid));
                 if (dataSnapshot.hasChild(uid)) {
-                   toastMessage("buisness");
+                   toastMessage("business");
                     startActivity(new Intent(MainActivity.this, BusinessMenu.class));
                 }
                 else{

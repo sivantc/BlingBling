@@ -35,7 +35,7 @@ public class BuisOrUserReg extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent regActivityInfo;
-                regActivityInfo = new Intent(BuisOrUserReg.this, BusniessRegisterActivityInfo.class);
+                regActivityInfo = new Intent(BuisOrUserReg.this, BusinessRegisterActivityInfo.class);
                 startActivity(regActivityInfo);
             }
         });

@@ -21,7 +21,7 @@ import com.firebase.geofire.GeoLocation;
 import java.util.ArrayList;
 
 
-public class BusniessRegisterActivityInfo extends MutualFunc implements View.OnClickListener {
+public class BusinessRegisterActivityInfo extends MutualFunc implements View.OnClickListener {
     private Button button_pick_busniess_address;
     private EditText ed_busniess_name;
     private EditText ed_busniess_address;
@@ -110,7 +110,7 @@ public class BusniessRegisterActivityInfo extends MutualFunc implements View.OnC
         UtilsBlingBling.getDatabaseReference().child("BusniessUsers").child(udid).setValue(busniessDetails);
         GeoFire geoFire = new GeoFire(UtilsBlingBling.getDatabaseReference().child("BusniessLocations"));
         geoFire.setLocation(udid,new GeoLocation(UtilsBlingBling.getLocation().getLatitude(), UtilsBlingBling.getLocation().getLongitude()));
-        Toast.makeText(BusniessRegisterActivityInfo.this, "Details saved...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(BusinessRegisterActivityInfo.this, "Details saved...", Toast.LENGTH_SHORT).show();
 
 
     }

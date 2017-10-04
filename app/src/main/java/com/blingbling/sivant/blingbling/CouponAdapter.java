@@ -51,10 +51,10 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
         StorageReference storageReference = UtilsBlingBling.getStorageReference().child("images/busniess/space/" + coupon.getBusniessId() +"/"+ couponId +".jpg");
 
     if (storageReference != null) {
-// ImageView in your Activity
+    // ImageView in your Activity
         ImageView imageView = holder.image_view_coupon_image;
 
-// Load the image using Glide
+    // Load the image using Glide
         Glide.with(context)
                 .using(new FirebaseImageLoader())
                 .load(storageReference)
