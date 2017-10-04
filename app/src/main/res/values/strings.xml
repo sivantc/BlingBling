@@ -12,5 +12,14 @@
     <string name="title_activity_busniess_menu">BusniessMenu</string>
     <string name="title_activity_create_new_coupon">CreateNewCoupon</string>
     <string name="title_activity_user_home_page">UserHomePage</string>
+    <string name="facebook_app_id">1447944928654392</string>
+    <string name="fb_login_protocol_scheme">fb1447944928654392</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+
+
+
     <string name="title_activity_rating_business">RatingBusiness</string>
 </resources>

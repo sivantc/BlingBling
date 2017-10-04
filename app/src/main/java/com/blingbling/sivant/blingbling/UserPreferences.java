@@ -13,7 +13,7 @@ public class UserPreferences {
     private double latitude;
     private double longitude;
     public UserPreferences(){
-
+        radius = -1;
     }
 
     public UserPreferences(String firstname, String lastname, int radius, String deviceToken, double latitude, double longitude) {

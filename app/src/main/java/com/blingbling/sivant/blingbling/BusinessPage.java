@@ -22,7 +22,7 @@ import java.util.Locale;
 
 import static android.R.attr.label;
 
-public class BusinessPage extends AppCompatActivity{
+public class BusinessPage extends UserHomePage{
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private ListView mListView;
