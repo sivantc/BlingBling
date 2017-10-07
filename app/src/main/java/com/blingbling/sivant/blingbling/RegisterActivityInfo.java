@@ -16,7 +16,6 @@ import com.google.firebase.iid.FirebaseInstanceId;
 /**
  * Created by Sivan on 26/03/2017.
  */
-/////////////////////////// TODO: 30/03/2017  coding busniess type preference
 
 public class RegisterActivityInfo extends MutualFunc{
 

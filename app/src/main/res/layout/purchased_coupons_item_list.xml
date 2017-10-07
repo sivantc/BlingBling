@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/couponItemLayout">
+    android:id="@+id/purchasedCouponItemLayout">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -12,23 +12,11 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="430dp"
+            android:layout_height="wrap_content"
             android:background="#d0f9c528"
             android:orientation="vertical"
             android:padding="@dimen/activity_vertical_margin"
             android:weightSum="1">
-
-            <ImageView
-                android:id="@+id/image_view_coupon_image"
-                android:layout_width="246dp"
-                android:layout_height="200dp"
-                android:layout_above="@+id/ed_price"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_gravity="center"
-                android:layout_weight="0.59"
-                android:adjustViewBounds="false"
-                android:cropToPadding="false" />
 
             <TextView
                 android:id="@+id/textView_relevantTimeText"
@@ -72,8 +60,22 @@
                 android:textAlignment="center" />
 
 
+            <TextView
+                android:id="@+id/ed_couponCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/ed_description"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Coupon code"
+                android:textAlignment="center" />
+
             <Button
-                android:id="@+id/button_purchase_coupon"
+                android:id="@+id/button_rate_coupon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -81,17 +83,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="5dp"
                 android:layout_weight="0.02"
-                android:text="purchase coupon" />
-
-            <Button
-                android:id="@+id/button_more_details_about_the_business"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="0.02"
-                android:text="click for more details about the business" />
+                android:text="Rate the Coupon" />
 
 
         </LinearLayout>

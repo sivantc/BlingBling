@@ -3,7 +3,7 @@
     <string name="bling">Bling</string>
     <string name="username">Username</string>
     <string name="title_activity_register_info">RegisterActivityInfo</string>
-    <string-array name="selected_busniess_type">
+    <string-array name="selected_business_type">
         <item>Bar</item>
         <item>Restaurant</item>
         <item>Pizzeria</item>
@@ -17,8 +17,6 @@
 
     <string name="open">Open</string>
     <string name="close">Close</string>
-
-
 
 
     <string name="title_activity_rating_business">RatingBusiness</string>

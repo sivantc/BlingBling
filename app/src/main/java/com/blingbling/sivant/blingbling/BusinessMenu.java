@@ -1,13 +1,9 @@
 package com.blingbling.sivant.blingbling;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -64,7 +60,7 @@ public class BusinessMenu extends AppCompatActivity implements View.OnClickListe
         nav_email = (TextView)header.findViewById(R.id.email);
         nav_image = (ImageView)header.findViewById(R.id.image);
 
-        UtilsBlingBling.getDatabaseReference().child("BusniessUsers").addListenerForSingleValueEvent(new ValueEventListener() {
+        UtilsBlingBling.getDatabaseReference().child("BusinessUsers").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String uid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
@@ -72,7 +68,7 @@ public class BusinessMenu extends AppCompatActivity implements View.OnClickListe
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         String key = ds.getKey();
                         if(key.equals(uid)) {
-                            String buiName = ds.getValue(BusinessDetails.class).getBusniessName();
+                            String buiName = ds.getValue(BusinessDetails.class).getBusinessName();
                             nav_name.setText(buiName);
                         }
                     }
@@ -87,7 +83,7 @@ public class BusinessMenu extends AppCompatActivity implements View.OnClickListe
 
         nav_email.setText("noy's email");
         String uid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
-        StorageReference storageReference = UtilsBlingBling.getStorageReference().child("images/busniess/space/" + uid +"/"+ "0" +".jpg");
+        StorageReference storageReference = UtilsBlingBling.getStorageReference().child("images/business/space/" + uid +"/"+ "0" +".jpg");
         //nav_image.setImageResource(getResources().getIdentifier("app_icon", "drawable", getPackageName()));
 
 

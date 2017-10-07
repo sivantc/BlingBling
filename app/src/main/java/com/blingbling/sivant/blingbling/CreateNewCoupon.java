@@ -70,14 +70,16 @@ public class CreateNewCoupon extends MutualFunc implements View.OnClickListener{
         String couponId = ed_couponId.getText().toString().trim();
         String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
         CouponDetails couponDetails = new CouponDetails(price, description, hours, couponId, udid, FirebaseInstanceId.getInstance().getToken());
-        UtilsBlingBling.getDatabaseReference().child("BusniessUsers").child(udid).child("Coupons").child(ed_couponId.getText().toString().trim()).setValue(couponDetails);
+        UtilsBlingBling.getDatabaseReference().child("BusinessUsers").child(udid).child("Coupons").child(ed_couponId.getText().toString().trim()).setValue(couponDetails);
+        UtilsBlingBling.getDatabaseReference().child("BusinessCoupon").child(udid).child("Coupons").child(ed_couponId.getText().toString().trim()).setValue(couponDetails);
+
         uploadFile(UtilsBlingBling.getCurrentNum());
         Toast.makeText(CreateNewCoupon.this, "Details saved...", Toast.LENGTH_SHORT).show();
     }
 
         @Override
     protected void setInfoInUtils() {
-        UtilsBlingBling.setUri_filePath_busienssSpace(uri_filePath_busienssSpace);
+        UtilsBlingBling.setUri_filePath_businessSpace(uri_filePath_busienssSpace);
         UtilsBlingBling.setImage_view_choosen_image(image_view_choosen_image);
         UtilsBlingBling.setCurrentContextName(this);
         UtilsBlingBling.setTextViewProgress(textView_hours);

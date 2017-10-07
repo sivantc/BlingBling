@@ -312,10 +312,7 @@ public class MainActivity extends AppCompatActivity{
                 if (user != null&& UtilsBlingBling.getNotRegisternig()) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    //toastMessage("buisness"+ UtilsBlingBling.isBusniessUser());
 
-                    // toastMessage("successfully signed in with " + user.getEmail());
-                   // check = true;
                     checkIfBuisness();
 
                 } else {
@@ -333,7 +330,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void checkIfBuisness(){
-        UtilsBlingBling.getDatabaseReference().child("BusniessUsers").addListenerForSingleValueEvent(new ValueEventListener() {
+        UtilsBlingBling.getDatabaseReference().child("BusinessUsers").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String uid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
@@ -371,9 +368,7 @@ public class MainActivity extends AppCompatActivity{
                     );
 
                 }
-               // check = false;
-                //UtilsBlingBling.setIsBusniessUser(true);
-                // toastMessage(" UtilsBlingBling.isBusniessUser(): "+ UtilsBlingBling.isBusniessUser());
+
             }
 
             @Override

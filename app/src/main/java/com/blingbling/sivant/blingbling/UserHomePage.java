@@ -17,13 +17,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +39,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -59,7 +55,6 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
     private RecyclerView couponRecyclerView;
     private RecyclerView.Adapter adapter;
     private List<CouponDetails> couponDetailsList;
-    private Button button_signOut;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private TextView nav_name;
@@ -83,10 +78,7 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
 
         mLocationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
 
-        couponRecyclerView = (RecyclerView) findViewById(R.id.couponRecyclesView);
-        couponRecyclerView.setHasFixedSize(true);
-        couponRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        couponDetailsList = new ArrayList<>();
+
         handlePermissions();
 
 
@@ -141,7 +133,7 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
                 switch (item.getItemId()) {
 
                     case R.id.my_coupons: {
-                        //do somthing
+                        startActivity(new Intent(UserHomePage.this, PurchasedCoupons.class));
                         break;
                     }
                     case R.id.settings: {
@@ -186,14 +178,14 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
 
     }
     private void distanceQuery (int userRadius) {
-        DatabaseReference referenceToGeoFire = UtilsBlingBling.getDatabaseReference().child("BusniessLocations");
+        DatabaseReference referenceToGeoFire = UtilsBlingBling.getDatabaseReference().child("BusinessLocations");
         GeoFire geoFire = new GeoFire(referenceToGeoFire);
         GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(mLocation.getLatitude(), mLocation.getLongitude()), userRadius);
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
             public void onKeyEntered(String key, GeoLocation location) {
-                UtilsBlingBling.countNumOfRelevantBusniess++;
-                showBusniessCoupons(key);
+                UtilsBlingBling.countNumOfRelevantBusiness++;
+                showBusinessCoupons(key);
             }
 
             @Override
@@ -208,7 +200,7 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
 
             @Override
             public void onGeoQueryReady() {
-                UtilsBlingBling.isLastBusniess = true;
+                UtilsBlingBling.isLastBusiness = true;
             }
 
             @Override
@@ -218,20 +210,20 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
         });
     }
 
-    private void showBusniessCoupons(String busniessId) {
-        UtilsBlingBling.getDatabaseReference().child("BusniessUsers").child(busniessId).child("Coupons").addListenerForSingleValueEvent(
+    private void showBusinessCoupons(String businessId) {
+        UtilsBlingBling.getDatabaseReference().child("BusinessUsers").child(businessId).child("Coupons").addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot currentBusniessCoupon : dataSnapshot.getChildren()) {
-                            CouponDetails couponDetails = currentBusniessCoupon.getValue(CouponDetails.class);
+                        for (DataSnapshot currentBusinessCoupon : dataSnapshot.getChildren()) {
+                            CouponDetails couponDetails = currentBusinessCoupon.getValue(CouponDetails.class);
                             couponDetailsList.add(couponDetails);
                         }
-                        UtilsBlingBling.countNumOfRetriveBusniessData++;
-                        if(UtilsBlingBling.isLastBusniess && UtilsBlingBling.countNumOfRelevantBusniess == UtilsBlingBling.countNumOfRetriveBusniessData) {
-                            UtilsBlingBling.isLastBusniess = false;
-                            UtilsBlingBling.countNumOfRelevantBusniess = 0;
-                            UtilsBlingBling.countNumOfRetriveBusniessData = 0;
+                        UtilsBlingBling.countNumOfRetriveBusinessData++;
+                        if(UtilsBlingBling.isLastBusiness && UtilsBlingBling.countNumOfRelevantBusiness == UtilsBlingBling.countNumOfRetriveBusinessData) {
+                            UtilsBlingBling.isLastBusiness = false;
+                            UtilsBlingBling.countNumOfRelevantBusiness = 0;
+                            UtilsBlingBling.countNumOfRetriveBusinessData = 0;
                             startAdapter();
 
                         }
@@ -246,7 +238,7 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
         );
 
 
-        //     System.out.print(busniessId);
+        //     System.out.print(businessId);
 
     }
 

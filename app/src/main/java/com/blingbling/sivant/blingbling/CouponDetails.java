@@ -13,17 +13,21 @@ public class CouponDetails {
     private String price;
     private String description;
     private String couponId;
-    private String busniessId;
+    private String businessId;
     private long timeOver;
     private String couponToken;
+    private long startTime;
+    private int couponCode;
 
 
-    public CouponDetails(String ed_price, String ed_description, int progress_hours, String couponId, String busniessId, String couponToken) {
-        this.price = ed_price;
+
+    public CouponDetails(String ed_price, String ed_description, int progress_hours, String couponId, String businessId, String couponToken) {
+        this.price = ed_price + "$";
         this.description = ed_description;
+        this.startTime = System.currentTimeMillis();
         this.timeOver = System.currentTimeMillis() + progress_hours * DateUtils.HOUR_IN_MILLIS;
         this.couponId = couponId;
-        this.busniessId = busniessId;
+        this.businessId = businessId;
         this.couponToken = couponToken;
     }
     public CouponDetails() {}
@@ -36,8 +40,8 @@ public class CouponDetails {
         return timeOver;
     }
 
-    public String getBusniessId() {
-        return busniessId;
+    public String getBusinessId() {
+        return businessId;
     }
     public String getPrice() {
         return price;
@@ -49,5 +53,11 @@ public class CouponDetails {
     public String getCouponToken() {
         return couponToken;
     }
+
+
+    public long getStartTime() {
+        return startTime;
+    }
+
 }
 

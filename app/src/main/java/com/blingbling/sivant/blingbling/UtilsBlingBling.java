@@ -2,33 +2,16 @@ package com.blingbling.sivant.blingbling;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.location.Address;
-import android.location.Location;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -41,25 +24,25 @@ public class UtilsBlingBling extends AppCompatActivity {
     private static FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private static StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-    private static boolean currentlyBusniess = false;
+    private static boolean currentlyBusiness = false;
     private static Context currentContextName;
-    private static EditText ed_busniess_name;
-    private static EditText ed_busniess_address;
+    private static EditText ed_business_name;
+    private static EditText ed_business_address;
     private static EditText ed_phone_number;
     private static Uri uri_filePath_busienssSpace;
     private static ImageView image_view_choosen_image;
     private static Activity currentActivity;
-    private static ArrayList<Integer> arrayList_selected_busniess_type_items;
-    private static TextView textView_selected_busniess_type;
+    private static ArrayList<Integer> arrayList_selected_business_type_items;
+    private static TextView textView_selected_business_type;
     private static TextView textViewProgress;
     private static int progressBar;
     private static int currentNum = 0;
     private static MyLocation location;
     public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
     private static boolean notRegistering = true;
-    public static boolean isLastBusniess = false;
-    public static int countNumOfRelevantBusniess = 0;
-    public static int countNumOfRetriveBusniessData = 0;
+    public static boolean isLastBusiness = false;
+    public static int countNumOfRelevantBusiness = 0;
+    public static int countNumOfRetriveBusinessData = 0;
     private static MyLocation targetLocation;
     private static String buisness_coupon_id;
 
@@ -120,12 +103,12 @@ public class UtilsBlingBling extends AppCompatActivity {
         return storageReference;
     }
 
-    public static boolean isCurrentlyBusniess() {
-        return currentlyBusniess;
+    public static boolean isCurrentlyBusiness() {
+        return currentlyBusiness;
     }
 
-    public static void setCurrentlyBusniess(boolean currentlyBusniess) {
-        UtilsBlingBling.currentlyBusniess = currentlyBusniess;
+    public static void setCurrentlyBusiness(boolean currentlyBusiness) {
+        UtilsBlingBling.currentlyBusiness = currentlyBusiness;
     }
 
     public static Context getCurrentContextName() {
@@ -136,20 +119,20 @@ public class UtilsBlingBling extends AppCompatActivity {
         UtilsBlingBling.currentContextName = currentContextName;
     }
 
-    public static EditText getEd_busniess_name() {
-        return ed_busniess_name;
+    public static EditText getEd_business_name() {
+        return ed_business_name;
     }
 
-    public static void setEd_busniess_name(EditText ed_busniess_name) {
-        UtilsBlingBling.ed_busniess_name = ed_busniess_name;
+    public static void setEd_business_name(EditText ed_business_name) {
+        UtilsBlingBling.ed_business_name = ed_business_name;
     }
 
-    public static EditText getEd_busniess_address() {
-        return ed_busniess_address;
+    public static EditText getEd_business_address() {
+        return ed_business_address;
     }
 
-    public static void setEd_busniess_address(EditText ed_busniess_address) {
-        UtilsBlingBling.ed_busniess_address = ed_busniess_address;
+    public static void setEd_business_address(EditText ed_business_address) {
+        UtilsBlingBling.ed_business_address = ed_business_address;
     }
 
     public static EditText getEd_phone_number() {
@@ -160,11 +143,11 @@ public class UtilsBlingBling extends AppCompatActivity {
         UtilsBlingBling.ed_phone_number = ed_phone_number;
     }
 
-    public static Uri getUri_filePath_busienssSpace() {
+    public static Uri getUri_filePath_businessSpace() {
         return uri_filePath_busienssSpace;
     }
 
-    public static void setUri_filePath_busienssSpace(Uri uri_filePath_busienssSpace) {
+    public static void setUri_filePath_businessSpace(Uri uri_filePath_busienssSpace) {
         UtilsBlingBling.uri_filePath_busienssSpace = uri_filePath_busienssSpace;
     }
 
@@ -184,20 +167,20 @@ public class UtilsBlingBling extends AppCompatActivity {
         UtilsBlingBling.currentActivity = currentActivity;
     }
 
-    public static ArrayList<Integer> getArrayList_selected_busniess_type_items() {
-        return arrayList_selected_busniess_type_items;
+    public static ArrayList<Integer> getArrayList_selected_business_type_items() {
+        return arrayList_selected_business_type_items;
     }
 
-    public static void setArrayList_selected_busniess_type_items(ArrayList<Integer> arrayList_selected_busniess_type_items) {
-        UtilsBlingBling.arrayList_selected_busniess_type_items = arrayList_selected_busniess_type_items;
+    public static void setArrayList_selected_business_type_items(ArrayList<Integer> arrayList_selected_business_type_items) {
+        UtilsBlingBling.arrayList_selected_business_type_items = arrayList_selected_business_type_items;
     }
 
-    public static TextView getTextView_selected_busniess_type() {
-        return textView_selected_busniess_type;
+    public static TextView getTextView_selected_business_type() {
+        return textView_selected_business_type;
     }
 
-    public static void setTextView_selected_busniess_type(TextView textView_selected_busniess_type) {
-        UtilsBlingBling.textView_selected_busniess_type = textView_selected_busniess_type;
+    public static void setTextView_selected_business_type(TextView textView_selected_business_type) {
+        UtilsBlingBling.textView_selected_business_type = textView_selected_business_type;
     }
 
     public static TextView getTextViewProgress() {

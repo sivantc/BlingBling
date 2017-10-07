@@ -2,7 +2,6 @@ package com.blingbling.sivant.blingbling;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -51,7 +50,7 @@ public class BusinessPage extends UserHomePage{
     }
 
     private void showBuisnessPage(){
-        UtilsBlingBling.getDatabaseReference().child("BusniessUsers").addListenerForSingleValueEvent(new ValueEventListener() {
+        UtilsBlingBling.getDatabaseReference().child("BusinessUsers").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Intent intent = getIntent();
@@ -66,25 +65,16 @@ public class BusinessPage extends UserHomePage{
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         String key = ds.getKey();
                         if(key.equals(uid)) {
-                            String name = ds.getValue(BusinessDetails.class).getBusniessName();
-                            String adress = ds.getValue(BusinessDetails.class).getBusniessAddress();
+                            String name = ds.getValue(BusinessDetails.class).getBusinessName();
+                            String adress = ds.getValue(BusinessDetails.class).getBusinessAddress();
                             MyLocation blocation = ds.getValue(BusinessDetails.class).getLocation();
                             UtilsBlingBling.setTargetLocation(blocation);
                             String phone = ds.getValue(BusinessDetails.class).getPhoneNumber();
-                            ArrayList<Integer> selected_busniess_type_items = ds.getValue(BusinessDetails.class).getSelected_busniess_type_items();
+                            ArrayList<Integer> selected_business_type_items = ds.getValue(BusinessDetails.class).getSelected_business_type_items();
                             ArrayList<String> view = new ArrayList<>();
-                            //view.add("Busniess Name: ".concat(name));
                             view.add(name);
-                            //buiName.setText(name);
                             view.add("Address: ".concat(adress));
                             view.add("Phone Number: ".concat(phone));
-
-                            //StorageReference storageReference = UtilsBlingBling.getStorageReference().child("images/busniess/space/" + uid + "/" + 0 + ".jpg");
-                            //String path = storageReference.getPath();
-                            //String url = "gs://blingbling-15c9a.appspot.com/images/busniess/space/AiMgcAbuULMmfDtRQtbUmDyEq0h2/0.jpg";
-                            // String url = "https://www.google.co.il/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwj2n4zb1I7WAhWHuxQKHQbTDekQjRwIBw&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fsummer%2F&psig=AFQjCNGG9D7hXTmmlOEpES_xih4t3MZeHg&ust=1504722080317562";
-                            //Glide.with(getApplicationContext()).load(url).into(imageView);
-
 
                             ArrayAdapter adapter = new ArrayAdapter(BusinessPage.this, android.R.layout.simple_list_item_1, view);
                             mListView.setAdapter(adapter);
