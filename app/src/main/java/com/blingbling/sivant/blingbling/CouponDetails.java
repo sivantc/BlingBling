@@ -29,6 +29,7 @@ public class CouponDetails {
         this.couponId = couponId;
         this.businessId = businessId;
         this.couponToken = couponToken;
+        this.couponCode = 0;
     }
     public CouponDetails() {}
 
@@ -58,6 +59,15 @@ public class CouponDetails {
     public long getStartTime() {
         return startTime;
     }
+
+    public int getCouponCode() {
+        return couponCode;
+    }
+
+    public void setCouponCode(int couponCode) {
+        this.couponCode = couponCode;
+    }
+
 
 }
 
