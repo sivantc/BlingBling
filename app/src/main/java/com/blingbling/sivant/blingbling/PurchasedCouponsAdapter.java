@@ -15,6 +15,7 @@ public class PurchasedCouponsAdapter extends RecyclerView.Adapter<PurchasedCoupo
     private List<CouponDetails> couponList;
     private Context context;
 
+
     public PurchasedCouponsAdapter(List<CouponDetails> couponList, Context context) {
         this.couponList = couponList;
         this.context = context;

@@ -71,6 +71,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
                 intent.putExtra(BUISNESS_ID, coupon.getBusinessId());
                 view.getContext().startActivity(intent);
 
+
             }
         });
 

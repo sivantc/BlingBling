@@ -145,6 +145,12 @@ public class BusinessMenu extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(mToggle.onOptionsItemSelected(item))
+            return true;
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
