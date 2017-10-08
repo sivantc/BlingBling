@@ -75,7 +75,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".CouponRating" />
+        <activity android:name=".RateCoupon" />
         <activity android:name=".PurchasedCoupons"></activity>
         <activity android:name=".BaseDrawer"></activity>
     </application>

@@ -61,8 +61,8 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
                 .load(storageReference)
                 .into(imageView);
     }
-        holder.ed_description.setText(coupon.getDescription());
-        holder.ed_price.setText(coupon.getPrice());
+        holder.ed_description.setText("description: " + coupon.getDescription());
+        holder.ed_price.setText("price " + coupon.getPrice());
 
         holder.button_more_details.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,20 +75,21 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
             }
         });
 
-        long timeCouponIsRelevantInMin = (coupon.getTimeOver() - System.currentTimeMillis())/(1000*60);
+        long timeCouponIsRelevantInMin = ((coupon.getTimeOver() - System.currentTimeMillis())/(1000*60) % 60);
+        long timeCouponIsRelevantInHours =((coupon.getTimeOver() - System.currentTimeMillis())/(1000*60*60) % 24);
 
-        holder.textView_relevantTimeText.setText("coupon will be relevant in the next " + timeCouponIsRelevantInMin + " minutes" );
+        holder.textView_relevantTimeText.setText("coupon will be relevant in the next " + timeCouponIsRelevantInHours+ "hours and "  + timeCouponIsRelevantInMin + " minutes" );
 
         holder.button_purchase_coupon.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
-                UtilsBlingBling.getDatabaseReference().child("CouponsUsers").child(udid).child(coupon.getBusinessId() + "-" + couponId + "-" + (int)(Math.random() * 1000000000));
+                UtilsBlingBling.getDatabaseReference().child("CouponsUsers").child(udid).setValue(coupon.getBusinessId() + "-" + couponId + "-" + (int)(Math.random() * 1000000000));
                 holder.layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 ViewGroup viewGroup = (ViewGroup) holder.layoutInflater.inflate(R.layout.purchased_coupon_popup, null);
-                holder.popupWindow = new PopupWindow(viewGroup, 400, 400, true);
-                holder.popupWindow.showAtLocation(holder.couponItemLayout, Gravity.NO_GRAVITY,500,500);
+                holder.popupWindow = new PopupWindow(viewGroup, 1500, 1500, true);
+                holder.popupWindow.showAtLocation(holder.couponItemLayout, Gravity.CENTER,0,0);
                 viewGroup.setOnTouchListener(new View.OnTouchListener() {
 
                     @Override

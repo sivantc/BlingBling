@@ -20,6 +20,7 @@ public class PurchasedCoupons extends AppCompatActivity {
     private int couponTotalNun = 0;
     private int currentCouponNum = 0;
     private boolean lastCoupon = false;
+    private String couponCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +47,12 @@ public class PurchasedCoupons extends AppCompatActivity {
                             couponTotalNun++;
                             final String couponNumber = (String) currentBusinessCoupon.getValue();
                             String[] parts = couponNumber.split("-");
+                            couponCode = parts[2];
                             UtilsBlingBling.getDatabaseReference().child("BusinessCoupon").child(parts[0]).child("Coupons").child(parts[1]).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     CouponDetails couponDetails = dataSnapshot.getValue(CouponDetails.class);
+                                    couponDetails.setCouponCode(couponCode);
                                     couponDetailsList.add(couponDetails);
                                     currentCouponNum++;
                                     if (lastCoupon && (currentCouponNum == couponTotalNun)) {

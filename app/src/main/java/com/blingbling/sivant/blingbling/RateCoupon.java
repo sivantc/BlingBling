@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-public class CouponRating extends AppCompatActivity {
+public class RateCoupon extends AppCompatActivity {
 
     private RatingBar ratingBar;
     private Button button_submit;

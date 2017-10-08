@@ -17,7 +17,7 @@ public class CouponDetails {
     private long timeOver;
     private String couponToken;
     private long startTime;
-    private int couponCode;
+    private String couponCode;
 
 
 
@@ -29,7 +29,7 @@ public class CouponDetails {
         this.couponId = couponId;
         this.businessId = businessId;
         this.couponToken = couponToken;
-        this.couponCode = 0;
+        this.couponCode = "0";
     }
     public CouponDetails() {}
 
@@ -60,11 +60,11 @@ public class CouponDetails {
         return startTime;
     }
 
-    public int getCouponCode() {
+    public String getCouponCode() {
         return couponCode;
     }
 
-    public void setCouponCode(int couponCode) {
+    public void setCouponCode(String couponCode) {
         this.couponCode = couponCode;
     }
 

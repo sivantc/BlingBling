@@ -90,6 +90,7 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
         couponRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         couponDetailsList = new ArrayList<>();
 
+
         handlePermissions();
         navigationDrawer();
 
@@ -356,7 +357,7 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
                 switch (item.getItemId()) {
 
                     case R.id.my_coupons: {
-                        //do somthing
+                        startActivity(new Intent(UserHomePage.this, PurchasedCoupons.class));
                         break;
                     }
                     case R.id.settings: {
