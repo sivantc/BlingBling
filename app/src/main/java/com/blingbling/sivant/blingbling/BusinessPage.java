@@ -24,10 +24,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -98,6 +101,12 @@ public class BusinessPage extends AppCompatActivity{
                             view.add(name);
                             view.add("Address: ".concat(adress));
                             view.add("Phone Number: ".concat(phone));
+                            StorageReference storageReference = UtilsBlingBling.getStorageReference().child("images/business/space/" + uid +"/"+ "0" +".jpg");
+                            //ImageView imageView2 = imageView;
+
+
+                            Glide.with(BusinessPage.this).using(new FirebaseImageLoader()).load(storageReference).into(imageView);
+
 
                             ArrayAdapter adapter = new ArrayAdapter(BusinessPage.this, android.R.layout.simple_list_item_1, view);
                             mListView.setAdapter(adapter);

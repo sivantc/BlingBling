@@ -77,7 +77,6 @@
 
         <activity android:name=".RateCoupon" />
         <activity android:name=".PurchasedCoupons"></activity>
-        <activity android:name=".BaseDrawer"></activity>
     </application>
 
 </manifest>

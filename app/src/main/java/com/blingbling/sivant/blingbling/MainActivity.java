@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity{
         progress_dialog = new ProgressDialog(this);
         mCallbackManager = CallbackManager.Factory.create();
         mAuth = FirebaseAuth.getInstance();
+        Button button_logout = (Button) findViewById(R.id.button_logout);
+
 
         registerListener(register);
         logInListener(button_login);
@@ -75,6 +77,8 @@ public class MainActivity extends AppCompatActivity{
         googleSignInListener(google_signIn_btn);
         facebookSignInListener();
         forgotPasswordListener(forgot_password,mAuth);
+        logOutListener(button_logout);
+
 
     }
 

@@ -69,6 +69,16 @@
                 android:layout_alignStart="@+id/forgot_password"
                 android:layout_below="@+id/register"
                 android:text="Login" />
+            <Button
+                android:id="@+id/button_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/ed_password"
+                android:layout_alignLeft="@+id/forgot_password"
+                android:layout_alignRight="@+id/ed_password"
+                android:layout_alignStart="@+id/forgot_password"
+                android:layout_below="@+id/facebook_login_btn"
+                android:text="Logout" />
 
 
             <com.google.android.gms.common.SignInButton

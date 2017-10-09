@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -84,11 +85,26 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
                 .addApi(LocationServices.API)
                 .build();
 
-        mLocationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+        couponRecyclerView = (RecyclerView) findViewById(R.id.couponRecyclesView);
+
+
+        // First param is number of columns and second param is orientation i.e Vertical or Horizontal
+        StaggeredGridLayoutManager gridLayoutManager =
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+
+// Attach the layout manager to the recycler view
+        couponRecyclerView.setLayoutManager(gridLayoutManager);
+
+
+
+
+        couponDetailsList = new ArrayList<>();
+
+        /*mLocationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
         couponRecyclerView = (RecyclerView) findViewById(R.id.couponRecyclesView);
         couponRecyclerView.setHasFixedSize(true);
         couponRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        couponDetailsList = new ArrayList<>();
+        couponDetailsList = new ArrayList<>();*/
 
 
         handlePermissions();

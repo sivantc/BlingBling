@@ -74,6 +74,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
 
             }
         });
+        holder.ed_couponId.setText(couponId);
 
         long timeCouponIsRelevantInMin = ((coupon.getTimeOver() - System.currentTimeMillis())/(1000*60) % 60);
         long timeCouponIsRelevantInHours =((coupon.getTimeOver() - System.currentTimeMillis())/(1000*60*60) % 24);
@@ -113,20 +114,22 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
         private TextView ed_price;
         private TextView ed_description;
         private TextView textView_relevantTimeText;
-        private Button button_more_details;
+        private TextView button_more_details;
         private Button button_purchase_coupon;
         private PopupWindow popupWindow;
         private LayoutInflater layoutInflater;
         private LinearLayout couponItemLayout;
+        private TextView ed_couponId;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             image_view_coupon_image = (ImageView) itemView.findViewById(R.id.image_view_coupon_image);
             ed_price = (TextView) itemView.findViewById(R.id.ed_price);
+            ed_couponId = (TextView) itemView.findViewById(R.id.ed_couponId);
             ed_description = (TextView) itemView.findViewById(R.id.ed_description);
             textView_relevantTimeText = (TextView) itemView.findViewById(R.id.textView_relevantTimeText);
-            button_more_details = (Button) itemView.findViewById(R.id.button_more_details_about_the_business);
+            button_more_details = (TextView) itemView.findViewById(R.id.button_more_details_about_the_business);
             button_purchase_coupon = (Button) itemView.findViewById(R.id.button_purchase_coupon);
             couponItemLayout = (LinearLayout) itemView.findViewById(R.id.couponItemLayout);
 
