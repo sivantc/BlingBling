@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class PurchasedCoupons extends AppCompatActivity {
@@ -19,7 +20,6 @@ public class PurchasedCoupons extends AppCompatActivity {
     private List<CouponDetails> couponDetailsList;
     private int couponTotalNun = 0;
     private int currentCouponNum = 0;
-    private boolean lastCoupon = false;
     private String couponCode;
 
     @Override
@@ -43,38 +43,44 @@ public class PurchasedCoupons extends AppCompatActivity {
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot currentBusinessCoupon : dataSnapshot.getChildren()) {
-                            couponTotalNun++;
-                            final String couponNumber = (String) currentBusinessCoupon.getValue();
-                            String[] parts = couponNumber.split("-");
-                            couponCode = parts[2];
-                            UtilsBlingBling.getDatabaseReference().child("BusinessCoupon").child(parts[0]).child("Coupons").child(parts[1]).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    CouponDetails couponDetails = dataSnapshot.getValue(CouponDetails.class);
-                                    couponDetails.setCouponCode(couponCode);
-                                    couponDetailsList.add(couponDetails);
-                                    currentCouponNum++;
-                                    if (lastCoupon && (currentCouponNum == couponTotalNun)) {
-                                        startPurchasedCouponAdapter();
+                        ArrayList<String> couponsRef = (ArrayList<String>) dataSnapshot.getValue();
+                        if (couponsRef != null) {
+                            for (String couponRef : couponsRef) {
+                                couponTotalNun++;
+                                String[] parts = couponRef.split("-");
+                                couponCode = parts[2];
+                                UtilsBlingBling.getDatabaseReference().child("BusinessCoupon").child(parts[0]).child("Coupons").child(parts[1]).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        CouponDetails couponDetails = dataSnapshot.getValue(CouponDetails.class);
+                                        couponDetails.setCouponCode(couponCode);
+                                        couponDetailsList.add(couponDetails);
+                                        currentCouponNum++;
+                                        if (currentCouponNum == couponTotalNun) {
+                                            startPurchasedCouponAdapter();
+                                        }
+
                                     }
 
-                                }
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
 
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
+                                    }
 
-                                }
-                            });
+
+                                });
+
+                            }
                         }
-                        lastCoupon = true;
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
+
                     }
                 });
     }
+
 
     private void startPurchasedCouponAdapter() {
         if (couponDetailsList.size() > 0) {

@@ -16,8 +16,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -86,22 +91,40 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
-                UtilsBlingBling.getDatabaseReference().child("CouponsUsers").child(udid).setValue(coupon.getBusinessId() + "-" + couponId + "-" + (int)(Math.random() * 1000000000));
-                holder.layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                ViewGroup viewGroup = (ViewGroup) holder.layoutInflater.inflate(R.layout.purchased_coupon_popup, null);
-                holder.popupWindow = new PopupWindow(viewGroup, 1500, 1500, true);
-                holder.popupWindow.showAtLocation(holder.couponItemLayout, Gravity.CENTER,0,0);
-                viewGroup.setOnTouchListener(new View.OnTouchListener() {
+                UtilsBlingBling.getDatabaseReference().child("CouponsUsers").child(udid).addListenerForSingleValueEvent(
+                        new ValueEventListener() {
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                ArrayList <String> couponsRef = (ArrayList<String>)dataSnapshot.getValue();
+                                int couponCode = (int)(Math.random() * 1000000000);
+                                if (couponsRef == null) {
+                                    couponsRef = new ArrayList<String>();
+                                }
+                                couponsRef.add(coupon.getBusinessId() + "-" + couponId + "-" + couponCode);
+                                UtilsBlingBling.getDatabaseReference().child("CouponsUsers").child(UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid()).setValue(couponsRef);
+                                holder.layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                                ViewGroup viewGroup = (ViewGroup) holder.layoutInflater.inflate(R.layout.purchased_coupon_popup, null);
+                                holder.popupWindow = new PopupWindow(viewGroup, 1500, 1500, true);
+                                holder.popupWindow.showAtLocation(holder.couponItemLayout, Gravity.CENTER,0,0);
+                                viewGroup.setOnTouchListener(new View.OnTouchListener() {
 
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-                        holder.popupWindow.dismiss();
-                        return true;
-                    }
-                });
+                                    @Override
+                                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                                        holder.popupWindow.dismiss();
+                                        return true;
+                                    }
+                                });                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+
             }
         });
     }
+
 
     @Override
     public int getItemCount() {

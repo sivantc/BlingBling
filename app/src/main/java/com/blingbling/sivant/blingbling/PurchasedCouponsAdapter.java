@@ -34,11 +34,12 @@ public class PurchasedCouponsAdapter extends RecyclerView.Adapter<PurchasedCoupo
         timeOver = ((coupon.getTimeOver() - System.currentTimeMillis()) < 0) ? true : false;
         holder.ed_description.setText("description: " + coupon.getDescription());
         holder.ed_price.setText("price " + coupon.getPrice());
+        holder.ed_couponCode.setText("Coupon code: " + coupon.getCouponCode());
         if (!timeOver) {
             long timeCouponIsRelevantInMin = ((coupon.getTimeOver() - System.currentTimeMillis()) / (1000 * 60) % 60);
             long timeCouponIsRelevantInHours = ((coupon.getTimeOver() - System.currentTimeMillis()) / (1000 * 60 * 60) % 24);
 
-            holder.textView_relevantTimeText.setText("coupon will be relevant in the next " + timeCouponIsRelevantInHours + "hours and " + timeCouponIsRelevantInMin + " minutes");
+            holder.textView_relevantTimeText.setText("coupon will be relevant in the next " + timeCouponIsRelevantInHours + " hours and " + timeCouponIsRelevantInMin + " minutes");
         } else {
             holder.textView_relevantTimeText.setText("Coupon time is over");
         }
