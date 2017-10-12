@@ -45,21 +45,6 @@ public class UtilsBlingBling extends AppCompatActivity {
     public static int countNumOfRetriveBusinessData = 0;
     private static MyLocation targetLocation;
     private static String buisness_coupon_id;
-    public static int currCouponId = 0;
-
-    public static int getNextCouponId(){
-        int prev = currCouponId;
-        prev++;
-        setCurrCouponId(prev);
-        return prev;
-    }
-    public static void setCurrCouponId(int curr){
-        currCouponId = curr;
-    }
-    public static int getCurrCouponId(){
-        return currCouponId;
-    }
-
 
     public static void setBuisness_coupon_id(String bid){
         buisness_coupon_id = bid;

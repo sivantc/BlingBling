@@ -13,6 +13,7 @@ public class BusinessDetails {
     private String phoneNumber;
     private ArrayList<Integer> selected_business_type_items;
     private MyLocation location;
+    private String lastCouponId;
   //  GeoLocation location;
 
     public BusinessDetails(){
@@ -21,12 +22,13 @@ public class BusinessDetails {
 
 
     public BusinessDetails(String businessName, String businessAddress,
-                           String phoneNumber, ArrayList<Integer> selected_business_type_items) {
+                           String phoneNumber, ArrayList<Integer> selected_business_type_items, String lastCouponId) {
         this.businessName = businessName;
         this.businessAddress = businessAddress;
         this.phoneNumber = phoneNumber;
         this.selected_business_type_items = selected_business_type_items;
         this.location = UtilsBlingBling.getLocation();
+        this.lastCouponId = lastCouponId;
 
       //  this.location = new GeoLocation(UtilsBlingBling.getLocation().getLatitude(),UtilsBlingBling.getLocation().getLongitude());
     }
@@ -50,6 +52,8 @@ public class BusinessDetails {
     public MyLocation getLocation() {
         return location;
     }
+
+    public String getLastCouponId(){return lastCouponId;}
 }
 
 

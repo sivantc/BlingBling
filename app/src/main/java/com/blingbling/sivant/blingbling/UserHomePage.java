@@ -86,21 +86,14 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
                 .build();
 
         couponRecyclerView = (RecyclerView) findViewById(R.id.couponRecyclesView);
-
-
         // First param is number of columns and second param is orientation i.e Vertical or Horizontal
         StaggeredGridLayoutManager gridLayoutManager =
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-
 // Attach the layout manager to the recycler view
         couponRecyclerView.setLayoutManager(gridLayoutManager);
-
-
-
-
         couponDetailsList = new ArrayList<>();
 
-        /*mLocationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+       /* mLocationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
         couponRecyclerView = (RecyclerView) findViewById(R.id.couponRecyclesView);
         couponRecyclerView.setHasFixedSize(true);
         couponRecyclerView.setLayoutManager(new LinearLayoutManager(this));

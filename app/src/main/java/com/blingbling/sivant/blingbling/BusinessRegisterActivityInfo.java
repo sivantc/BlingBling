@@ -105,7 +105,7 @@ public class BusinessRegisterActivityInfo extends MutualFunc implements View.OnC
             Toast.makeText(this, "Please enter your business name", Toast.LENGTH_SHORT).show();
             return;
         }
-        BusinessDetails businessDetails = new BusinessDetails(businessName, businessAddress, phoneNumber, arrayList_selected_business_type_items);
+        BusinessDetails businessDetails = new BusinessDetails(businessName, businessAddress, phoneNumber, arrayList_selected_business_type_items,"1");
         String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
         UtilsBlingBling.getDatabaseReference().child("BusinessUsers").child(udid).setValue(businessDetails);
         GeoFire geoFire = new GeoFire(UtilsBlingBling.getDatabaseReference().child("BusinessLocations"));

@@ -13,6 +13,8 @@
         android:layout_height="wrap_content"
         card_view:cardCornerRadius = "6dp"
         card_view:cardBackgroundColor="@color/white"
+        cardUseCompatPadding="true"
+        android:layout_margin="8dp"
         >
 
         <LinearLayout
@@ -25,102 +27,89 @@
                 android:id="@+id/image_view_coupon_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
                 android:layout_above="@+id/ed_price"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_gravity="center"
                 android:layout_weight="0.59"
-                android:cropToPadding="false" />
-
-            <TextView
-                android:id="@+id/textView_relevantTimeText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/ed_description"
-
-                android:text="coupon will be relevant until 10:10 am"
-                android:textAlignment="center" />
-
-            <TextView
-                android:id="@+id/ed_price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_above="@+id/textView_relevantTimeText"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentStart="true"
-                android:layout_gravity="center"
-                android:autoSizeMaxTextSize="@dimen/cardview_default_radius"
-                android:autoSizeTextType="none"
-                android:inputType="number"
-                android:text="Price"
-                android:textAlignment="center" />
+                android:adjustViewBounds="true"
+                android:cropToPadding="false"
+                android:scaleType="centerInside"
+                />
 
             <TextView
                 android:id="@+id/ed_description"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignTop="@+id/ed_price"
-                android:ems="10"
-                android:inputType="textPersonName"
+                android:maxLines="3"
                 android:text="Description"
-                android:textAlignment="center" />
+                android:textColor="#222"
+                android:textSize="22dp"
+                android:paddingLeft="25dip"
+                android:textStyle="bold" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <ImageView
+                    android:id="@+id/button_purchase_coupon"
+                    android:layout_width="32dp"
+                    android:layout_height="33dp"
+                    android:background="@drawable/circle_background"
+                    android:src="@drawable/buy"
+                    />
+
+                <TextView
+                    android:id="@+id/ed_price"
+                    android:layout_width="72dp"
+                    android:layout_height="33dp"
+                    android:inputType="number"
+                    android:text="Price"
+                    android:textColor="#0a99b9"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
             <TextView
-                android:id="@+id/ed_couponId"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_below="@+id/ed_price"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentStart="true"
-                android:layout_gravity="center"
-                android:autoSizeMaxTextSize="@dimen/cardview_default_radius"
-                android:autoSizeTextType="none"
-                android:inputType="number"
-                android:text="Id"
-                android:textAlignment="center" />
-
-
-            <Button
-                android:id="@+id/button_purchase_coupon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_alignParentBottom="true"
-                android:layout_below="@+id/button_more_details_about_the_business"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="0.02"
-                android:text="purchase coupon" />
-
+                android:id="@+id/textView_relevantTimeText"
+                android:layout_width="192dp"
+                android:layout_height="match_parent"
+                android:text="20 houres and 2 minutes left"
+                android:textColor="#105dd1"
+                android:textSize="12dp"
+                android:textStyle="bold" />
             <TextView
                 android:id="@+id/button_more_details_about_the_business"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="0.02"
-                android:text="click for more details about the business" />
+                android:maxLines="3"
+                android:text="@string/more_details"
+                android:textColor="#666"
+                android:textSize="12dp" />
+
+
+
+
+            <TextView
+                android:id="@+id/ed_couponId"
+                android:layout_width="86dp"
+                android:layout_height="19dp"
+                android:autoSizeMaxTextSize="@dimen/cardview_default_radius"
+                android:autoSizeTextType="none"
+                android:inputType="number"
+                android:maxLines="3"
+                android:padding="8dp"
+                android:text="Id"
+                android:textColor="#666"
+                android:textSize="14dp" />
 
 
         </LinearLayout>
-
 
 
     </android.support.v7.widget.CardView>

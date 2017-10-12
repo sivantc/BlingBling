@@ -15,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -35,7 +37,10 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import br.com.bloder.magic.view.MagicButton;
+
 import static android.R.attr.label;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class BusinessPage extends AppCompatActivity{
     private FirebaseAuth mAuth;
@@ -49,24 +54,24 @@ public class BusinessPage extends AppCompatActivity{
     private TextView nav_name;
     private TextView nav_email;
     private ImageView nav_image;
-    private Button call_btn;
+    private MagicButton call_btn;
+    public static int sCorner = 15;
+    public static int sMargin = 2;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business_page);
-        final Button btn_navigate = (Button) findViewById(R.id.btn_navigate);
+        final MagicButton btn_navigate = (MagicButton) findViewById(R.id.btn_navigate);
         mListView = (ListView) findViewById(R.id.listview);
         mAuth = FirebaseAuth.getInstance();
         imageView = (ImageView) findViewById(R.id.image);
-        call_btn = (Button) findViewById(R.id.call_btn);
+        call_btn = (MagicButton) findViewById(R.id.call_btn);
 
         showBuisnessPage();
         navigateLisener(btn_navigate);
         navigationDrawer();
-
-
 
     }
 
@@ -105,12 +110,12 @@ public class BusinessPage extends AppCompatActivity{
                             //ImageView imageView2 = imageView;
 
 
-                            Glide.with(BusinessPage.this).using(new FirebaseImageLoader()).load(storageReference).into(imageView);
+                            Glide.with(BusinessPage.this).using(new FirebaseImageLoader()).load(storageReference).bitmapTransform(new RoundedCornersTransformation(BusinessPage.this,sCorner,sMargin)).into(imageView);
 
 
                             ArrayAdapter adapter = new ArrayAdapter(BusinessPage.this, android.R.layout.simple_list_item_1, view);
                             mListView.setAdapter(adapter);
-                            //callListener(phone);
+                            callListener(phone);
                             break;
                         }
 
@@ -128,8 +133,8 @@ public class BusinessPage extends AppCompatActivity{
 
     }
 
-    private void navigateLisener(Button btn_navigate){
-        btn_navigate.setOnClickListener(new View.OnClickListener() {
+    private void navigateLisener(MagicButton btn_navigate){
+        btn_navigate.setMagicButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //startActivity(new Intent( BusinessPage.this,NavigationPop.class));
@@ -222,15 +227,16 @@ public class BusinessPage extends AppCompatActivity{
             return true;
         return super.onOptionsItemSelected(item);
     }
-   /* private void callListener(final String phone){
-        call_btn.setOnClickListener(new View.OnClickListener() {
+    private void callListener(final String phone){
+        final Animation animScale = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.anim_scale);
+        call_btn.setMagicButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String tel = "tel:".concat(phone);
-                Intent callIntent = new Intent(Intent.ACTION_CALL,Uri.parse(tel));
-                startActivity(callIntent);
+                view.startAnimation(animScale);
+                startActivity( new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone)));
+
 
             }
         });
-    }*/
+    }
 }

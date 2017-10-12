@@ -7,17 +7,17 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#d0385cff"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#d0b1f2f7"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.blingbling.sivant.blingbling.BusinessPage">
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="427dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -25,14 +25,6 @@
             android:visibility="visible">
 
 
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:onClick="showPopUp"
-                android:layout_below="@+id/btn_navigate"
-                android:text="reviews about business" />
 
             <ListView
                 android:id="@+id/listview"
@@ -44,33 +36,79 @@
                 android:layout_alignParentStart="true">
 
             </ListView>
-            <Button
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_below="@+id/listview">
+
+            <br.com.bloder.magic.view.MagicButton
                 android:id="@+id/btn_navigate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="navigate to buisness"
+                app:magic_button_size="50dp"
                 android:onClick="showPopUp"
-                android:layout_below="@+id/call_btn"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-            <Button
+                app:button_icon="@drawable/directions"
+                app:button_icon_width="25dp"
+                app:button_icon_height="25dp"
+                app:hide_text="click for directions"
+                app:icon_button_color="#7ccfec"
+                app:expandable_area_color="#7ccfec"
+                tools:layout_constraintTop_creator="1"
+                app:layout_constraintTop_toBottomOf="@+id/magic_button_maps"
+                tools:layout_constraintLeft_creator="1"
+                app:layout_constraintLeft_toLeftOf="@+id/magic_button_maps"
+                android:layout_marginLeft="-13dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="0dp" />
+
+            <br.com.bloder.magic.view.MagicButton
                 android:id="@+id/call_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="click to call"
+                app:magic_button_size="50dp"
+                app:button_icon="@drawable/call"
+                app:button_icon_width="25dp"
+                app:button_icon_height="25dp"
+                app:hide_text="click to call"
                 android:layout_below="@+id/listview"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                app:icon_button_color="#7ccfec"
+                app:expandable_area_color="#7ccfec"
+                tools:layout_constraintTop_creator="1"
+                app:layout_constraintTop_toBottomOf="@+id/magic_button_maps"
+                tools:layout_constraintLeft_creator="1"
+                app:layout_constraintLeft_toLeftOf="@+id/magic_button_maps"
+                android:layout_marginLeft="-13dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="0dp" />
 
+                <br.com.bloder.magic.view.MagicButton
+                    android:id="@+id/review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:magic_button_size="50dp"
+                    android:onClick="showPopUp"
+                    app:button_icon="@drawable/review"
+                    app:button_icon_width="25dp"
+                    app:button_icon_height="25dp"
+                    app:hide_text="click for reviews about business"
+                    app:icon_button_color="#7ccfec"
+                    app:expandable_area_color="#7ccfec"
+                    tools:layout_constraintTop_creator="1"
+                    app:layout_constraintTop_toBottomOf="@+id/magic_button_maps"
+                    tools:layout_constraintLeft_creator="1"
+                    app:layout_constraintLeft_toLeftOf="@+id/magic_button_maps"
+                    android:layout_marginLeft="-13dp"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="0dp" />
+
+            </LinearLayout>
 
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
                 android:id="@+id/image"
                 android:layout_centerHorizontal="true"/>
 

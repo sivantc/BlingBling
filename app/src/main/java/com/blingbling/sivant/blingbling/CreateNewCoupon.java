@@ -11,6 +11,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 public class CreateNewCoupon extends MutualFunc implements View.OnClickListener{
@@ -27,6 +31,7 @@ public class CreateNewCoupon extends MutualFunc implements View.OnClickListener{
     private EditText ed_description;
     private TextView ed_couponId;
     private String couponId;
+    private String udid;
 
 
 
@@ -55,9 +60,36 @@ public class CreateNewCoupon extends MutualFunc implements View.OnClickListener{
                 break;
             case R.id.button_create_new_coupon:
 
-                //todo save unique number for each coupon
-                couponId = String.valueOf(UtilsBlingBling.currCouponId);
-                UtilsBlingBling.currCouponId++;
+                UtilsBlingBling.getDatabaseReference().child("BusinessUsers").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String uid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
+                        if(dataSnapshot.exists() ){
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                String key = ds.getKey();
+                                if(key.equals(uid)) {
+                                    couponId = ds.getValue(BusinessDetails.class).getLastCouponId();
+                                    int myNum;
+                                    if(couponId == null)
+                                        myNum = 0;
+                                    else
+                                        myNum = Integer.parseInt(couponId);
+                                    myNum++;
+                                    couponId = String.valueOf(myNum);
+                                    UtilsBlingBling.getDatabaseReference().child("BusinessUsers").child(uid).child("lastCouponId").setValue(couponId);
+                                    break;
+                                }
+                            }
+                        }
+                        else{
+                            Toast.makeText(CreateNewCoupon.this, "not exist", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
                 //uploadFile(ed_couponId.getText().toString().trim());
                 uploadFile(couponId.toString().trim());
                 addCoupon();

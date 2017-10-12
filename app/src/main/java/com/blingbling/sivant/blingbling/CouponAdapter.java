@@ -3,11 +3,15 @@ package com.blingbling.sivant.blingbling;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,6 +42,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
     public final static String BUISNESS_ID = "BUISNESS_ID";
 
 
+
     public CouponAdapter(List<CouponDetails> couponList, Context context) {
         this.couponList = couponList;
         this.context = context;
@@ -60,14 +65,15 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
     // ImageView in your Activity
         ImageView imageView = holder.image_view_coupon_image;
 
+
     // Load the image using Glide
         Glide.with(context)
                 .using(new FirebaseImageLoader())
                 .load(storageReference)
                 .into(imageView);
     }
-        holder.ed_description.setText("description: " + coupon.getDescription());
-        holder.ed_price.setText("price " + coupon.getPrice());
+        holder.ed_description.setText(coupon.getDescription());
+        holder.ed_price.setText(coupon.getPrice());
 
         holder.button_more_details.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,12 +90,17 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
         long timeCouponIsRelevantInMin = ((coupon.getTimeOver() - System.currentTimeMillis())/(1000*60) % 60);
         long timeCouponIsRelevantInHours =((coupon.getTimeOver() - System.currentTimeMillis())/(1000*60*60) % 24);
 
-        holder.textView_relevantTimeText.setText("coupon will be relevant in the next " + timeCouponIsRelevantInHours+ "hours and "  + timeCouponIsRelevantInMin + " minutes" );
+
+
+        holder.textView_relevantTimeText.setText(timeCouponIsRelevantInHours+ " hours and "  + timeCouponIsRelevantInMin + " minutes left" );
+
+        final Animation animScale = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.anim_scale);
 
         holder.button_purchase_coupon.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                v.startAnimation(animScale);
                 String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
                 UtilsBlingBling.getDatabaseReference().child("CouponsUsers").child(udid).addListenerForSingleValueEvent(
                         new ValueEventListener() {
@@ -138,7 +149,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
         private TextView ed_description;
         private TextView textView_relevantTimeText;
         private TextView button_more_details;
-        private Button button_purchase_coupon;
+        private ImageView button_purchase_coupon;
         private PopupWindow popupWindow;
         private LayoutInflater layoutInflater;
         private LinearLayout couponItemLayout;
@@ -153,7 +164,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
             ed_description = (TextView) itemView.findViewById(R.id.ed_description);
             textView_relevantTimeText = (TextView) itemView.findViewById(R.id.textView_relevantTimeText);
             button_more_details = (TextView) itemView.findViewById(R.id.button_more_details_about_the_business);
-            button_purchase_coupon = (Button) itemView.findViewById(R.id.button_purchase_coupon);
+            button_purchase_coupon = (ImageView) itemView.findViewById(R.id.button_purchase_coupon);
             couponItemLayout = (LinearLayout) itemView.findViewById(R.id.couponItemLayout);
 
         }
