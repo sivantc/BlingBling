@@ -61,24 +61,26 @@
 
             <Button
                 android:id="@+id/button_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignEnd="@+id/ed_password"
                 android:layout_alignLeft="@+id/forgot_password"
                 android:layout_alignRight="@+id/ed_password"
                 android:layout_alignStart="@+id/forgot_password"
                 android:layout_below="@+id/register"
-                android:text="Login" />
+                android:text="Login"
+                android:background="@drawable/buttonshape1"/>
             <Button
                 android:id="@+id/button_logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignEnd="@+id/ed_password"
                 android:layout_alignLeft="@+id/forgot_password"
                 android:layout_alignRight="@+id/ed_password"
                 android:layout_alignStart="@+id/forgot_password"
                 android:layout_below="@+id/facebook_login_btn"
-                android:text="Logout" />
+                android:text="Logout"
+                android:background="@drawable/buttonshape1"/>
 
 
             <com.google.android.gms.common.SignInButton

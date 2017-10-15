@@ -26,6 +26,7 @@ import com.google.firebase.storage.StorageReference;
 public class BusinessMenu extends AppCompatActivity implements View.OnClickListener{
 
 
+
     private Button button_create_new_coupon;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -41,7 +42,6 @@ public class BusinessMenu extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_business_menu);
         button_create_new_coupon = (Button) findViewById(R.id.button_create_new_coupon);
         button_create_new_coupon.setOnClickListener(this);
-
         mAuth = FirebaseAuth.getInstance();
         navigationDrawer();
 
@@ -108,13 +108,6 @@ public class BusinessMenu extends AppCompatActivity implements View.OnClickListe
         }
 
 
-
-
-
-
-
-
-
         navigation_view_bui.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -166,5 +159,6 @@ public class BusinessMenu extends AppCompatActivity implements View.OnClickListe
     private void createCoupon(){
         Intent createNewCouponActivity = new Intent(this, CreateNewCoupon.class);
         startActivity(createNewCouponActivity);
+        finish();
     }
 }

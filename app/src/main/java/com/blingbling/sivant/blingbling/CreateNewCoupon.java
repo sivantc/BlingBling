@@ -17,6 +17,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import br.com.bloder.magic.view.MagicButton;
+
 public class CreateNewCoupon extends MutualFunc implements View.OnClickListener{
 
 

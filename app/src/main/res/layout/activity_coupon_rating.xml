@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#d0385cff"
+    android:background="#d0b1f2f7"
     tools:context="com.blingbling.sivant.blingbling.RateCoupon"
     android:nestedScrollingEnabled="true">
 
@@ -36,7 +36,8 @@
         tools:layout_editor_absoluteY="401dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="74dp" />
+        android:layout_marginBottom="74dp"
+        android:background="@drawable/buttonshape1"/>
 
     <TextView
         android:id="@+id/textView_rateCopoun"

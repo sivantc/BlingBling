@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d0385cff"
+    android:background="#d0b1f2f7"
     android:nestedScrollingEnabled="true"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -68,25 +68,27 @@
 
         <Button
             android:id="@+id/button_pick_business_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:text="Pick business address" />
+            android:text="Pick business address"
+            android:background="@drawable/buttonshape1"/>
 
             <Button
                 android:id="@+id/button_select_business_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/ed_phone_number"
-                android:text="Select business type" />
+                android:text="Select business type"
+                android:background="@drawable/buttonshape1"/>
 
             <TextView
                 android:id="@+id/textView_selected_business_type"
@@ -102,14 +104,15 @@
 
         <Button
             android:id="@+id/button_select_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/textView_selected_business_type"
-            android:text="Select image from gallery" />
+            android:text="Select image from gallery"
+            android:background="@drawable/buttonshape1"/>
 
         <ImageView
             android:id="@+id/image_view_coupon_image"
@@ -126,12 +129,13 @@
             <Button
                 android:id="@+id/button_complete_registration"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:text="Complete registration"
                 android:layout_marginBottom="37dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:background="@drawable/buttonshape1"/>
 
 
 

@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.blingbling.sivant.blingbling.RegisterActivityInfo"
-    android:background="#d0385cff"
+    android:background="#d0b1f2f7"
     android:nestedScrollingEnabled="true">
 
     <EditText
@@ -68,7 +68,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/buttonshape1"/>
 
 
 </RelativeLayout>
