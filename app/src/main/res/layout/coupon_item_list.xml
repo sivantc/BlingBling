@@ -60,7 +60,7 @@
                     android:layout_width="32dp"
                     android:layout_height="33dp"
                     android:background="@drawable/circle_background"
-                    android:src="@drawable/buy"
+                    android:src="@drawable/blingblingapp"
                     />
 
                 <TextView

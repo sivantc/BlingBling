@@ -59,7 +59,6 @@ public class CreateNewCoupon extends MutualFunc implements View.OnClickListener{
                 selectImage();
                 break;
             case R.id.button_create_new_coupon:
-
                 UtilsBlingBling.getDatabaseReference().child("BusinessUsers").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -77,6 +76,8 @@ public class CreateNewCoupon extends MutualFunc implements View.OnClickListener{
                                     myNum++;
                                     couponId = String.valueOf(myNum);
                                     UtilsBlingBling.getDatabaseReference().child("BusinessUsers").child(uid).child("lastCouponId").setValue(couponId);
+                                    uploadFile(couponId.toString().trim());
+                                    addCoupon();
                                     break;
                                 }
                             }
@@ -91,8 +92,6 @@ public class CreateNewCoupon extends MutualFunc implements View.OnClickListener{
                     }
                 });
                 //uploadFile(ed_couponId.getText().toString().trim());
-                uploadFile(couponId.toString().trim());
-                addCoupon();
                 break;
         }
     }
