@@ -30,6 +30,7 @@ public class CreateNewCoupon extends MutualFunc implements View.OnClickListener{
     private SeekBar seekBar_hours;
     private TextView textView_hours;
     private EditText ed_price;
+    private EditText num_of_coupons;
     private EditText ed_description;
     private TextView ed_couponId;
     private String couponId;
@@ -41,6 +42,7 @@ public class CreateNewCoupon extends MutualFunc implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_coupon);
         ed_price = (EditText) findViewById(R.id.ed_price);
+        num_of_coupons = (EditText) findViewById(R.id.num_of_coupons);
         ed_description = (EditText) findViewById(R.id.ed_description);
         seekBar_hours = (SeekBar) findViewById(R.id.seekBar_hours);
         textView_hours = (TextView) findViewById(R.id.textView_hours);
@@ -104,10 +106,11 @@ public class CreateNewCoupon extends MutualFunc implements View.OnClickListener{
         //price should be double
         String price = ed_price.getText().toString().trim();
         String description = ed_description.getText().toString().trim();
+        String couponNum = num_of_coupons.getText().toString().trim();
         int hours = UtilsBlingBling.getProgressBar();
         String couponId2 = couponId.toString().trim();
         String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
-        CouponDetails couponDetails = new CouponDetails(price, description, hours, couponId2, udid, FirebaseInstanceId.getInstance().getToken());
+        CouponDetails couponDetails = new CouponDetails(price, description, hours, couponId2, udid, FirebaseInstanceId.getInstance().getToken(), couponNum);
         UtilsBlingBling.getDatabaseReference().child("BusinessUsers").child(udid).child("Coupons").child(couponId2).setValue(couponDetails);
         UtilsBlingBling.getDatabaseReference().child("BusinessCoupon").child(udid).child("Coupons").child(couponId2).setValue(couponDetails);
 

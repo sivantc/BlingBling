@@ -10,7 +10,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="368dp"
     android:layout_height="495dp"
-    android:background="#d0f9c528"
+    android:background="#d0b1f2f7"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -39,6 +39,17 @@
         </RelativeLayout>
     </LinearLayout>
 </ScrollView>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigation_view"
+        app:headerLayout="@layout/header"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        app:itemTextColor="@color/darkgray"
+        app:itemIconTint="@color/darkgray"
+        app:menu="@menu/navigation_drawer_user"
+        android:layout_gravity="start"
+        ></android.support.design.widget.NavigationView>
 
 
 </android.support.v4.widget.DrawerLayout>

@@ -6,6 +6,10 @@
             android:title="My Coupons"
             android:icon="@drawable/coupons2"/>
         <item
+            android:id="@+id/coupons_to_use"
+            android:title="Coupons who waiting to use"
+            android:icon="@drawable/used"/>
+        <item
             android:id="@+id/new_coupon"
             android:title="Create new coupon"
             android:icon="@drawable/new_coupon"

@@ -68,8 +68,6 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
     private TextView nav_name;
     private TextView nav_email;
     private ImageView nav_image;
-    public RelativeLayout fullLayout;
-    public FrameLayout frameLayout;
 
 
 
@@ -367,6 +365,9 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
 
                     case R.id.my_coupons: {
                         startActivity(new Intent(UserHomePage.this, PurchasedCoupons.class));
+                        break;
+                    }
+                    case R.id.av_coupons: {
                         break;
                     }
                     case R.id.settings: {

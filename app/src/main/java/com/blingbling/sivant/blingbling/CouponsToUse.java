@@ -1,16 +1,24 @@
 package com.blingbling.sivant.blingbling;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,25 +31,94 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
-public class BusinessMenu extends AppCompatActivity implements View.OnClickListener{
+import java.util.ArrayList;
+import java.util.List;
 
-    private Button button_create_new_coupon;
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
+public class CouponsToUse extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private List<CouponDetails> couponDetailsList;
+    private int couponTotalNun = 0;
+    private int currentCouponNum = 0;
+    private String couponCode;
+
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private TextView nav_name;
     private TextView nav_email;
     private ImageView nav_image;
 
-
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_business_menu);
-        button_create_new_coupon = (Button) findViewById(R.id.button_create_new_coupon);
-        button_create_new_coupon.setOnClickListener(this);
-        mAuth = FirebaseAuth.getInstance();
+        setContentView(R.layout.activity_coupons_to_use);
+        recyclerView = (RecyclerView) findViewById(R.id.purchasedCouponRecyclesView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        couponDetailsList = new ArrayList<>();
+
+        showPurchasedCoupons();
         navigationDrawer();
+    }
+
+
+    private void showPurchasedCoupons() {
+        String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
+        UtilsBlingBling.getDatabaseReference().child("CouponsUsers").child(udid).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        ArrayList<String> couponsRef = (ArrayList<String>) dataSnapshot.getValue();
+                        if (couponsRef != null) {
+                            for (String couponRef : couponsRef) {
+                                couponTotalNun++;
+                                String[] parts = couponRef.split("-");
+                                couponCode = parts[2];
+                                UtilsBlingBling.getDatabaseReference().child("BusinessCoupon").child(parts[0]).child("Coupons").child(parts[1]).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        CouponDetails couponDetails = dataSnapshot.getValue(CouponDetails.class);
+                                        if(couponDetails.purchaseCoupon()){
+                                            couponDetails.setCouponCode(couponCode);
+                                            couponDetailsList.add(couponDetails);
+                                        }
+                                        else{
+                                            toastMessage("coupons out of stock");
+                                        }
+                                        currentCouponNum++;
+                                        if (currentCouponNum == couponTotalNun) {
+                                            startPurchasedCouponAdapter();
+                                        }
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+
+
+                                });
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
+
+    private void startPurchasedCouponAdapter() {
+        if (couponDetailsList.size() > 0) {
+            adapter = new PurchasedCouponsAdapter(couponDetailsList, this);
+            recyclerView.setAdapter(adapter);
+        }
+        // else add activity with no coupon to show
 
     }
 
@@ -121,16 +198,16 @@ public class BusinessMenu extends AppCompatActivity implements View.OnClickListe
                     }
                     case R.id.logout: {
                         FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(BusinessMenu.this, MainActivity.class));
+                        startActivity(new Intent(CouponsToUse.this, MainActivity.class));
                         break;
                     }
                     case R.id.coupons_to_use: {
-                        startActivity(new Intent(BusinessMenu.this, CouponsToUse.class));
+                        startActivity(new Intent(CouponsToUse.this, CouponsToUse.class));
                         finish();
                         break;
                     }
                     case R.id.new_coupon: {
-                        createCoupon();
+                       // createCoupon();
                     }
                 }
                 //close navigation drawer
@@ -141,27 +218,18 @@ public class BusinessMenu extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(mToggle.onOptionsItemSelected(item))
             return true;
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.button_create_new_coupon:
-                createCoupon();
-        }
-    }
-
     private void toastMessage(String message){
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
-    private void createCoupon(){
-        Intent createNewCouponActivity = new Intent(this, CreateNewCoupon.class);
-        startActivity(createNewCouponActivity);
-        finish();
-    }
+
+
 }
+

@@ -3,6 +3,10 @@
     <item
         android:id="@+id/my_coupons"
         android:title="My Coupons"
+        android:icon="@drawable/sales"/>
+    <item
+        android:id="@+id/av_coupons"
+        android:title="Available Coupons"
         android:icon="@drawable/coupons2"/>
 
     <item

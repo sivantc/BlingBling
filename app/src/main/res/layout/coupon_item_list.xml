@@ -66,7 +66,7 @@
                 <TextView
                     android:id="@+id/ed_price"
                     android:layout_width="72dp"
-                    android:layout_height="33dp"
+                    android:layout_height="wrap_content"
                     android:inputType="number"
                     android:text="Price"
                     android:textColor="#0a99b9"

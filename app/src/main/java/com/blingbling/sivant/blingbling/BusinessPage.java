@@ -201,6 +201,14 @@ public class BusinessPage extends AppCompatActivity{
                 switch (item.getItemId()) {
 
                     case R.id.my_coupons: {
+                        startActivity(new Intent(BusinessPage.this, PurchasedCoupons.class));
+                        finish();
+                        //do somthing
+                        break;
+                    }
+                    case R.id.av_coupons: {
+                        startActivity(new Intent(BusinessPage.this, UserHomePage.class));
+                        finish();
                         //do somthing
                         break;
                     }
@@ -211,6 +219,7 @@ public class BusinessPage extends AppCompatActivity{
                     case R.id.logout: {
                         FirebaseAuth.getInstance().signOut();
                         startActivity(new Intent(BusinessPage.this, MainActivity.class));
+                        finish();
                         break;
                     }
                 }

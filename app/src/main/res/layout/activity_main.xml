@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#d00998bc"
+    android:background="@drawable/back3"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -28,7 +28,9 @@
                 android:layout_above="@+id/ed_password"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginBottom="36dp" />
+                android:layout_marginBottom="36dp"
+                android:layout_gravity="center"
+                />
 
 
             <EditText
@@ -44,7 +46,9 @@
                 android:layout_alignRight="@+id/textView"
                 android:layout_alignEnd="@+id/textView"
                 android:layout_marginRight="31dp"
-                android:layout_marginEnd="31dp" />
+                android:layout_marginEnd="31dp"
+                android:layout_gravity="center"
+                />
 
             <EditText
                 android:id="@+id/ed_password"
@@ -57,7 +61,9 @@
                 android:hint="Password"
                 android:inputType="textPersonName"
                 android:password="true"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                />
 
             <Button
                 android:id="@+id/button_login"
@@ -69,7 +75,10 @@
                 android:layout_alignStart="@+id/forgot_password"
                 android:layout_below="@+id/register"
                 android:text="Login"
-                android:background="@drawable/buttonshape1"/>
+                android:background="@drawable/buttonshape1"
+                android:layout_gravity="center"
+                />
+
             <Button
                 android:id="@+id/button_logout"
                 android:layout_width="40dp"
@@ -80,7 +89,9 @@
                 android:layout_alignStart="@+id/forgot_password"
                 android:layout_below="@+id/facebook_login_btn"
                 android:text="Logout"
-                android:background="@drawable/buttonshape1"/>
+                android:background="@drawable/buttonshape1"
+                android:layout_gravity="center"
+                />
 
 
             <com.google.android.gms.common.SignInButton
@@ -92,7 +103,9 @@
                 android:layout_alignRight="@+id/button_login"
                 android:layout_alignStart="@+id/button_login"
                 android:layout_below="@+id/button_login"
-                android:visibility="visible" />
+                android:visibility="visible"
+                android:layout_gravity="center"
+                />
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/facebook_login_btn"
@@ -102,7 +115,9 @@
                 android:layout_alignLeft="@+id/google_signIn_btn"
                 android:layout_alignRight="@+id/google_signIn_btn"
                 android:layout_alignStart="@+id/google_signIn_btn"
-                android:layout_below="@+id/google_signIn_btn" />
+                android:layout_below="@+id/google_signIn_btn"
+                android:layout_gravity="center"
+                />
 
             <TextView
                 android:id="@+id/register"
@@ -116,19 +131,23 @@
                 android:text="Register Here"
                 android:textColor="#000000"
                 android:textSize="16dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                />
+
             <TextView
                 android:id="@+id/forgot_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_alignLeft="@+id/ed_password"
                 android:layout_alignStart="@+id/ed_password"
                 android:layout_below="@+id/ed_password"
                 android:text="Forgot Password?"
                 android:textColor="#000000"
                 android:textSize="16dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                />
 
             <TextView
                 android:id="@+id/textView3"
@@ -141,7 +160,9 @@
                 android:textColor="#000000"
                 android:textSize="14dp"
                 android:textStyle="bold"
-                android:layout_toRightOf="@+id/forgot_password" />
+                android:layout_toRightOf="@+id/forgot_password"
+                android:layout_gravity="center"
+                />
 
 
         </RelativeLayout>

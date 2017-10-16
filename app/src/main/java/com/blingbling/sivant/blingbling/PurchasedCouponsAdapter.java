@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -70,7 +71,7 @@ public class PurchasedCouponsAdapter extends RecyclerView.Adapter<PurchasedCoupo
         private TextView ed_price;
         private TextView ed_description;
         private TextView textView_relevantTimeText;
-        private Button button_rate_coupon;
+        private ImageView button_rate_coupon;
         private TextView ed_couponCode;
 
         public ViewHolder(View itemView) {
@@ -78,7 +79,7 @@ public class PurchasedCouponsAdapter extends RecyclerView.Adapter<PurchasedCoupo
             ed_price = (TextView) itemView.findViewById(R.id.ed_price);
             ed_description = (TextView) itemView.findViewById(R.id.ed_description);
             textView_relevantTimeText = (TextView) itemView.findViewById(R.id.textView_relevantTimeText);
-            button_rate_coupon = (Button) itemView.findViewById(R.id.button_rate_coupon);
+            button_rate_coupon = (ImageView) itemView.findViewById(R.id.button_rate_coupon);
             ed_couponCode = (TextView) itemView.findViewById(R.id.ed_couponCode);
 
         }

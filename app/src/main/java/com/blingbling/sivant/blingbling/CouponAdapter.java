@@ -59,19 +59,25 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
         // Reference to an image file in Cloud Storage
         final CouponDetails coupon = couponList.get(position);
         final String couponId = coupon.getCouponId();
+        final int num_of_coupons = Integer.parseInt(coupon.getNum_of_coupons());
+        if(num_of_coupons > 0){
+            holderWork(holder,coupon,couponId);
+        }
+    }
+    private void holderWork(final ViewHolder holder,final CouponDetails coupon,final String couponId ){
         StorageReference storageReference = UtilsBlingBling.getStorageReference().child("images/business/space/" + coupon.getBusinessId() +"/"+ couponId +".jpg");
 
-    if (storageReference != null) {
-    // ImageView in your Activity
-        ImageView imageView = holder.image_view_coupon_image;
+        if (storageReference != null) {
+            // ImageView in your Activity
+            ImageView imageView = holder.image_view_coupon_image;
 
 
-    // Load the image using Glide
-        Glide.with(context)
-                .using(new FirebaseImageLoader())
-                .load(storageReference)
-                .into(imageView);
-    }
+            // Load the image using Glide
+            Glide.with(context)
+                    .using(new FirebaseImageLoader())
+                    .load(storageReference)
+                    .into(imageView);
+        }
         holder.ed_description.setText(coupon.getDescription());
         holder.ed_price.setText(coupon.getPrice());
 
@@ -130,8 +136,6 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
 
                             }
                         });
-
-
             }
         });
     }
