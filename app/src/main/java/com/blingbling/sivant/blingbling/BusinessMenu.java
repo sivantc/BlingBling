@@ -80,6 +80,8 @@ public class BusinessMenu extends AppCompatActivity implements View.OnClickListe
 
 
         nav_email.setText("noy's email");
+       // ImageView imageView1 = nav_image;
+        //Glide.with(this).load(R.drawable.profile).transform(new CircleTransform(this)).into(imageView1);
         String uid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
         StorageReference storageReference = UtilsBlingBling.getStorageReference().child("images/business/space/" + uid +"/"+ "0" +".jpg");
         //nav_image.setImageResource(getResources().getIdentifier("app_icon", "drawable", getPackageName()));
@@ -100,10 +102,11 @@ public class BusinessMenu extends AppCompatActivity implements View.OnClickListe
 //                    .load(storageReference)
 //                    .into(imageView);
 
-            Glide.with(this).using(new FirebaseImageLoader()).load(storageReference).transform(new CircleTransform(this)).into(imageView);
+            Glide.with(this).using(new FirebaseImageLoader()).load(storageReference).transform(new CircleTransform(this)).error(R.drawable.profile2).into(imageView);
 
 
         }
+
 
 
         navigation_view_bui.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

@@ -53,17 +53,17 @@ public class CouponsToUse extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coupons_to_use);
-        recyclerView = (RecyclerView) findViewById(R.id.purchasedCouponRecyclesView);
+        recyclerView = (RecyclerView) findViewById(R.id.CouponToUseRecycleView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         couponDetailsList = new ArrayList<>();
 
-        showPurchasedCoupons();
+        showCouponsToUse();
         navigationDrawer();
     }
 
 
-    private void showPurchasedCoupons() {
+    private void showCouponsToUse() {
         String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
         UtilsBlingBling.getDatabaseReference().child("CouponsUsers").child(udid).addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -115,7 +115,7 @@ public class CouponsToUse extends AppCompatActivity {
 
     private void startPurchasedCouponAdapter() {
         if (couponDetailsList.size() > 0) {
-            adapter = new PurchasedCouponsAdapter(couponDetailsList, this);
+            adapter = new CouponToUseAdapter(couponDetailsList, this);
             recyclerView.setAdapter(adapter);
         }
         // else add activity with no coupon to show

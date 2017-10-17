@@ -29,32 +29,7 @@
     android:nestedScrollingEnabled="true">
 
 
-<RatingBar
-        android:id="@+id/ratingBar"
-        style="@style/Widget.AppCompat.RatingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:numStars="5"
-        android:rating="5"
-        android:stepSize="1"
-        tools:layout_editor_absoluteX="72dp"
-        tools:layout_editor_absoluteY="114dp"
-    android:layout_marginTop="42dp"
-    android:layout_below="@+id/textView_rateCopoun"
-    android:layout_alignLeft="@+id/button_submit"
-    android:layout_alignStart="@+id/button_submit" />
 
-    <Button
-        android:id="@+id/button_submit"
-        android:layout_width="240dp"
-        android:layout_height="40dp"
-        android:text="Submit"
-        tools:layout_editor_absoluteX="79dp"
-        tools:layout_editor_absoluteY="401dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="74dp"
-        android:background="@drawable/buttonshape1"/>
 
     <TextView
         android:id="@+id/textView_rateCopoun"
@@ -66,16 +41,70 @@
         android:layout_marginTop="37dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/textView_clientComment"
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="@style/Widget.AppCompat.RatingBar"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:layout_below="@+id/ratingBar"
-        android:layout_above="@+id/button_submit"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:rating="5"
+        android:stepSize="1"
+        tools:layout_editor_absoluteX="72dp"
+        tools:layout_editor_absoluteY="114dp"
+        android:layout_marginTop="42dp"
+        android:layout_below="@+id/textView_rateCopoun"
+        android:layout_alignLeft="@+id/button_submit"
+        android:layout_alignStart="@+id/button_submit" />
+
+    <EditText
+        android:id="@+id/ed_clientComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:ems="10"
+        android:hint="Please leave a comment"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:layout_below="@+id/ratingBar"
+        />
+
+    <Button
+        android:id="@+id/button_select_image"
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ed_clientComment"
+        android:text="Select image from gallery"
+        android:background="@drawable/buttonshape1"/>
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/button_select_image" />
+
+    <Button
+        android:id="@+id/button_submit"
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:text="Submit"
+        tools:layout_editor_absoluteX="79dp"
+        tools:layout_editor_absoluteY="401dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="74dp"
+        android:background="@drawable/buttonshape1"
+        android:layout_below="@+id/image_view"/>
 
 </RelativeLayout>
 

@@ -39,7 +39,7 @@
                     android:layout_weight="0.10" />
 
                 <TextView
-                    android:id="@+id/ed_description"
+                    android:id="@+id/ed_description2"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignTop="@+id/ed_price"
@@ -62,7 +62,7 @@
 
 
             <TextView
-                android:id="@+id/ed_price"
+                android:id="@+id/ed_price2"
                 android:layout_above="@+id/textView_relevantTimeText"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentLeft="true"
@@ -81,7 +81,7 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/textView_relevantTimeText"
+                android:id="@+id/textView_relevantTimeText2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -92,7 +92,7 @@
                 android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/ed_couponCode"
+                android:id="@+id/ed_couponCode2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
