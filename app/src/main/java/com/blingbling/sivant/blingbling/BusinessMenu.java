@@ -79,7 +79,7 @@ public class BusinessMenu extends AppCompatActivity implements View.OnClickListe
         });
 
 
-        nav_email.setText("noy's email");
+        //nav_email.setText("noy's email");
        // ImageView imageView1 = nav_image;
         //Glide.with(this).load(R.drawable.profile).transform(new CircleTransform(this)).into(imageView1);
         String uid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();

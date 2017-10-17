@@ -31,10 +31,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQuery;
 import com.firebase.geofire.GeoQueryEventListener;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
@@ -44,6 +46,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -351,12 +354,29 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
         });
 
 
-        nav_email.setText("noy's email");
+        //nav_email.setText("noy's email");
         //nav_image.setImageResource(getResources().getIdentifier("app_icon", "drawable", getPackageName()));
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.app_icon);
+        /*Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.app_icon);
         RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
         roundedBitmapDrawable.setCircular(true);
-        nav_image.setImageDrawable(roundedBitmapDrawable);
+        nav_image.setImageDrawable(roundedBitmapDrawable);*/
+        String uid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
+        StorageReference storageReference = UtilsBlingBling.getStorageReference().child("images/business/space/" + uid +"/"+ "0" +".jpg");
+        if (storageReference != null) {
+            // ImageView in your Activity
+            ImageView imageView = nav_image;
+
+            // Load the image using Glide
+//            Glide.with(this)
+//                    .using(new FirebaseImageLoader())
+//                    .load(storageReference)
+//                    .into(imageView);
+
+            Glide.with(this).using(new FirebaseImageLoader()).load(storageReference).transform(new CircleTransform(this)).error(R.drawable.profile2).into(imageView);
+
+
+        }
+
 
         navigation_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

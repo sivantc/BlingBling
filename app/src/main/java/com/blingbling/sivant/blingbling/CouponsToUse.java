@@ -65,7 +65,7 @@ public class CouponsToUse extends AppCompatActivity {
 
     private void showCouponsToUse() {
         String udid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
-        UtilsBlingBling.getDatabaseReference().child("CouponsUsers").child(udid).addListenerForSingleValueEvent(
+        UtilsBlingBling.getDatabaseReference().child("CouponsUsers").addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -156,7 +156,7 @@ public class CouponsToUse extends AppCompatActivity {
         });
 
 
-        nav_email.setText("noy's email");
+        //nav_email.setText("noy's email");
         String uid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
         StorageReference storageReference = UtilsBlingBling.getStorageReference().child("images/business/space/" + uid +"/"+ "0" +".jpg");
         //nav_image.setImageResource(getResources().getIdentifier("app_icon", "drawable", getPackageName()));
