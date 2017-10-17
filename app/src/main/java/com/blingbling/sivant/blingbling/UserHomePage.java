@@ -343,6 +343,10 @@ public class UserHomePage extends AppCompatActivity implements GoogleApiClient.C
                             String lastname = ds.getValue(UserPreferences.class).getLastname();
                             String username = firstname.concat(" ").concat(lastname);
                             nav_name.setText(username);
+                            UtilsBlingBling.userName = username;
+
+                            break;
+
                         }
                     }
                 }
