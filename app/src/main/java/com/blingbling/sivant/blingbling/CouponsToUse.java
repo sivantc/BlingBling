@@ -134,26 +134,7 @@ public class CouponsToUse extends AppCompatActivity {
         nav_name = (TextView)header.findViewById(R.id.name);
         nav_email = (TextView)header.findViewById(R.id.email);
         nav_image = (ImageView)header.findViewById(R.id.image);
-
-        UtilsBlingBling.getDatabaseReference().child("BusinessUsers").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String uid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
-                if(uid != null){
-                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        String key = ds.getKey();
-                        if(key.equals(uid)) {
-                            String buiName = ds.getValue(BusinessDetails.class).getBusinessName();
-                            nav_name.setText(buiName);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+        nav_name.setText(UtilsBlingBling.userName);
 
 
         //nav_email.setText("noy's email");

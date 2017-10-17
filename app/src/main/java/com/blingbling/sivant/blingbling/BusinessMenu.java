@@ -68,6 +68,7 @@ public class BusinessMenu extends AppCompatActivity implements View.OnClickListe
                         if(key.equals(uid)) {
                             String buiName = ds.getValue(BusinessDetails.class).getBusinessName();
                             nav_name.setText(buiName);
+                            UtilsBlingBling.userName = buiName;
                         }
                     }
                 }

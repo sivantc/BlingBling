@@ -72,28 +72,7 @@ public class RateCoupon extends AppCompatActivity {
         nav_name = (TextView)header.findViewById(R.id.name);
         nav_email = (TextView)header.findViewById(R.id.email);
         nav_image = (ImageView)header.findViewById(R.id.image);
-
-        UtilsBlingBling.getDatabaseReference().child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String uid = UtilsBlingBling.getFirebaseAute().getCurrentUser().getUid();
-                if(uid != null){
-                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        String key = ds.getKey();
-                        if(key.equals(uid)) {
-                            String firstname = ds.getValue(UserPreferences.class).getFirstname();
-                            String lastname = ds.getValue(UserPreferences.class).getLastname();
-                            String username = firstname.concat(" ").concat(lastname);
-                            nav_name.setText(username);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+        nav_name.setText(UtilsBlingBling.userName);
 
 
         //nav_email.setText("noy's email");

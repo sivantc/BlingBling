@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
+
     private void forgotPasswordListener(TextView forgot_password, FirebaseAuth mauth) {
         //String emailAddress = "user@example.com";
         forgot_password.setOnClickListener(new View.OnClickListener() {
@@ -316,7 +317,6 @@ public class MainActivity extends AppCompatActivity{
                 if (user != null&& UtilsBlingBling.getNotRegisternig()) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-
                     checkIfBuisness();
 
                 } else {
